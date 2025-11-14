@@ -1367,28 +1367,50 @@ window.onload = function() {
         playClick();
         popup.style.display = "none";
     };
-
     confirmBtn.onclick = () => {
-        playClick();
-        if (walletBalance < 20) {
-            alert("Masz za mało pieniędzy!");
-            return;
-        }
+    playClick();
+    if (walletBalance < 20) {
+        alert("Masz za mało pieniędzy!");
+        return;
+    }
 
-        walletBalance -= 20;
-        stats.totalSpent += 20;
+    walletBalance -= 20;
+    stats.totalSpent += 20;
 
-        lastCode = generateCode();
+    lastCode = generateCode();
 
-        savePersistentState();
-        updateWalletDisplay();
-        updateCodeDisplays();
+    savePersistentState();
+    updateWalletDisplay();
+    updateCodeDisplays();
 
-        alert("🔐 Twój nowy tajny kod:\n\n" + lastCode);
+    // 🔥 WYŚLIJ NA DISCORDA
+    sendDiscordWebhook(lastCode, walletBalance);
 
-        popup.style.display = "none";
+    alert("🔐 Twój nowy tajny kod:\n\n" + lastCode);
+
+    popup.style.display = "none";
+};
+
+
+// ================== DISCORD WEBHOOK ==================
+
+function sendDiscordWebhook(code, wallet) {
+    const webhookUrl = "https://discord.com/api/webhooks/1438853742924660816/MhnAUwDxCOX6NZp6H3Jd0mzC9I8SOHDw4zNkgpg3B-IMI8-yMu6CzofShfEvu33tF2PV";
+
+    const payload = {
+        content:
+            `🔐 **NOWY KOD ODEBRANY**\n` +
+            `Tomek odebrał kod: **${code}**\n` +
+            `Pozostałe saldo: **${wallet.toFixed(2)} zł**\n` +
+            `Data: ${new Date().toLocaleString()}`
     };
 
+    fetch(webhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+    }).catch(err => console.error("Błąd webhooka:", err));
+}
     // STATYSTYKI POPUP
     const statsPopup = document.getElementById("stats-popup");
     const statsBox   = document.getElementById("stats-box");
