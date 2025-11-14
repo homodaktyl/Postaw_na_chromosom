@@ -47,6 +47,24 @@
         transition: transform 0.08s ease, box-shadow 0.15s ease, background 0.1s;
     }
 
+     /* ANIMACJA PŁYWAJĄCEGO ZAROBKU */
+     .floating-money {
+         position: absolute;
+         font-size: 22px;
+         font-weight: bold;
+         color: #4caf50;
+         animation: floatUp 0.9s ease-out forwards;
+         pointer-events: none;
+         opacity: 0;
+}
+
+     @keyframes floatUp {
+         0%   { transform: translateY(0); opacity: 1; }
+         80%  { transform: translateY(-40px); opacity: 1; }
+         100% { transform: translateY(-55px); opacity: 0; }
+}
+
+
     .big-btn:hover {
         background: #3b7ac2;
         box-shadow: 0 3px 8px rgba(0,0,0,0.25);
@@ -310,7 +328,7 @@
         <div id="day-streak-display"></div>
         <div id="countdown"></div>
         <div id="money-progress-container">
-        <div id="money-progress-bar"></div>
+            <div id="money-progress-bar"></div>
         </div>
         <div id="money-progress-text"></div>
         <div id="code-display"></div>
@@ -399,7 +417,6 @@
 <script>
 // ================== KONFIG ==================
 
-const MONEY_CORRECT = 1.0;
 const MONEY_WRONG   = -0.5;
 const TOTAL_QUESTIONS = 5;
 const GOAL_MONEY = 20; // do paczki
@@ -508,7 +525,6 @@ const questionsBase = [
         a: ["bo chłopak z nią zerwał", "bo Tomek nie chciał jej wyruchać", "bo spłonął McDonald's"],
         correct: 2
     }
-
 ];
 
 // ================== ZMIENNE STANU ==================
@@ -606,6 +622,25 @@ function playLose() {
     }
 }
 
+// ================== DYNAMICZNE ZAROBKI (PROGOWE) ==================
+
+function getDynamicReward() {
+    const total = walletBalance + sessionMoney;
+
+    if (total < 5)  return 0.50; // 0–5
+    if (total < 10) return 0.40; // 5–10
+    if (total < 15) return 0.30; // 10–15
+    return 0.20;                 // 15+
+}
+
+// ================== STREAK BONUS SYSTEM ==================
+
+function getStreakBonus(dayStreak) {
+    if (dayStreak <= 1) return 0;      // dzień 1 – brak nagrody
+    if (dayStreak <= 9) return 0.10;   // dni 2–9 – 10 gr
+    return 0.20;                       // 10+ – 20 gr
+}
+
 // ================== PERSISTENT STATE ==================
 
 function loadPersistentState() {
@@ -633,7 +668,6 @@ function loadPersistentState() {
     updateCodeDisplays();
     updateStreakDisplay();
     updateMoneyProgress();
-
 }
 
 function savePersistentState() {
@@ -670,12 +704,20 @@ function updateCodeDisplays() {
 function updateStreakDisplay() {
     const el = document.getElementById("day-streak-display");
     if (!el) return;
+
     const s = stats.dayStreak || 0;
-    if (s <= 0) {
-        el.innerText = "🔥 Passa dni: 0";
+
+    // ile dostaniesz jutro za logowanie
+    const tomorrowBonus = getStreakBonus(s + 1);
+
+    let bonusText;
+    if (tomorrowBonus === 0) {
+        bonusText = " (jutro: brak nagrody)";
     } else {
-        el.innerText = `🔥 Passa dni: ${s} dni z rzędu`;
+        bonusText = ` (jutro: ${tomorrowBonus.toFixed(2)} zł)`;
     }
+
+    el.innerText = `🔥 Passa dni: ${s} dni z rzędu${bonusText}`;
 }
 
 // ================== LIMIT 1 GRA / 24H ==================
@@ -746,7 +788,6 @@ function updateTimerDisplay() {
 
 function startTimer() {
     stopTimer();
-    // przy starcie timera zapisujemy stan gry jako "answering"
     saveGameState("answering");
 
     timerId = setInterval(() => {
@@ -828,8 +869,23 @@ function updateMoneyProgress() {
     bar.style.width = percent + "%";
     txt.innerText = `${val.toFixed(2)} / ${GOAL_MONEY.toFixed(2)} zł do paczki fajek`;
 }
+function showFloatingMoney(amount) {
+    const qScreen = document.getElementById("quiz-screen");
 
-// pomoże przy streakach dni
+    const fl = document.createElement("div");
+    fl.className = "floating-money";
+    fl.innerText = "+" + amount.toFixed(2) + " zł";
+
+    // pozycja w centrum ekranu pytania
+    fl.style.left = "50%";
+    fl.style.top = "55%";
+    fl.style.transform = "translate(-50%, -50%)";
+
+    qScreen.appendChild(fl);
+
+    setTimeout(() => fl.remove(), 900);
+}
+
 function daysBetween(dateStr1, dateStr2) {
     if (!dateStr1 || !dateStr2) return NaN;
     const d1 = new Date(dateStr1);
@@ -838,7 +894,7 @@ function daysBetween(dateStr1, dateStr2) {
     return Math.round(diffMs / (1000*60*60*24));
 }
 
-// ================== GAME STATE (blokada odświeżania) ==================
+// ================== GAME STATE ==================
 
 function saveGameState(mode) {
     if (!shuffledQuestions || shuffledQuestions.length === 0) return;
@@ -872,7 +928,6 @@ function tryResumeGame() {
     }
     if (!state || !state.inProgress) return;
 
-    // jeśli minęło 24h, nie wznawiamy
     if (canPlayNow()) {
         clearGameState();
         return;
@@ -905,13 +960,11 @@ function tryResumeGame() {
     const mode = state.mode || "answering";
 
     if (mode === "waitingConfirm") {
-        // odtwarzamy pytanie w trybie czekania na potwierdzenie filmu
         loadQuestion(true, "waitingConfirm");
         stopTimer();
         saveGameState("waitingConfirm");
     } else if (mode === "answering") {
         loadQuestion(true, "answering");
-        // korygujemy timer
         let newTime = timeLeft - elapsed;
         if (isNaN(newTime) || newTime <= 0) {
             stopTimer();
@@ -923,16 +976,14 @@ function tryResumeGame() {
             timeLeft = newTime;
             updateTimerBar();
             updateTimerDisplay();
-            // timer już działa
             saveGameState("answering");
         }
     } else {
-        // między pytaniami – po prostu ładujemy kolejne
         loadQuestion(true, "between");
     }
 }
 
-// ================== ŁADOWANIE PYTAŃ ==================
+// ================== PYTANIA ==================
 
 function loadQuestion(resume = false, resumeMode = null) {
     stopTimer();
@@ -969,7 +1020,6 @@ function loadQuestion(resume = false, resumeMode = null) {
     const mediaDiv = document.getElementById("media");
     mediaDiv.innerHTML = "";
 
-    // ---- videoCut ----
     if (q.mediaType === "videoCut") {
         hideAnswers();
         questionActive = true;
@@ -990,7 +1040,6 @@ function loadQuestion(resume = false, resumeMode = null) {
         return;
     }
 
-    // ---- zwykłe wideo ----
     if (q.mediaType === "video" && q.mediaUrl) {
         hideAnswers();
         const video = document.createElement("video");
@@ -1011,7 +1060,6 @@ function loadQuestion(resume = false, resumeMode = null) {
         return;
     }
 
-    // ---- obrazek ----
     if (q.mediaType === "image" && q.mediaUrl) {
         const img = document.createElement("img");
         img.src = q.mediaUrl;
@@ -1019,7 +1067,6 @@ function loadQuestion(resume = false, resumeMode = null) {
         mediaDiv.appendChild(img);
     }
 
-    // ---- audio ----
     if (q.mediaType === "audio" && q.mediaUrl) {
         const audio = document.createElement("audio");
         audio.controls = true;
@@ -1027,7 +1074,6 @@ function loadQuestion(resume = false, resumeMode = null) {
         mediaDiv.appendChild(audio);
     }
 
-    // ---- normalne pytanie ----
     showAnswers();
     questionActive = true;
     canAnswer = true;
@@ -1041,6 +1087,7 @@ function loadQuestion(resume = false, resumeMode = null) {
 
     saveGameState("answering");
 }
+
 function handleAnswer(index) {
     if (!questionActive || !canAnswer || waitingForNext) return;
 
@@ -1060,10 +1107,14 @@ function handleAnswer(index) {
         chosenBtn.classList.remove("answer-wrong-anim");
     }, 500);
 }
+
 function handleTimeout() {
     if (!questionActive || waitingForNext) return;
     applyWrong("Czas minął! -" + Math.abs(MONEY_WRONG).toFixed(2) + " zł");
 }
+
+// ================== POPRAWNA ODPOWIEDŹ ==================
+
 function applyCorrect() {
     questionActive = false;
     canAnswer = false;
@@ -1072,22 +1123,24 @@ function applyCorrect() {
     playCorrect();
     currentCorrect++;
 
-    // statystyki
     currentStreak++;
     if (currentStreak > stats.bestStreak) stats.bestStreak = currentStreak;
 
     const msg = document.getElementById("message");
     msg.style.color = "#5cb85c";
-    msg.innerText = "Dobra odpowiedź! +" + MONEY_CORRECT.toFixed(2) + " zł";
 
-    sessionMoney += MONEY_CORRECT;
+    const reward = getDynamicReward();
+    msg.innerText = "Dobra odpowiedź! +" + reward.toFixed(2) + " zł";
+
+    sessionMoney += reward;
+    showFloatingMoney(reward);
     document.getElementById("money-display").innerText =
         "Zarobione: " + sessionMoney.toFixed(2) + " zł";
+
     updateMoneyProgress();
 
     const q = shuffledQuestions[currentIndex];
 
-    // --- VIDEO CUT: odtwórz pełne od 13 sek ---
     if (q.mediaType === "videoCut") {
         const mediaDiv = document.getElementById("media");
         mediaDiv.innerHTML = "";
@@ -1125,6 +1178,7 @@ function applyCorrect() {
         loadQuestion();
     }, 700);
 }
+
 function applyWrong(message) {
     questionActive = false;
     canAnswer = false;
@@ -1185,6 +1239,7 @@ function applyWrong(message) {
         loadQuestion();
     }, 700);
 }
+
 document.getElementById("video-confirm-btn").onclick = () => {
     if (!questionActive || waitingForNext) return;
 
@@ -1202,6 +1257,7 @@ document.getElementById("video-confirm-btn").onclick = () => {
 
     saveGameState("answering");
 };
+
 function handleCheat() {
     if (!questionActive || waitingForNext || cheatedThisQuestion) return;
     if (currentScreen !== "quiz") return;
@@ -1209,6 +1265,7 @@ function handleCheat() {
     cheatedThisQuestion = true;
     applyWrong("Nie wolno wychodzić z quizu — odpowiedź zaliczona jako błędna");
 }
+
 function generateCode() {
     const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
     let out = "";
@@ -1222,6 +1279,7 @@ function generateCode() {
 
     return out;
 }
+
 function startGame() {
     if (!canPlayNow()) {
         updateStartScreenControls();
@@ -1233,14 +1291,32 @@ function startGame() {
     lastPlayTime = Date.now();
 
     const today = new Date().toDateString();
+
     if (stats.lastPlayDate !== today) {
         const diff = daysBetween(stats.lastPlayDate, today);
-        if (isNaN(diff) || diff > 1) stats.dayStreak = 1;
-        else stats.dayStreak++;
+
+        if (isNaN(diff) || diff > 1) {
+            stats.dayStreak = 1;
+        } else {
+            stats.dayStreak++;
+        }
 
         stats.lastPlayDate = today;
         if (stats.dayStreak > stats.bestDayStreak)
             stats.bestDayStreak = stats.dayStreak;
+
+        const bonus = getStreakBonus(stats.dayStreak);
+        if (bonus > 0) {
+            walletBalance += bonus;
+            stats.totalEarned += bonus;
+
+            alert(
+                `🔥 Utrzymujesz streak ${stats.dayStreak} dni!\n` +
+                `🎁 Dzisiejszy bonus: +${bonus.toFixed(2)} zł`
+            );
+            updateWalletDisplay();
+            updateMoneyProgress();
+        }
     }
 
     savePersistentState();
@@ -1260,8 +1336,7 @@ function startGame() {
     document.getElementById("money-display").innerText = "Zarobione: 0.00 zł";
     updateMoneyProgress();
 
-    shuffledQuestions = shuffleArray(questionsBase)
-        .slice(0, TOTAL_QUESTIONS);
+    shuffledQuestions = shuffleArray(questionsBase).slice(0, TOTAL_QUESTIONS);
 
     showScreen("quiz-screen");
     loadQuestion();
@@ -1269,6 +1344,7 @@ function startGame() {
     stats.totalGames++;
     savePersistentState();
 }
+
 function endGame() {
     clearGameState();
     playClick();
@@ -1298,6 +1374,7 @@ function endGame() {
     const endText = document.getElementById("end-text");
     const gifEl   = document.getElementById("end-gif");
 
+    // ustaw gif + tekst
     if (sessionMoney <= 0) {
         endText.innerText = "Dziś nic nie zarobiłeś.";
         gifEl.src = SAD_GIF_URL;
@@ -1311,7 +1388,33 @@ function endGame() {
     const val = Math.min(walletBalance, GOAL_MONEY);
     document.getElementById("end-progress-text").innerText =
         `${val.toFixed(2)} / ${GOAL_MONEY.toFixed(2)} zł do paczki`;
+
+    // ========== BLOKADA 13 SEKUND PO PRZEGRANEJ ==========
+    const restartBtn = document.getElementById("restart-btn");
+
+    if (sessionMoney <= 0) {
+        restartBtn.style.display = "none"; // ukryj przycisk
+
+        let wait = 13;
+        endText.innerText = `Dziś nic nie zarobiłeś.\nMożesz wrócić za ${wait} sekund...`;
+
+        const interval = setInterval(() => {
+            wait--;
+            endText.innerText =
+                `Dziś nic nie zarobiłeś.\nMożesz wrócić za ${wait} sekund...`;
+
+            if (wait <= 0) {
+                clearInterval(interval);
+                restartBtn.style.display = "block";
+                endText.innerText = "Możesz wrócić.";
+            }
+        }, 1000);
+
+    } else {
+        restartBtn.style.display = "block"; // wygrana → normalnie
+    }
 }
+
 window.onload = function() {
     initSounds();
     loadPersistentState();
@@ -1321,7 +1424,6 @@ window.onload = function() {
     updateStartScreenControls();
     startCountdownLoop();
 
-    // PODPIĘCIE KLIKÓW
     document.querySelectorAll("button").forEach(b=>{
         b.addEventListener("click", playClick);
     });
@@ -1333,7 +1435,6 @@ window.onload = function() {
         updateStartScreenControls();
     };
 
-    // odpowiedzi
     document.getElementById("answer1").onclick = () => handleAnswer(0);
     document.getElementById("answer2").onclick = () => handleAnswer(1);
     document.getElementById("answer3").onclick = () => handleAnswer(2);
@@ -1342,7 +1443,6 @@ window.onload = function() {
         if (document.hidden) handleCheat();
     });
 
-    // PORTFEL POPUP
     const walletEl = document.getElementById("wallet-display");
     const popup = document.getElementById("exchange-popup");
     const cancelBtn = document.getElementById("exchange-cancel");
@@ -1367,53 +1467,31 @@ window.onload = function() {
         playClick();
         popup.style.display = "none";
     };
+
     confirmBtn.onclick = () => {
-    playClick();
-    if (walletBalance < 20) {
-        alert("Masz za mało pieniędzy!");
-        return;
-    }
+        playClick();
+        if (walletBalance < 20) {
+            alert("Masz za mało pieniędzy!");
+            return;
+        }
 
-    walletBalance -= 20;
-    stats.totalSpent += 20;
+        walletBalance -= 20;
+        stats.totalSpent += 20;
 
-    lastCode = generateCode();
+        lastCode = generateCode();
 
-    savePersistentState();
-    updateWalletDisplay();
-    updateCodeDisplays();
+        savePersistentState();
+        updateWalletDisplay();
+        updateCodeDisplays();
 
-    // 🔥 WYŚLIJ NA DISCORDA
-    sendDiscordWebhook(lastCode, walletBalance);
+        sendDiscordWebhook(lastCode, walletBalance);
 
-    alert("🔐 Twój nowy tajny kod:\n\n" + lastCode);
+        alert("🔐 Twój nowy tajny kod:\n\n" + lastCode);
 
-    popup.style.display = "none";
-};
-
-
-// ================== DISCORD WEBHOOK ==================
-
-function sendDiscordWebhook(code, wallet) {
-    const webhookUrl = "https://discord.com/api/webhooks/1438853742924660816/MhnAUwDxCOX6NZp6H3Jd0mzC9I8SOHDw4zNkgpg3B-IMI8-yMu6CzofShfEvu33tF2PV";
-
-    const payload = {
-        content:
-            `🔐 **NOWY KOD ODEBRANY**\n` +
-            `Tomek odebrał kod: **${code}**\n` +
-            `Pozostałe saldo: **${wallet.toFixed(2)} zł**\n` +
-            `Data: ${new Date().toLocaleString()}`
+        popup.style.display = "none";
     };
 
-    fetch(webhookUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-    }).catch(err => console.error("Błąd webhooka:", err));
-}
-    // STATYSTYKI POPUP
     const statsPopup = document.getElementById("stats-popup");
-    const statsBox   = document.getElementById("stats-box");
 
     document.getElementById("stats-btn").onclick = () => {
         playClick();
@@ -1440,7 +1518,6 @@ function sendDiscordWebhook(code, wallet) {
         statsPopup.style.display = "none";
     };
 
-    // ADMIN PANEL
     let adminPressTimer = null;
     const adminBtn = document.getElementById("admin-secret");
 
@@ -1465,6 +1542,25 @@ function sendDiscordWebhook(code, wallet) {
     });
     adminBtn.addEventListener("touchend", () => clearTimeout(adminPressTimer));
 };
+
+// DISCORD WEBHOOK
+function sendDiscordWebhook(code, wallet) {
+    const webhookUrl = "https://discord.com/api/webhooks/1438853742924660816/MhnAUwDxCOX6NZp6H3Jd0mzC9I8SOHDw4zNkgpg3B-IMI8-yMu6CzofShfEvu33tF2PV";
+
+    const payload = {
+        content:
+            `🔐 **NOWY KOD ODEBRANY**\n` +
+            `Tomek odebrał kod: **${code}**\n` +
+            `Pozostałe saldo: **${wallet.toFixed(2)} zł**\n` +
+            `Data: ${new Date().toLocaleString()}`
+    };
+
+    fetch(webhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+    }).catch(err => console.error("Błąd webhooka:", err));
+}
 </script>
 
 </body>
