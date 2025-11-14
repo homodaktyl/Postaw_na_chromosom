@@ -1,1 +1,1449 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<title>Postaw na chromosom</title>
 
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f0f2f5;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .container {
+        position: relative;
+        background: #ffffff;
+        padding: 35px 45px 45px;
+        border-radius: 16px;
+        box-shadow: 0 6px 25px rgba(0,0,0,0.18);
+        width: 540px;
+        max-width: 95vw;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    h1 { margin-top: 0; }
+
+    #start-screen, #quiz-screen, #end-screen {
+        display: none;
+    }
+
+    .big-btn {
+        width: 100%;
+        padding: 20px 24px;
+        margin: 15px 0;
+        font-size: 24px;
+        border-radius: 14px;
+        border: none;
+        cursor: pointer;
+        background: #4a90e2;
+        color: white;
+        transition: transform 0.08s ease, box-shadow 0.15s ease, background 0.1s;
+    }
+
+    .big-btn:hover {
+        background: #3b7ac2;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+        transform: translateY(-1px);
+    }
+
+    .big-btn:active {
+        transform: translateY(1px) scale(0.97);
+        box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+
+    .answer-btn {
+        background: #ffffff;
+        color: #333;
+        border: 2px solid #4a90e2;
+    }
+    .answer-btn:hover {
+        background: #e6f0ff;
+    }
+
+    #question-text {
+        font-size: 22px;
+        margin: 10px 0 15px;
+    }
+
+    #money-display {
+        margin-top: 10px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    #question-counter {
+        margin-bottom: 5px;
+        font-size: 16px;
+        color: #555;
+    }
+
+    #timer-display {
+        margin-bottom: 10px;
+        font-size: 16px;
+        color: #d9534f;
+        min-height: 20px;
+    }
+
+    #timer-bar-container {
+        width: 100%;
+        height: 12px;
+        background: #e0e0e0;
+        border-radius: 6px;
+        margin-bottom: 10px;
+        overflow: hidden;
+    }
+    #timer-bar {
+        width: 100%;
+        height: 100%;
+        background: #d9534f;
+        transition: width 1s linear;
+    }
+
+    #media {
+        margin-bottom: 15px;
+    }
+    #media img, #media video {
+        max-width: 100%;
+        border-radius: 8px;
+        margin-bottom: 8px;
+    }
+    #media audio {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+
+    #message {
+        margin-top: 10px;
+        font-size: 16px;
+        min-height: 20px;
+    }
+
+    #end-gif {
+        max-width: 100%;
+        border-radius: 10px;
+        margin-top: 15px;
+    }
+
+    /* PORTFEL w prawym górnym rogu */
+    #wallet-display {
+        position: absolute;
+        top: 8px;
+        right: 10px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #333;
+        cursor: pointer;
+        transition: transform 0.15s ease, color 0.2s ease;
+    }
+    #wallet-display:hover {
+        transform: scale(1.05);
+        color: #1a73e8;
+    }
+
+    #daily-limit-text {
+        font-size: 14px;
+        margin-top: 6px;
+        color: #555;
+    }
+
+    #countdown {
+        margin-top: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #d9534f;
+        min-height: 24px;
+    }
+
+    #code-display {
+        margin-top: 8px;
+        font-size: 14px;
+        color: #333;
+        min-height: 18px;
+    }
+
+    #day-streak-display {
+        font-size: 14px;
+        margin-top: 4px;
+        color: #ff5722;
+    }
+
+    /* PASEK POSTĘPU KASY */
+    #money-progress-container {
+        width: 100%;
+        height: 12px;
+        background: #e0e0e0;
+        border-radius: 6px;
+        margin-top: 8px;
+        overflow: hidden;
+    }
+    #money-progress-bar {
+        width: 0%;
+        height: 100%;
+        background: #4caf50;
+        transition: width 0.25s ease;
+    }
+    #money-progress-text {
+        margin-top: 4px;
+        font-size: 13px;
+        color: #555;
+        min-height: 18px;
+    }
+
+    /* POPUP WYMIANY & STATYSTYK */
+    #exchange-popup,
+    #stats-popup {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.55);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 999999;
+    }
+
+    #exchange-box,
+    #stats-box {
+        position: relative;
+        background: #fff;
+        padding: 25px;
+        width: 85%;
+        max-width: 380px;
+        border-radius: 14px;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+        animation: popup-zoom 0.20s ease;
+    }
+
+    @keyframes popup-zoom {
+        0% { transform: scale(0.85); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+
+    #codes-history {
+        margin-top: 15px;
+        font-size: 14px;
+        text-align: left;
+        max-height: 120px;
+        overflow-y: auto;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+        background: #fafafa;
+    }
+
+    #stats-content {
+        margin-top: 10px;
+        text-align: left;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    #stats-content b {
+        font-weight: 600;
+    }
+
+    /* TAJNY ADMIN PRZYCISK */
+    #admin-secret {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 25px;
+        height: 25px;
+        opacity: 0;
+        z-index: 9999999;
+    }
+
+    /* ANIMACJE EKRANÓW */
+    .fade-in {
+        animation: fadeIn 0.35s ease;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ANIMACJE ODPOWIEDZI */
+    .answer-correct-anim {
+        animation: correctGlow 0.4s ease;
+    }
+    @keyframes correctGlow {
+        0%   { box-shadow: 0 0 0 rgba(76, 175, 80, 0.0); transform: scale(1); }
+        50%  { box-shadow: 0 0 12px rgba(76, 175, 80, 0.7); transform: scale(1.03); }
+        100% { box-shadow: 0 0 0 rgba(76, 175, 80, 0.0); transform: scale(1); }
+    }
+
+    .answer-wrong-anim {
+        animation: shake 0.35s ease;
+    }
+    @keyframes shake {
+        0%   { transform: translateX(0); }
+        20%  { transform: translateX(-4px); }
+        40%  { transform: translateX(4px); }
+        60%  { transform: translateX(-3px); }
+        80%  { transform: translateX(3px); }
+        100% { transform: translateX(0); }
+    }
+
+</style>
+</head>
+
+<body>
+<div class="container">
+
+    <!-- PORTFEL -->
+    <div id="wallet-display" title="Kliknij, aby otworzyć portfel">Portfel: 0.00 zł</div>
+
+    <!-- EKRAN STARTOWY -->
+    <div id="start-screen">
+        <h1>Postaw na chromosom</h1>
+        <p>Zbij fortunę albo rzuć palenie!</p>
+        <p id="daily-limit-text">Możesz odpowiedzieć tylko na 5 pytań dziennie.</p>
+
+        <div id="best-display">Najlepszy wynik: 0 zł</div>
+        <div id="day-streak-display"></div>
+        <div id="countdown"></div>
+        <div id="money-progress-container">
+        <div id="money-progress-bar"></div>
+        </div>
+        <div id="money-progress-text"></div>
+        <div id="code-display"></div>
+
+        <button id="start-btn" class="big-btn">ZACZNIJ QUIZ</button>
+        <button id="stats-btn" class="big-btn" style="background:#6c757d;">Statystyki</button>
+    </div>
+
+    <!-- EKRAN QUIZU -->
+    <div id="quiz-screen">
+        <h1>Postaw na chromosom</h1>
+        <div id="question-counter"></div>
+
+        <div id="timer-bar-container">
+            <div id="timer-bar"></div>
+        </div>
+
+        <div id="timer-display"></div>
+
+        <div id="media"></div>
+
+        <button id="video-confirm-btn" class="big-btn" style="display:none;">
+            Obejrzałem film — pokaż odpowiedzi
+        </button>
+
+        <div id="question-text"></div>
+
+        <button id="answer1" class="big-btn answer-btn"></button>
+        <button id="answer2" class="big-btn answer-btn"></button>
+        <button id="answer3" class="big-btn answer-btn"></button>
+
+        <div id="money-display">Zarobione: 0.00 zł</div>
+
+        <div id="message"></div>
+    </div>
+
+    <!-- EKRAN KOŃCOWY -->
+    <div id="end-screen">
+        <h1>Koniec quizu!</h1>
+        <div id="final-money" style="font-size:22px; margin-top:10px;"></div>
+        <div id="end-text" style="margin-top:10px;"></div>
+        <img id="end-gif" src="" alt="gif na koniec" />
+        <div id="end-progress-text" style="margin-top:10px; font-size:14px;"></div>
+        <div id="best-display-end" style="margin-top:10px;"></div>
+        <div id="code-display-end" style="margin-top:8px; font-size:14px;"></div>
+        <button id="restart-btn" class="big-btn" style="margin-top:15px;">
+            Wróć do ekranu startowego
+        </button>
+    </div>
+
+</div>
+
+<!-- POPUP WYMIANY -->
+<div id="exchange-popup">
+    <div id="exchange-box">
+        <div style="font-size: 40px; margin-bottom: 10px;">🪙</div>
+        <h2>Wymiana pieniędzy</h2>
+        <p>Masz: <b id="wallet-current"></b></p>
+
+        <button id="exchange-confirm" class="big-btn" style="margin-top: 10px;">
+            Wymień 20 zł na tajny kod
+        </button>
+
+        <button id="exchange-cancel" class="big-btn" style="background:#bbb; margin-top: 5px;">
+            Anuluj
+        </button>
+
+        <div id="codes-history"></div>
+    </div>
+</div>
+
+<!-- POPUP STATYSTYK -->
+<div id="stats-popup">
+    <div id="stats-box">
+        <h2>Statystyki</h2>
+        <div id="stats-content"></div>
+        <button id="stats-close" class="big-btn" style="background:#bbb; margin-top: 10px;">
+            Zamknij
+        </button>
+    </div>
+</div>
+
+<!-- TAJNY ADMIN PANEL – klik i przytrzymaj w lewym dolnym rogu -->
+<div id="admin-secret"></div>
+
+<script>
+// ================== KONFIG ==================
+
+const MONEY_CORRECT = 1.0;
+const MONEY_WRONG   = -0.5;
+const TOTAL_QUESTIONS = 5;
+const GOAL_MONEY = 20; // do paczki
+
+const HAPPY_GIF_URL = "https://media1.tenor.com/m/y0zptlFKiYIAAAAd/yay-kitty.gif";
+const SAD_GIF_URL   = "https://media1.tenor.com/m/JRJPU6H35PwAAAAd/spider-man-spider-man-web-of-shadows.gif";
+
+// czas blokady: 24h
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+// localStorage keys
+const LS_WALLET        = "tomekQuiz_wallet";
+const LS_BEST_SCORE    = "tomekQuiz_bestScore";
+const LS_LAST_PLAY     = "tomekQuiz_lastPlay";
+const LS_LAST_CODE     = "tomekQuiz_lastCode";
+const LS_CODE_HISTORY  = "tomekQuiz_codeHistory";
+const LS_STATS         = "tomekQuiz_stats";
+const LS_GAME_STATE    = "tomekQuiz_gameState";
+
+const questionsBase = [
+    {
+        q: "Ile jest papierosów w jednej paczce ?",
+        a: ["15", "20", "25"],
+        correct: 1
+    },
+    {
+        q: "Jaki to model pociągu?",
+        a: ["ED161", "EU44", "ED160"],
+        correct: 2,
+        mediaType: "image",
+        mediaUrl: "images/pociag.jpg"
+    },
+    {
+        q: "Jak ma na imię koleżanka Amelki?",
+        a: ["Martyna", "Marta", "Emilka"],
+        correct: 0
+    },
+    {
+        q: "Co to za dźwięk?",
+        a: ["Twoj stary chrapie", "Szlifierka kątowa", "Zepsuty wiatrak"],
+        correct: 0,
+        mediaType: "audio",
+        mediaUrl: "sounds/augh.mp3"
+    },
+    {
+        q: "Jak nazywa się ta broń?",
+        a: ["Guardan", "Gardan", "Guardian"],
+        correct: 2,
+        mediaType: "image",
+        mediaUrl: "images/bron_z_valo.jpg"
+    },
+    {
+        q: "Co przeskrobał Iso?",
+        a: ["Nie dał ci skina", "Zwyzywał cię po rusku", "Pokazał ci siura"],
+        correct: 1,
+        mediaType: "video",
+        mediaUrl: "videos/iso.mp4"
+    },
+    {
+        q: "Przed czym chroni ta ściana?",
+        a: ["Przez najazdem przeciwników na B", "Przed niczym", "Przed granatami"],
+        correct: 1,
+        mediaType: "video",
+        mediaUrl: "videos/sciana.mp4"
+    },
+    {
+        q: "Co powie zaraz Tomek?",
+        a: ["Sage please fuck my ass", "Sage give me ass", "Sage can i eat your ass"],
+        correct: 1,
+        mediaType: "videoCut",
+        mediaUrlShort: "videos/ass_cut.mp4",
+        mediaUrlFull:  "videos/ass.mp4"
+    },
+    {
+        q: "Gdzie Tomek próbuje się dodzwonić?",
+        a: ["Umówić na seks", "Do lokalnego burdelu", "Do serduszka Amelki"],
+        correct: 2,
+        mediaType: "videoCut",
+        mediaUrlShort: "videos/dzwoni_cut.mp4",
+        mediaUrlFull:  "videos/dzwoni.mp4"
+    },
+    {
+        q: "Którego dnia była ci pisana śmierć przez chorobę?",
+        a: ["29 październik", "4 listopada", "31 września"],
+        correct: 0
+    },
+    {
+        q: "Ile złotych zaoszczędziłeś crackując SimRail, zamiast kupować wszystkie DLC",
+        a: ["6 000 tys zł", "400 zł", "16 000 zł"],
+        correct: 2
+    },
+    {
+        q: "Jaka waluta obowiązuje na yubo?",
+        a: ["ruble", "pixelki", "coinsy"],
+        correct: 1
+    },
+    {
+        q: "Do kogo napisałeś tę wiadomość?",
+        a: ["do Martyny", "do dziwki", "do Amelki"],
+        correct: 2,
+        mediaType: "image",
+        mediaUrl: "images/dojenie.jpg"
+    },
+    {
+        q: "Dlaczego niuna płakała na live?",
+        a: ["bo chłopak z nią zerwał", "bo Tomek nie chciał jej wyruchać", "bo spłonął McDonald's"],
+        correct: 2
+    }
+
+];
+
+// ================== ZMIENNE STANU ==================
+
+let shuffledQuestions = [];
+let currentIndex = 0;
+let sessionMoney = 0;
+let bestScore = 0;
+
+let walletBalance = 0;
+let lastPlayTime = null;
+let lastCode = "";
+
+let timerId = null;
+let timeLeft = 20;
+
+let questionActive = false;
+let canAnswer = false;
+let waitingForNext = false;
+let currentScreen = "start";
+let cheatedThisQuestion = false;
+
+let soundCorrect = null;
+let soundWrong   = null;
+let soundClick   = null;
+let soundWin     = null;
+let soundLose    = null;
+let countdownInterval = null;
+
+// STATYSTYKI
+let stats = {
+    totalGames: 0,
+    totalQuestions: 0,
+    totalCorrect: 0,
+    totalWrong: 0,
+    totalEarned: 0,
+    totalSpent: 0,
+    bestStreak: 0,       // seria poprawnych odpowiedzi
+    activeDays: 0,
+    lastPlayDate: null,
+    dayStreak: 0,        // obecna passa dni
+    bestDayStreak: 0     // najlepsza passa dni
+};
+
+let currentStreak = 0;
+let currentCorrect = 0;
+let currentWrong = 0;
+
+// ================== DŹWIĘKI ==================
+
+function initSounds() {
+    try {
+        soundCorrect = new Audio("sounds/correct.mp3");
+        soundWrong   = new Audio("sounds/wrong.mp3");
+        soundClick   = new Audio("sounds/click.mp3");
+        soundWin     = new Audio("sounds/win.mp3");
+        soundLose    = new Audio("sounds/lose.mp3");
+    } catch (e) {
+        soundCorrect = soundWrong = soundClick = soundWin = soundLose = null;
+    }
+}
+
+function playCorrect() {
+    if (soundCorrect) {
+        soundCorrect.currentTime = 0;
+        soundCorrect.play().catch(() => {});
+    }
+}
+
+function playWrong() {
+    if (soundWrong) {
+        soundWrong.currentTime = 0;
+        soundWrong.play().catch(() => {});
+    }
+}
+
+function playClick() {
+    if (soundClick) {
+        soundClick.currentTime = 0;
+        soundClick.play().catch(() => {});
+    }
+}
+
+function playWin() {
+    if (soundWin) {
+        soundWin.currentTime = 0;
+        soundWin.play().catch(() => {});
+    }
+}
+
+function playLose() {
+    if (soundLose) {
+        soundLose.currentTime = 0;
+        soundLose.play().catch(() => {});
+    }
+}
+
+// ================== PERSISTENT STATE ==================
+
+function loadPersistentState() {
+    const w = parseFloat(localStorage.getItem(LS_WALLET));
+    walletBalance = isNaN(w) ? 0 : w;
+
+    const b = parseFloat(localStorage.getItem(LS_BEST_SCORE));
+    bestScore = isNaN(b) ? 0 : b;
+
+    const lp = localStorage.getItem(LS_LAST_PLAY);
+    lastPlayTime = lp ? parseInt(lp) : null;
+
+    lastCode = localStorage.getItem(LS_LAST_CODE) || "";
+
+    const sRaw = localStorage.getItem(LS_STATS);
+    if (sRaw) {
+        try {
+            const parsed = JSON.parse(sRaw);
+            stats = Object.assign(stats, parsed);
+        } catch (e) {}
+    }
+
+    updateWalletDisplay();
+    updateBestDisplays();
+    updateCodeDisplays();
+    updateStreakDisplay();
+    updateMoneyProgress();
+
+}
+
+function savePersistentState() {
+    localStorage.setItem(LS_WALLET, walletBalance.toString());
+    localStorage.setItem(LS_BEST_SCORE, bestScore.toString());
+    if (lastPlayTime !== null) {
+        localStorage.setItem(LS_LAST_PLAY, lastPlayTime.toString());
+    }
+    localStorage.setItem(LS_LAST_CODE, lastCode);
+    localStorage.setItem(LS_STATS, JSON.stringify(stats));
+}
+
+function updateWalletDisplay() {
+    document.getElementById("wallet-display").innerText =
+        "Portfel: " + walletBalance.toFixed(2) + " zł";
+}
+
+function updateBestDisplays() {
+    document.getElementById("best-display").innerText =
+        "Najlepszy wynik: " + bestScore.toFixed(2) + " zł";
+
+    document.getElementById("best-display-end").innerText =
+        "Najlepszy wynik: " + bestScore.toFixed(2) + " zł";
+}
+
+function updateCodeDisplays() {
+    const txt = lastCode
+        ? `Twój tajny kod: ${lastCode} (możesz go wymienić na 20 zł lub paczkę fajek)`
+        : "";
+    document.getElementById("code-display").innerText = txt;
+    document.getElementById("code-display-end").innerText = txt;
+}
+
+function updateStreakDisplay() {
+    const el = document.getElementById("day-streak-display");
+    if (!el) return;
+    const s = stats.dayStreak || 0;
+    if (s <= 0) {
+        el.innerText = "🔥 Passa dni: 0";
+    } else {
+        el.innerText = `🔥 Passa dni: ${s} dni z rzędu`;
+    }
+}
+
+// ================== LIMIT 1 GRA / 24H ==================
+
+function canPlayNow() {
+    if (!lastPlayTime) return true;
+    const diff = Date.now() - lastPlayTime;
+    return diff >= DAY_MS;
+}
+
+function getRemainingMs() {
+    if (!lastPlayTime) return 0;
+    return Math.max(0, lastPlayTime + DAY_MS - Date.now());
+}
+
+function formatRemaining(ms) {
+    let totalSec = Math.floor(ms / 1000);
+    let h = Math.floor(totalSec / 3600);
+    let m = Math.floor((totalSec % 3600) / 60);
+    let s = totalSec % 60;
+    return `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+}
+
+function updateStartScreenControls() {
+    const startBtn   = document.getElementById("start-btn");
+    const countdownEl = document.getElementById("countdown");
+
+    if (canPlayNow()) {
+        startBtn.disabled = false;
+        startBtn.style.opacity = "1";
+        countdownEl.innerText = "";
+    } else {
+        startBtn.disabled = true;
+        startBtn.style.opacity = "0.6";
+        const rem = getRemainingMs();
+        countdownEl.innerText = "Następna gra za: " + formatRemaining(rem);
+    }
+}
+
+function startCountdownLoop() {
+    if (countdownInterval) clearInterval(countdownInterval);
+    countdownInterval = setInterval(() => {
+        if (currentScreen === "start") {
+            updateStartScreenControls();
+        }
+    }, 1000);
+}
+
+// ================== TIMER ==================
+
+function resetTimerBar() {
+    document.getElementById("timer-bar").style.width = "100%";
+}
+
+function updateTimerBar() {
+    const percent = Math.max(0, (timeLeft / 20) * 100);
+    document.getElementById("timer-bar").style.width = percent + "%";
+}
+
+function updateTimerDisplay() {
+    const timerDiv = document.getElementById("timer-display");
+    if (timeLeft > 0 && questionActive && canAnswer) {
+        timerDiv.innerText = "Pozostały czas: " + timeLeft + " s";
+    } else {
+        timerDiv.innerText = "";
+    }
+}
+
+function startTimer() {
+    stopTimer();
+    // przy starcie timera zapisujemy stan gry jako "answering"
+    saveGameState("answering");
+
+    timerId = setInterval(() => {
+        if (!questionActive || !canAnswer) {
+            stopTimer();
+            return;
+        }
+        timeLeft--;
+        updateTimerBar();
+        if (timeLeft <= 0) {
+            stopTimer();
+            handleTimeout();
+        } else {
+            updateTimerDisplay();
+            saveGameState("answering");
+        }
+    }, 1000);
+}
+
+function stopTimer() {
+    if (timerId !== null) {
+        clearInterval(timerId);
+        timerId = null;
+    }
+}
+
+// ================== POMOCNICZE ==================
+
+function hideAnswers() {
+    document.getElementById("answer1").style.display = "none";
+    document.getElementById("answer2").style.display = "none";
+    document.getElementById("answer3").style.display = "none";
+}
+
+function showAnswers() {
+    document.getElementById("answer1").style.display = "block";
+    document.getElementById("answer2").style.display = "block";
+    document.getElementById("answer3").style.display = "block";
+}
+
+function shuffleArray(arr) {
+    const copy = arr.slice();
+    for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+}
+
+function showScreen(id) {
+    currentScreen = (id === "quiz-screen") ? "quiz"
+                   : (id === "end-screen") ? "end"
+                   : "start";
+
+    const screens = ["start-screen","quiz-screen","end-screen"];
+    screens.forEach(scrId => {
+        const el = document.getElementById(scrId);
+        if (!el) return;
+        if (scrId === id) {
+            el.style.display = "block";
+            el.classList.remove("fade-in");
+            void el.offsetWidth;
+            el.classList.add("fade-in");
+        } else {
+            el.style.display = "none";
+            el.classList.remove("fade-in");
+        }
+    });
+}
+
+function updateMoneyProgress() {
+    const bar = document.getElementById("money-progress-bar");
+    const txt = document.getElementById("money-progress-text");
+    if (!bar || !txt) return;
+
+    const val = Math.min(walletBalance, GOAL_MONEY); 
+    const percent = Math.max(0, Math.min(100, (val / GOAL_MONEY) * 100));
+
+    bar.style.width = percent + "%";
+    txt.innerText = `${val.toFixed(2)} / ${GOAL_MONEY.toFixed(2)} zł do paczki fajek`;
+}
+
+// pomoże przy streakach dni
+function daysBetween(dateStr1, dateStr2) {
+    if (!dateStr1 || !dateStr2) return NaN;
+    const d1 = new Date(dateStr1);
+    const d2 = new Date(dateStr2);
+    const diffMs = d2.setHours(0,0,0,0) - d1.setHours(0,0,0,0);
+    return Math.round(diffMs / (1000*60*60*24));
+}
+
+// ================== GAME STATE (blokada odświeżania) ==================
+
+function saveGameState(mode) {
+    if (!shuffledQuestions || shuffledQuestions.length === 0) return;
+
+    const indices = shuffledQuestions.map(q => questionsBase.indexOf(q));
+    const state = {
+        inProgress: (currentScreen === "quiz"),
+        shuffledIndices: indices,
+        currentIndex,
+        sessionMoney,
+        timeLeft,
+        mode,
+        lastUpdate: Date.now()
+    };
+    localStorage.setItem(LS_GAME_STATE, JSON.stringify(state));
+}
+
+function clearGameState() {
+    localStorage.removeItem(LS_GAME_STATE);
+}
+
+function tryResumeGame() {
+    const raw = localStorage.getItem(LS_GAME_STATE);
+    if (!raw) return;
+    let state;
+    try {
+        state = JSON.parse(raw);
+    } catch (e) {
+        clearGameState();
+        return;
+    }
+    if (!state || !state.inProgress) return;
+
+    // jeśli minęło 24h, nie wznawiamy
+    if (canPlayNow()) {
+        clearGameState();
+        return;
+    }
+
+    if (!Array.isArray(state.shuffledIndices) || state.shuffledIndices.length === 0) {
+        clearGameState();
+        return;
+    }
+
+    shuffledQuestions = state.shuffledIndices.map(i => questionsBase[i]);
+    currentIndex = state.currentIndex || 0;
+    sessionMoney = state.sessionMoney || 0;
+    timeLeft = typeof state.timeLeft === "number" ? state.timeLeft : 20;
+
+    showScreen("quiz-screen");
+    document.getElementById("money-display").innerText =
+        "Zarobione: " + sessionMoney.toFixed(2) + " zł";
+    updateMoneyProgress();
+
+    let elapsed = 0;
+    if (state.lastUpdate) {
+        elapsed = Math.floor((Date.now() - state.lastUpdate) / 1000);
+    }
+
+    questionActive = true;
+    waitingForNext = false;
+    cheatedThisQuestion = false;
+
+    const mode = state.mode || "answering";
+
+    if (mode === "waitingConfirm") {
+        // odtwarzamy pytanie w trybie czekania na potwierdzenie filmu
+        loadQuestion(true, "waitingConfirm");
+        stopTimer();
+        saveGameState("waitingConfirm");
+    } else if (mode === "answering") {
+        loadQuestion(true, "answering");
+        // korygujemy timer
+        let newTime = timeLeft - elapsed;
+        if (isNaN(newTime) || newTime <= 0) {
+            stopTimer();
+            timeLeft = 0;
+            updateTimerBar();
+            updateTimerDisplay();
+            handleTimeout();
+        } else {
+            timeLeft = newTime;
+            updateTimerBar();
+            updateTimerDisplay();
+            // timer już działa
+            saveGameState("answering");
+        }
+    } else {
+        // między pytaniami – po prostu ładujemy kolejne
+        loadQuestion(true, "between");
+    }
+}
+
+// ================== ŁADOWANIE PYTAŃ ==================
+
+function loadQuestion(resume = false, resumeMode = null) {
+    stopTimer();
+    resetTimerBar();
+    updateTimerDisplay();
+
+    questionActive = false;
+    canAnswer = false;
+    waitingForNext = false;
+    cheatedThisQuestion = false;
+
+    const msg = document.getElementById("message");
+    msg.innerText = "";
+
+    const confirmBtn = document.getElementById("video-confirm-btn");
+    confirmBtn.style.display = "none";
+
+    if (currentIndex >= shuffledQuestions.length) {
+        endGame();
+        return;
+    }
+
+    const q = shuffledQuestions[currentIndex];
+
+    document.getElementById("question-counter").innerText =
+        "Pytanie " + (currentIndex + 1) + " z " + shuffledQuestions.length;
+
+    document.getElementById("question-text").innerText = q.q;
+
+    document.getElementById("answer1").innerText = q.a[0];
+    document.getElementById("answer2").innerText = q.a[1];
+    document.getElementById("answer3").innerText = q.a[2];
+
+    const mediaDiv = document.getElementById("media");
+    mediaDiv.innerHTML = "";
+
+    // ---- videoCut ----
+    if (q.mediaType === "videoCut") {
+        hideAnswers();
+        questionActive = true;
+        canAnswer = false;
+
+        const video = document.createElement("video");
+        video.src = q.mediaUrlShort;
+        video.controls = true;
+        mediaDiv.appendChild(video);
+
+        document.getElementById("timer-display").innerText =
+            "Obejrzyj film, potem kliknij przycisk i odpowiedz.";
+
+        confirmBtn.style.display = "block";
+        confirmBtn.innerText = "Oglądnąłem — pokaż odpowiedzi";
+
+        saveGameState("waitingConfirm");
+        return;
+    }
+
+    // ---- zwykłe wideo ----
+    if (q.mediaType === "video" && q.mediaUrl) {
+        hideAnswers();
+        const video = document.createElement("video");
+        video.src = q.mediaUrl;
+        video.controls = true;
+        mediaDiv.appendChild(video);
+
+        document.getElementById("timer-display").innerText =
+            "Obejrzyj film, a potem kliknij przycisk.";
+
+        confirmBtn.style.display = "block";
+        confirmBtn.innerText = "Oglądnąłem — pokaż odpowiedzi";
+
+        questionActive = true;
+        canAnswer = false;
+
+        saveGameState("waitingConfirm");
+        return;
+    }
+
+    // ---- obrazek ----
+    if (q.mediaType === "image" && q.mediaUrl) {
+        const img = document.createElement("img");
+        img.src = q.mediaUrl;
+        img.alt = "obrazek pytania";
+        mediaDiv.appendChild(img);
+    }
+
+    // ---- audio ----
+    if (q.mediaType === "audio" && q.mediaUrl) {
+        const audio = document.createElement("audio");
+        audio.controls = true;
+        audio.src = q.mediaUrl;
+        mediaDiv.appendChild(audio);
+    }
+
+    // ---- normalne pytanie ----
+    showAnswers();
+    questionActive = true;
+    canAnswer = true;
+
+    if (!resume) {
+        timeLeft = 20;
+    }
+    updateTimerBar();
+    updateTimerDisplay();
+    startTimer();
+
+    saveGameState("answering");
+}
+function handleAnswer(index) {
+    if (!questionActive || !canAnswer || waitingForNext) return;
+
+    const q = shuffledQuestions[currentIndex];
+    const chosenBtn = document.getElementById("answer" + (index + 1));
+
+    if (index === q.correct) {
+        chosenBtn.classList.add("answer-correct-anim");
+        applyCorrect();
+    } else {
+        chosenBtn.classList.add("answer-wrong-anim");
+        applyWrong("Zła odpowiedź. -" + Math.abs(MONEY_WRONG).toFixed(2) + " zł");
+    }
+
+    setTimeout(() => {
+        chosenBtn.classList.remove("answer-correct-anim");
+        chosenBtn.classList.remove("answer-wrong-anim");
+    }, 500);
+}
+function handleTimeout() {
+    if (!questionActive || waitingForNext) return;
+    applyWrong("Czas minął! -" + Math.abs(MONEY_WRONG).toFixed(2) + " zł");
+}
+function applyCorrect() {
+    questionActive = false;
+    canAnswer = false;
+    stopTimer();
+
+    playCorrect();
+    currentCorrect++;
+
+    // statystyki
+    currentStreak++;
+    if (currentStreak > stats.bestStreak) stats.bestStreak = currentStreak;
+
+    const msg = document.getElementById("message");
+    msg.style.color = "#5cb85c";
+    msg.innerText = "Dobra odpowiedź! +" + MONEY_CORRECT.toFixed(2) + " zł";
+
+    sessionMoney += MONEY_CORRECT;
+    document.getElementById("money-display").innerText =
+        "Zarobione: " + sessionMoney.toFixed(2) + " zł";
+    updateMoneyProgress();
+
+    const q = shuffledQuestions[currentIndex];
+
+    // --- VIDEO CUT: odtwórz pełne od 13 sek ---
+    if (q.mediaType === "videoCut") {
+        const mediaDiv = document.getElementById("media");
+        mediaDiv.innerHTML = "";
+        hideAnswers();
+        document.getElementById("timer-display").innerText = "";
+
+        const fullVideo = document.createElement("video");
+        fullVideo.src = q.mediaUrlFull;
+        fullVideo.controls = true;
+        mediaDiv.appendChild(fullVideo);
+
+        fullVideo.addEventListener("loadedmetadata", () => {
+            fullVideo.currentTime = 13;
+            fullVideo.play();
+        });
+
+        waitingForNext = true;
+        fullVideo.onended = () => {
+            msg.innerText = "";
+            waitingForNext = false;
+            currentIndex++;
+            loadQuestion();
+        };
+        return;
+    }
+
+    currentIndex++;
+    waitingForNext = true;
+
+    saveGameState("between");
+
+    setTimeout(() => {
+        msg.innerText = "";
+        waitingForNext = false;
+        loadQuestion();
+    }, 700);
+}
+function applyWrong(message) {
+    questionActive = false;
+    canAnswer = false;
+    stopTimer();
+
+    playWrong();
+    currentWrong++;
+    currentStreak = 0;
+
+    const msg = document.getElementById("message");
+    msg.style.color = "#d9534f";
+    msg.innerText = message;
+
+    sessionMoney += MONEY_WRONG;
+    if (sessionMoney < 0) sessionMoney = 0;
+
+    document.getElementById("money-display").innerText =
+        "Zarobione: " + sessionMoney.toFixed(2) + " zł";
+    updateMoneyProgress();
+
+    const q = shuffledQuestions[currentIndex];
+
+    if (q.mediaType === "videoCut") {
+        const mediaDiv = document.getElementById("media");
+        mediaDiv.innerHTML = "";
+        hideAnswers();
+        document.getElementById("timer-display").innerText = "";
+
+        const fullVideo = document.createElement("video");
+        fullVideo.src = q.mediaUrlFull;
+        fullVideo.controls = true;
+        mediaDiv.appendChild(fullVideo);
+
+        fullVideo.addEventListener("loadedmetadata", () => {
+            fullVideo.currentTime = 13;
+            fullVideo.play();
+        });
+
+        waitingForNext = true;
+        fullVideo.onended = () => {
+            msg.innerText = "";
+            waitingForNext = false;
+            currentIndex++;
+            loadQuestion();
+        };
+
+        return;
+    }
+
+    currentIndex++;
+    waitingForNext = true;
+
+    saveGameState("between");
+
+    setTimeout(() => {
+        msg.innerText = "";
+        waitingForNext = false;
+        loadQuestion();
+    }, 700);
+}
+document.getElementById("video-confirm-btn").onclick = () => {
+    if (!questionActive || waitingForNext) return;
+
+    playClick();
+
+    document.getElementById("video-confirm-btn").style.display = "none";
+    showAnswers();
+    questionActive = true;
+    canAnswer = true;
+
+    timeLeft = 20;
+    updateTimerBar();
+    updateTimerDisplay();
+    startTimer();
+
+    saveGameState("answering");
+};
+function handleCheat() {
+    if (!questionActive || waitingForNext || cheatedThisQuestion) return;
+    if (currentScreen !== "quiz") return;
+
+    cheatedThisQuestion = true;
+    applyWrong("Nie wolno wychodzić z quizu — odpowiedź zaliczona jako błędna");
+}
+function generateCode() {
+    const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    let out = "";
+    for (let i = 0; i < 6; i++) {
+        out += chars[Math.floor(Math.random() * chars.length)];
+    }
+
+    let history = JSON.parse(localStorage.getItem(LS_CODE_HISTORY) || "[]");
+    history.push(out);
+    localStorage.setItem(LS_CODE_HISTORY, JSON.stringify(history));
+
+    return out;
+}
+function startGame() {
+    if (!canPlayNow()) {
+        updateStartScreenControls();
+        return;
+    }
+
+    playClick();
+
+    lastPlayTime = Date.now();
+
+    const today = new Date().toDateString();
+    if (stats.lastPlayDate !== today) {
+        const diff = daysBetween(stats.lastPlayDate, today);
+        if (isNaN(diff) || diff > 1) stats.dayStreak = 1;
+        else stats.dayStreak++;
+
+        stats.lastPlayDate = today;
+        if (stats.dayStreak > stats.bestDayStreak)
+            stats.bestDayStreak = stats.dayStreak;
+    }
+
+    savePersistentState();
+    updateStartScreenControls();
+    updateStreakDisplay();
+
+    sessionMoney = 0;
+    currentIndex = 0;
+    waitingForNext = false;
+    cheatedThisQuestion = false;
+    currentCorrect = 0;
+    currentWrong = 0;
+    currentStreak = 0;
+
+    clearGameState();
+
+    document.getElementById("money-display").innerText = "Zarobione: 0.00 zł";
+    updateMoneyProgress();
+
+    shuffledQuestions = shuffleArray(questionsBase)
+        .slice(0, TOTAL_QUESTIONS);
+
+    showScreen("quiz-screen");
+    loadQuestion();
+
+    stats.totalGames++;
+    savePersistentState();
+}
+function endGame() {
+    clearGameState();
+    playClick();
+
+    walletBalance += sessionMoney;
+
+    if (sessionMoney > bestScore) {
+        bestScore = sessionMoney;
+    }
+
+    stats.totalQuestions += currentIndex;
+    stats.totalCorrect += currentCorrect;
+    stats.totalWrong += currentWrong;
+    stats.totalEarned += sessionMoney;
+
+    savePersistentState();
+    updateWalletDisplay();
+    updateBestDisplays();
+    updateCodeDisplays();
+    updateStreakDisplay();
+
+    showScreen("end-screen");
+
+    document.getElementById("final-money").innerText =
+        "Dzisiaj zarobiłeś: " + sessionMoney.toFixed(2) + " zł";
+
+    const endText = document.getElementById("end-text");
+    const gifEl   = document.getElementById("end-gif");
+
+    if (sessionMoney <= 0) {
+        endText.innerText = "Dziś nic nie zarobiłeś.";
+        gifEl.src = SAD_GIF_URL;
+        playLose();
+    } else {
+        endText.innerText = "Super robota! Uzbierałeś pieniądze!";
+        gifEl.src = HAPPY_GIF_URL;
+        playWin();
+    }
+
+    const val = Math.min(walletBalance, GOAL_MONEY);
+    document.getElementById("end-progress-text").innerText =
+        `${val.toFixed(2)} / ${GOAL_MONEY.toFixed(2)} zł do paczki`;
+}
+window.onload = function() {
+    initSounds();
+    loadPersistentState();
+    tryResumeGame();
+
+    showScreen("start-screen");
+    updateStartScreenControls();
+    startCountdownLoop();
+
+    // PODPIĘCIE KLIKÓW
+    document.querySelectorAll("button").forEach(b=>{
+        b.addEventListener("click", playClick);
+    });
+
+    document.getElementById("start-btn").onclick = () => startGame();
+    document.getElementById("restart-btn").onclick = () => {
+        playClick();
+        showScreen("start-screen");
+        updateStartScreenControls();
+    };
+
+    // odpowiedzi
+    document.getElementById("answer1").onclick = () => handleAnswer(0);
+    document.getElementById("answer2").onclick = () => handleAnswer(1);
+    document.getElementById("answer3").onclick = () => handleAnswer(2);
+
+    document.addEventListener("visibilitychange", () => {
+        if (document.hidden) handleCheat();
+    });
+
+    // PORTFEL POPUP
+    const walletEl = document.getElementById("wallet-display");
+    const popup = document.getElementById("exchange-popup");
+    const cancelBtn = document.getElementById("exchange-cancel");
+    const confirmBtn = document.getElementById("exchange-confirm");
+    const walletCur = document.getElementById("wallet-current");
+    const codesHist = document.getElementById("codes-history");
+
+    walletEl.onclick = () => {
+        playClick();
+        walletCur.innerText = walletBalance.toFixed(2) + " zł";
+
+        let hist = JSON.parse(localStorage.getItem(LS_CODE_HISTORY) || "[]");
+        let txt = "<b>Historia kodów:</b><br>";
+        if (hist.length === 0) txt += "<i>Brak kodów</i>";
+        else txt += hist.map(c => "• " + c).join("<br>");
+
+        codesHist.innerHTML = txt;
+        popup.style.display = "flex";
+    };
+
+    cancelBtn.onclick = () => {
+        playClick();
+        popup.style.display = "none";
+    };
+
+    confirmBtn.onclick = () => {
+        playClick();
+        if (walletBalance < 20) {
+            alert("Masz za mało pieniędzy!");
+            return;
+        }
+
+        walletBalance -= 20;
+        stats.totalSpent += 20;
+
+        lastCode = generateCode();
+
+        savePersistentState();
+        updateWalletDisplay();
+        updateCodeDisplays();
+
+        alert("🔐 Twój nowy tajny kod:\n\n" + lastCode);
+
+        popup.style.display = "none";
+    };
+
+    // STATYSTYKI POPUP
+    const statsPopup = document.getElementById("stats-popup");
+    const statsBox   = document.getElementById("stats-box");
+
+    document.getElementById("stats-btn").onclick = () => {
+        playClick();
+
+        const s = stats;
+        const txt =
+`• Rozegrane gry: <b>${s.totalGames}</b>
+• Poprawne odpowiedzi: <b>${s.totalCorrect}</b>
+• Błędne odpowiedzi: <b>${s.totalWrong}</b>
+• Najlepsza seria poprawnych: <b>${s.bestStreak}</b>
+• Obecna passa dni: <b>${s.dayStreak}</b>
+• Najlepsza passa dni: <b>${s.bestDayStreak}</b>
+• Łącznie zarobione: <b>${s.totalEarned.toFixed(2)} zł</b>
+• Wydane na kody: <b>${s.totalSpent.toFixed(2)} zł</b>`;
+
+        document.getElementById("stats-content").innerHTML =
+            txt.replace(/\n/g,"<br>");
+
+        statsPopup.style.display = "flex";
+    };
+
+    document.getElementById("stats-close").onclick = () => {
+        playClick();
+        statsPopup.style.display = "none";
+    };
+
+    // ADMIN PANEL
+    let adminPressTimer = null;
+    const adminBtn = document.getElementById("admin-secret");
+
+    function showAdminPanel() {
+        const lc = localStorage.getItem(LS_LAST_CODE) || "(brak kodu)";
+        const hist = JSON.parse(localStorage.getItem(LS_CODE_HISTORY) || "[]");
+        const histTxt = hist.length ? hist.join(", ") : "(brak kodów)";
+
+        alert(
+            "🔐 ADMIN PANEL\n\n" +
+            "Ostatni kod: " + lc +
+            "\n\nHistoria kodów:\n" + histTxt
+        );
+    }
+
+    adminBtn.addEventListener("mousedown", () => {
+        adminPressTimer = setTimeout(showAdminPanel, 2000);
+    });
+    adminBtn.addEventListener("mouseup", () => clearTimeout(adminPressTimer));
+    adminBtn.addEventListener("touchstart", () => {
+        adminPressTimer = setTimeout(showAdminPanel, 2000);
+    });
+    adminBtn.addEventListener("touchend", () => clearTimeout(adminPressTimer));
+};
+</script>
+
+</body>
+</html>
