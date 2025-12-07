@@ -682,7 +682,7 @@
         <div id="question-text">Treść pytania...</div>
 
         <!-- AI Button -->
-        <button id="ask-ai-btn" class="big-btn">✨ Zapytaj AI (Darmowe 1x)</button>
+        <button id="ask-ai-btn" class="big-btn">✨ Zapytaj AI</button>
 
         <button id="answer1" class="big-btn answer-btn">Odp A</button>
         <button id="answer2" class="big-btn answer-btn">Odp B</button>
@@ -831,7 +831,7 @@ const QUESTIONS = [
     { q: "Jak nazywa się ta broń?", a: ["Guardan", "Gardan", "Guardian"], correct: 2, mediaType: "image", mediaUrl: "images/bron_z_valo.jpg" },
     { q: "Co przeskrobał Iso?", a: ["Nie dał ci skina", "Zwyzywał cię po rusku", "Pokazał ci siura"], correct: 1, mediaType: "video", mediaUrl: "videos/iso.mp4" },
     { q: "Przed czym chroni ta ściana?", a: ["Przez najazdem przeciwników na B", "Przed niczym", "Przed granatami"], correct: 1, mediaType: "video", mediaUrl: "videos/sciana.mp4" },
-    { q: "Co powie zaraz Tomek?", a: ["Sage please fuck my ass", "Sage give me ass", "Sage can i eat your ass"], correct: 1, mediaType: "videoCut", mediaUrlShort: "videos/ass_cut.mp4", mediaUrlFull:  "videos/ass.mp4", mediaStart: 12 },
+    { q: "Co następnie powiedział Tomek?", a: ["Ale masz seksi dupcie", "Dzięki kochana", "Good girl"], correct: 2, mediaType: "videoCut", mediaUrlShort: "videos/good_cut.mp4", mediaUrlFull:  "videos/good.mp4", mediaStart: 24 },
     { q: "Gdzie Tomek próbuje się dodzwonić?", a: ["Umówić na seks", "Do lokalnego burdelu", "Do serduszka Amelki"], correct: 2, mediaType: "videoCut", mediaUrlShort: "videos/dzwoni_cut.mp4", mediaUrlFull:  "videos/dzwoni.mp4", mediaStart: 13 },
     { q: "Którego dnia była ci pisana śmierć przez chorobę?", a: ["29 październik", "4 listopada", "31 września"], correct: 0 },
     { q: "Ile złotych zaoszczędziłeś crackując Train Sim World 6?", a: ["6 499.49 zł", "459.99 zł", "16 474.90 zł"], correct: 2 },
@@ -839,7 +839,7 @@ const QUESTIONS = [
     { q: "Do kogo napisałeś tę wiadomość?", a: ["Do Martyny", "Do dziwki", "Do Amelki"], correct: 2, mediaType: "image", mediaUrl: "images/dojenie.jpg" },
     { q: "Dlaczego niuna płakała na live?", a: ["Bo chłopak z nią zerwał", "Bo Tomek nie chciał jej wyruchać", "Bo spłonął McDonald's"], correct: 2 },
     { q: "Jaki kształt ma penis kaczora?", a: ["Podłużny", "Spiralny", "Trójkątny"], correct: 1 },
-    { q: "Jaki jes wzór na deltę?", a: ["b^2 - 4ac", "a^2 + b^2 = c^2", "e = mc^2"], correct: 0 },
+    { q: "Jaki jest wzór na deltę?", a: ["b^2 - 4ac", "a^2 + b^2 = c^2", "e = mc^2"], correct: 0 },
     { q: "Co robi Tomek gdy skończą się fajki?", a: ["Kupuje nową paczkę w sklepie", "Robi loda w krzakach", "Idzie żebrać na ulicę"], correct: 2 },
     { q: "Jak ma na imię ta ryba?", a: ["Pusia", "Ryba bananowa", "Tomek"], correct: 2, mediaType: "image", mediaUrl: "images/ryba.jpg" },
     { q: "Co to za budynek?", a: ["Burning Towers", "World Trade Center", "Tilted Towers"], correct: 1, mediaType: "image", mediaUrl: "images/budynek.jpg" },
@@ -850,9 +850,11 @@ const QUESTIONS = [
     { q: "Gdzie znajduje się ten monumentalny pomnik Jezusa Chrystusa?", a: ["W Rio De Janeiro", "W Gdańsku", "W Świebodzinie"], correct: 2, mediaType: "image", mediaUrl: "images/pomnik.jpg" },
     { q: "Co stało się dalej?", a: ["Amelka chrumknęła", "Tomek zaczął jęczeć", "Tomek zaczął śpiewać piosenkę Zombie"], correct: 1, mediaType: "videoCut", mediaUrlShort: "videos/chrumknij_cut.mp4", mediaUrlFull:  "videos/chrumknij.mp4", mediaStart: 13 },
     { q: "Gdzie zostałeś zamknięty?", a: ["W ulcie", "W piwnicy", "W ciemnicy"], correct: 2, mediaType: "videoCut", mediaUrlShort: "videos/ciemnica_cut.mp4", mediaUrlFull:  "videos/ciemnica.mp4", mediaStart: 4 },
-    { q: "Co następnie powiedział Tomek?", a: ["Ale masz seksi dupcie", "Dzięki kochana", "Good girl"], correct: 2, mediaType: "videoCut", mediaUrlShort: "videos/good_cut.mp4", mediaUrlFull:  "videos/good.mp4", mediaStart: 24 }
+    { q: "Co powie zaraz Tomek?", a: ["Sage please fuck my ass", "Sage give me ass", "Sage can i eat your ass"], correct: 1, mediaType: "videoCut", mediaUrlShort: "videos/ass_cut.mp4", mediaUrlFull:  "videos/ass.mp4", mediaStart: 12 },
 
 ];
+console.log("LICZBA PYTAŃ:", QUESTIONS.length);
+console.log("OSTATNIE PYTANIE:", QUESTIONS[QUESTIONS.length - 1]);
 
 // Zmienne Globalne
 let gameState = {
@@ -1251,7 +1253,7 @@ function loadQuestion() {
     
     // AI Btn logic
     const aiBtn = document.getElementById("ask-ai-btn");
-    aiBtn.innerText = currentSession.aiUsed ? "✨ Wykorzystano" : "✨ Zapytaj AI (Darmowe)";
+    aiBtn.innerText = currentSession.aiUsed ? "✨ Wykorzystano" : "✨ Zapytaj AI";
     aiBtn.disabled = currentSession.aiUsed;
     aiBtn.onclick = handleAI;
 
@@ -1485,7 +1487,7 @@ async function handleAI() {
     } else {
         showToast("Błąd AI. Spróbuj ponownie.", "error");
         btn.disabled = false;
-        btn.innerText = "✨ Zapytaj AI (Darmowe 1x)";
+        btn.innerText = "✨ Zapytaj AI";
     }
 }
 
@@ -1572,8 +1574,20 @@ function showFloatingMoney(amount) {
     setTimeout(() => el.remove(), 1000);
 }
 
-function shuffle(arr) {
-    return arr.sort(() => Math.random() - 0.5);
+function shuffle(array) {
+    let currentIndex = array.length, randomIndex;
+
+    while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        // Zamiana elementów
+        [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]
+        ];
+    }
+
+    return array;
 }
 
 function playSound(type) {
