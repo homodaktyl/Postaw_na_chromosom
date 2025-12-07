@@ -336,7 +336,7 @@
         position: relative;
         background: var(--container-bg);
         /* Zwiększony padding i max-width */
-        padding: 80px 40px 40px; 
+        padding: 75px 40px 40px; 
         border-radius: 20px;
         box-shadow: 0 10px 40px rgba(0,0,0,0.2);
         width: 100%;
@@ -814,9 +814,9 @@ const THEMES = [
     { id: 'gold', name: 'Złoty', price: 5, icon: '🏆' },
     { id: 'hacker', name: 'Hacker', price: 10, icon: '💻' },
     { id: 'neon', name: 'Neon', price: 8, icon: '🟣' },
-    { id: 'ocean', name: 'Ocean (ulepszony)', price: 6, icon: '🌊' },
-    { id: 'retro', name: 'Retro (ulepszony)', price: 7, icon: '📺' },
-    { id: 'cosmos', name: 'Kosmos (NOWY!)', price: 15, icon: '🌌' },
+    { id: 'ocean', name: 'Ocean', price: 6, icon: '🌊' },
+    { id: 'retro', name: 'Retro', price: 7, icon: '📺' },
+    { id: 'cosmos', name: 'Kosmos', price: 15, icon: '🌌' },
     { id: 'blossom', name: 'Kwitnąca Wiśnia', price: 9, icon: '🌸' },
     { id: 'christmas', name: 'Boże Narodzenie', price: 5, icon: '🎄' },
     { id: 'valentines', name: 'Walentynki', price: 5, icon: '💖' },
@@ -831,14 +831,14 @@ const QUESTIONS = [
     { q: "Jak nazywa się ta broń?", a: ["Guardan", "Gardan", "Guardian"], correct: 2, mediaType: "image", mediaUrl: "images/bron_z_valo.jpg" },
     { q: "Co przeskrobał Iso?", a: ["Nie dał ci skina", "Zwyzywał cię po rusku", "Pokazał ci siura"], correct: 1, mediaType: "video", mediaUrl: "videos/iso.mp4" },
     { q: "Przed czym chroni ta ściana?", a: ["Przez najazdem przeciwników na B", "Przed niczym", "Przed granatami"], correct: 1, mediaType: "video", mediaUrl: "videos/sciana.mp4" },
-    { q: "Co powie zaraz Tomek?", a: ["Sage please fuck my ass", "Sage give me ass", "Sage can i eat your ass"], correct: 1, mediaType: "videoCut", mediaUrlShort: "videos/ass_cut.mp4", mediaUrlFull:  "videos/ass.mp4" },
-    { q: "Gdzie Tomek próbuje się dodzwonić?", a: ["Umówić na seks", "Do lokalnego burdelu", "Do serduszka Amelki"], correct: 2, mediaType: "videoCut", mediaUrlShort: "videos/dzwoni_cut.mp4", mediaUrlFull:  "videos/dzwoni.mp4" },
+    { q: "Co powie zaraz Tomek?", a: ["Sage please fuck my ass", "Sage give me ass", "Sage can i eat your ass"], correct: 1, mediaType: "videoCut", mediaUrlShort: "videos/ass_cut.mp4", mediaUrlFull:  "videos/ass.mp4", mediaStart: 12 },
+    { q: "Gdzie Tomek próbuje się dodzwonić?", a: ["Umówić na seks", "Do lokalnego burdelu", "Do serduszka Amelki"], correct: 2, mediaType: "videoCut", mediaUrlShort: "videos/dzwoni_cut.mp4", mediaUrlFull:  "videos/dzwoni.mp4", mediaStart: 13 },
     { q: "Którego dnia była ci pisana śmierć przez chorobę?", a: ["29 październik", "4 listopada", "31 września"], correct: 0 },
     { q: "Ile złotych zaoszczędziłeś crackując Train Sim World 6?", a: ["6 499.49 zł", "459.99 zł", "16 474.90 zł"], correct: 2 },
-    { q: "Jaka waluta obowiązuje na yubo?", a: ["ruble", "pixelki", "coinsy"], correct: 1 },
-    { q: "Do kogo napisałeś tę wiadomość?", a: ["do Martyny", "do dziwki", "do Amelki"], correct: 2, mediaType: "image", mediaUrl: "images/dojenie.jpg" },
-    { q: "Dlaczego niuna płakała na live?", a: ["bo chłopak z nią zerwał", "bo Tomek nie chciał jej wyruchać", "bo spłonął McDonald's"], correct: 2 },
-    { q: "Jaki kształt ma penis kaczora?", a: ["podłużny", "spiralny", "trójkątny"], correct: 1 },
+    { q: "Jaka waluta obowiązuje na yubo?", a: ["Ruble", "Pixelki", "Coinsy"], correct: 1 },
+    { q: "Do kogo napisałeś tę wiadomość?", a: ["Do Martyny", "Do dziwki", "Do Amelki"], correct: 2, mediaType: "image", mediaUrl: "images/dojenie.jpg" },
+    { q: "Dlaczego niuna płakała na live?", a: ["Bo chłopak z nią zerwał", "Bo Tomek nie chciał jej wyruchać", "Bo spłonął McDonald's"], correct: 2 },
+    { q: "Jaki kształt ma penis kaczora?", a: ["Podłużny", "Spiralny", "Trójkątny"], correct: 1 },
     { q: "Jaki jes wzór na deltę?", a: ["b^2 - 4ac", "a^2 + b^2 = c^2", "e = mc^2"], correct: 0 },
     { q: "Co robi Tomek gdy skończą się fajki?", a: ["Kupuje nową paczkę w sklepie", "Robi loda w krzakach", "Idzie żebrać na ulicę"], correct: 2 },
     { q: "Jak ma na imię ta ryba?", a: ["Pusia", "Ryba bananowa", "Tomek"], correct: 2, mediaType: "image", mediaUrl: "images/ryba.jpg" },
@@ -848,6 +848,9 @@ const QUESTIONS = [
     { q: "Jak nazywa się ten przystojniak?", a: ["Feniks", "Brimstone", "Tejo"], correct: 2, mediaType: "image", mediaUrl: "images/valo.jpg" },
     { q: "Co palisz na tym filmiku?", a: ["Malboraska", "Kenta", "Winstona"], correct: 1, mediaType: "video", mediaUrl: "videos/tomek.mp4" },
     { q: "Gdzie znajduje się ten monumentalny pomnik Jezusa Chrystusa?", a: ["W Rio De Janeiro", "W Gdańsku", "W Świebodzinie"], correct: 2, mediaType: "image", mediaUrl: "images/pomnik.jpg" },
+    { q: "Co stało się dalej?", a: ["Amelka chrumknęła", "Tomek zaczął jęczeć", "Tomek zaczął śpiewać piosenkę Zombie"], correct: 1, mediaType: "videoCut", mediaUrlShort: "videos/chrumknij_cut.mp4", mediaUrlFull:  "videos/chrumknij.mp4", mediaStart: 13 },
+    { q: "Gdzie zostałeś zamknięty?", a: ["W ulcie", "W piwnicy", "W ciemnicy"], correct: 2, mediaType: "videoCut", mediaUrlShort: "videos/ciemnica_cut.mp4", mediaUrlFull:  "videos/ciemnica.mp4", mediaStart: 4 },
+    { q: "Co następnie powiedział Tomek?", a: ["Ale masz seksi dupcie", "Dzięki kochana", "Good girl"], correct: 2, mediaType: "videoCut", mediaUrlShort: "videos/good_cut.mp4", mediaUrlFull:  "videos/good.mp4", mediaStart: 24 }
 
 ];
 
@@ -867,7 +870,8 @@ let currentSession = {
     index: 0,
     money: 0,
     correct: 0,
-    aiUsed: false
+    aiUsed: false,
+    finished: false // FIX: Add finished flag to prevent double rewards
 };
 
 let timerId = null;
@@ -1168,7 +1172,8 @@ function startGame() {
         index: 0,
         money: 0,
         correct: 0,
-        aiUsed: false
+        aiUsed: false,
+        finished: false // FIX: Initialize finished state
     };
     
     cheatWarningsTotal = 0; // Reset ostrzeżeń na nową grę
@@ -1180,6 +1185,54 @@ function startGame() {
     showScreen('quiz-screen');
     loadQuestion();
     playSound('click');
+
+    // --- LOGIKA DAILY STREAK (PRZENIESIONA) ---
+    // Pobranie dzisiejszej daty (jako data kalendarzowa, ignoruje godzinę)
+    // UWAGA: Logika ta działa przy Uruchomieniu Gry, co jest zgodne z 24h timerem.
+    const today = new Date().toDateString();
+    
+    // Jeśli to pierwsza gra w ogóle
+    if (!gameState.stats.streakDate) {
+        gameState.stats.streakDate = today;
+        gameState.stats.streak = 1;
+        saveData();
+    } else if (gameState.stats.streakDate !== today) {
+        // Jeśli data ostatniej gry jest inna niż dzisiaj
+        const lastPlay = new Date(gameState.stats.streakDate);
+        const now = new Date(today);
+        
+        // Oblicz różnicę w dniach kalendarzowych
+        const diffTime = Math.abs(now - lastPlay);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+        
+        // Logika 24h-48h okna czasowego (bazując na dniach kalendarzowych)
+        // Jeśli diffDays == 1, to znaczy że grałeś wczoraj -> streak++
+        // Jeśli diffDays > 1, to znaczy że była przerwa > 1 dzień -> reset
+        
+        if (diffDays === 1) {
+            // Grał wczoraj -> zwiększamy streak
+            gameState.stats.streak++;
+            
+            // Bonus za streak
+            let bonus = 0;
+            if (gameState.stats.streak <= 9) bonus = 0.10;
+            else bonus = 0.20;
+            
+            if (bonus > 0) {
+                gameState.wallet += bonus;
+                gameState.stats.earned += bonus;
+                showToast(`🔥 Streak Bonus: +${bonus.toFixed(2)} zł`, "success");
+            }
+        } else {
+            // Przerwa dłuższa niż 1 dzień -> reset streaka
+            gameState.stats.streak = 0;
+        }
+        
+        // Zaktualizuj datę ostatniej gry na dzisiaj
+        gameState.stats.streakDate = today;
+        saveData();
+        updateUI(); // Odśwież UI po bonusie
+    }
 }
 
 function loadQuestion() {
@@ -1291,18 +1344,34 @@ function processAnswer(isCorrect, msgOverride) {
     
     document.getElementById("money-display").innerText = "Zarobione: " + currentSession.money.toFixed(2) + " zł";
 
-    // VideoCut logic (pokaż pełne video po odpowiedzi)
+    // VideoCut logic
     const q = currentSession.questions[currentSession.index];
     if(q.mediaType === 'videoCut') {
         const mDiv = document.getElementById("media");
         mDiv.innerHTML = "";
         const v = document.createElement("video");
         v.src = q.mediaUrlFull;
-        v.controls = true; v.autoplay = true;
+        v.controls = true; 
+        
+        // FIX: Start from specified time or default 12s
+        v.addEventListener('loadedmetadata', function() {
+            this.currentTime = q.mediaStart !== undefined ? q.mediaStart : 12;
+            this.play();
+        });
+        
         mDiv.appendChild(v);
-        v.onended = nextQ;
+        
+        // FIX: Prevent double execution using local flag
+        let transitionHandled = false;
+        const doTransition = () => {
+            if(transitionHandled) return;
+            transitionHandled = true;
+            nextQ();
+        };
+
+        v.onended = doTransition;
         // Fallback jeśli video nie ruszy
-        setTimeout(nextQ, 8000);
+        setTimeout(doTransition, 15000); 
     } else {
         setTimeout(nextQ, 1500);
     }
@@ -1314,6 +1383,10 @@ function nextQ() {
 }
 
 function endGame() {
+    // FIX: Check if already finished to prevent double rewards
+    if(currentSession.finished) return;
+    currentSession.finished = true;
+
     gameState.wallet += currentSession.money;
     gameState.stats.earned += currentSession.money;
     if(currentSession.money > gameState.bestScore) gameState.bestScore = currentSession.money;
@@ -1651,50 +1724,6 @@ window.onload = function() {
         showToast("Dodano 20 zł do portfela", "success");
     };
 
-    // --- LOGIKA DAILY STREAK (NAPRAWIONA) ---
-    // Pobranie dzisiejszej daty
-    const today = new Date().toDateString();
-    
-    // Jeśli to pierwsze uruchomienie w ogóle
-    if (!gameState.stats.streakDate) {
-        gameState.stats.streakDate = today;
-        gameState.stats.streak = 1;
-        saveData();
-    } else if (gameState.stats.streakDate !== today) {
-        // Jeśli data ostatniej gry jest inna niż dzisiaj
-        const lastPlay = new Date(gameState.stats.streakDate);
-        const now = new Date(today);
-        
-        // Oblicz różnicę w dniach
-        const diffTime = Math.abs(now - lastPlay);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-        
-        if (diffDays === 1) {
-            // Grał wczoraj -> zwiększamy streak
-            gameState.stats.streak++;
-            
-            // Bonus za streak
-            let bonus = 0;
-            if (gameState.stats.streak <= 9) bonus = 0.10;
-            else bonus = 0.20;
-            
-            if (bonus > 0) {
-                gameState.wallet += bonus;
-                gameState.stats.earned += bonus;
-                showToast(`🔥 Streak Bonus: +${bonus.toFixed(2)} zł`, "success");
-            }
-        } else {
-            // Przerwa dłuższa niż 1 dzień -> reset streaka
-            gameState.stats.streak = 1;
-        }
-        
-        // Zaktualizuj datę ostatniej gry na dzisiaj
-        gameState.stats.streakDate = today;
-        saveData();
-    }
-    
-    updateUI();
-    
     // --- ANTY-CHEAT (NOWOŚĆ) ---
     document.addEventListener("visibilitychange", () => {
         const quizActive = document.getElementById("quiz-screen").style.display === "block";
