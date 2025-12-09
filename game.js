@@ -1049,65 +1049,78 @@ window.onload = function() {
     
     // Timery
     setInterval(() => checkTimeLimit(), 1000);
-    setInterval(() => checkSurvivalLimit(), 1000);
-
-    // Globalny licznik czasu gry (do osiągnięcia Fan)
     setInterval(() => {
         if (!document.hidden) {
             gameState.stats.totalPlayTime = (gameState.stats.totalPlayTime || 0) + 1;
             if (gameState.stats.totalPlayTime % 60 === 0) checkAchievements();
         }
     }, 1000); 
+    setInterval(() => checkSurvivalLimit(), 1000);
 
     // --- PRZYCISKI GŁÓWNE ---
     const startBtn = document.getElementById("start-btn"); 
-    if(startBtn) startBtn.onclick = startGame;
-    
+    if(startBtn) startBtn.onclick = () => { playSound('click'); startGame(); };
+
     const survivalBtn = document.getElementById("survival-btn"); 
-    if(survivalBtn) survivalBtn.onclick = startSurvival;
+    if(survivalBtn) survivalBtn.onclick = () => { playSound('click'); startSurvival(); };
 
     const shopBtn = document.getElementById("shop-btn"); 
-    if(shopBtn) shopBtn.onclick = openShop;
+    if(shopBtn) shopBtn.onclick = () => { playSound('click'); openShop(); };
     
     const powerupShopBtn = document.getElementById("powerup-shop-btn"); 
-    if(powerupShopBtn) powerupShopBtn.onclick = () => { 
-        playSound('click'); 
-        openPowerUpShop(); 
-    }; 
+    if(powerupShopBtn) powerupShopBtn.onclick = () => { playSound('click'); openPowerUpShop(); }; 
     
     const achieBtn = document.getElementById("achievements-btn"); 
-    if(achieBtn) achieBtn.onclick = openAchievements;
+    if(achieBtn) achieBtn.onclick = () => { playSound('click'); openAchievements(); };
 
-    // --- PRZYCISKI UI ---
-    const restartBtn = document.getElementById("restart-btn"); 
-    if(restartBtn) restartBtn.onclick = () => { showScreen('start-screen'); playSound('click'); };
-    
-    // --- OBSŁUGA SUWAKA GŁOŚNOŚCI ---
+    // --- USTAWIENIA (NOWE) ---
+    const settingsBtn = document.getElementById("settings-btn");
+    if(settingsBtn) settingsBtn.onclick = () => {
+        playSound('click');
+        document.getElementById("settings-popup").style.display = "flex";
+    };
+
+    // Obsługa suwaka w ustawieniach
     const volSlider = document.getElementById("volume-slider");
     const volIcon = document.getElementById("volume-icon");
-    
     if(volSlider) {
-        // Ustawienie początkowe
         volSlider.value = globalVolume;
-        
-        // Zdarzenie zmiany głośności
         volSlider.oninput = function() {
             globalVolume = parseFloat(this.value);
-            
-            // Zmiana ikony zależnie od głośności
             if(globalVolume === 0) volIcon.innerText = "🔇";
             else if(globalVolume < 0.5) volIcon.innerText = "🔉";
             else volIcon.innerText = "🔊";
         };
     }
     
+    // Przycisk Statystyk (Teraz w ustawieniach)
+    const statsBtn = document.getElementById("stats-btn"); 
+    if(statsBtn) statsBtn.onclick = () => { 
+        const s = gameState.stats; 
+        document.getElementById("stats-content").innerHTML = `
+            Gier: <b>${s.games}</b><br>
+            Poprawne: <b style="color:green">${s.correct}</b><br>
+            Błędne: <b style="color:red">${s.wrong}</b><br>
+            Zarobione łącznie: <b>${s.earned.toFixed(2)} zł</b><br>
+            Wydane w sklepie: <b>${s.spent.toFixed(2)} zł</b>
+        `; 
+        // Zamykamy ustawienia, otwieramy statystyki
+        document.getElementById("settings-popup").style.display = "none";
+        document.getElementById("stats-popup").style.display = "flex"; 
+        playSound('click'); 
+    };
+
+    // --- INNE ---
+    const restartBtn = document.getElementById("restart-btn"); 
+    if(restartBtn) restartBtn.onclick = () => { showScreen('start-screen'); playSound('click'); };
+    
     const walletDisplay = document.getElementById("wallet-display"); 
     if(walletDisplay) walletDisplay.onclick = () => { 
+        playSound('click');
         document.getElementById("exchange-wallet").innerText = gameState.wallet.toFixed(2) + " zł"; 
         const h = document.getElementById("codes-history"); 
         h.innerHTML = gameState.codesHistory.map(c => `<div>${c}</div>`).join("") || "Brak kodów"; 
         document.getElementById("exchange-popup").style.display = "flex"; 
-        playSound('click'); 
     };
     
     // --- PANEL ADMINA ---
@@ -1140,7 +1153,6 @@ window.onload = function() {
         }
     };
 
-    // NOWE: Przycisk Odblokuj Survival (Admin)
     const adminUnlockSurv = document.getElementById("admin-unlock-survival");
     if(adminUnlockSurv) adminUnlockSurv.onclick = () => {
         if(!gameState.claimedAchievements.includes('fan')) {
@@ -1153,14 +1165,13 @@ window.onload = function() {
         }
     };
 
-    // ZAKTUALIZOWANE: Reset Czasu (Resetuje też survival)
     const adminReset = document.getElementById("admin-reset-time"); 
     if(adminReset) adminReset.onclick = () => { 
         gameState.lastPlayTime = 0; 
-        gameState.lastSurvivalTime = 0; // Reset Survivalu
+        gameState.lastSurvivalTime = 0; 
         saveData(); 
         checkTimeLimit(); 
-        checkSurvivalLimit(); // Odśwież widok survivalu
+        checkSurvivalLimit(); 
         showToast("Zresetowano wszystkie czasy!", "success"); 
     };
 
@@ -1171,7 +1182,6 @@ window.onload = function() {
         showToast("Dodano 20 zł", "success"); 
     };
     
-    // --- SKLEP Z KODAMI ---
     const buyCodeBtn = document.getElementById("buy-code-btn"); 
     if(buyCodeBtn) buyCodeBtn.onclick = () => { 
         if(gameState.wallet >= 20) { 
@@ -1192,20 +1202,6 @@ window.onload = function() {
             showToast("Brak kasy!", "error"); 
             playSound('wrong'); 
         } 
-    };
-
-    const statsBtn = document.getElementById("stats-btn"); 
-    if(statsBtn) statsBtn.onclick = () => { 
-        const s = gameState.stats; 
-        document.getElementById("stats-content").innerHTML = `
-            Gier: <b>${s.games}</b><br>
-            Poprawne: <b style="color:green">${s.correct}</b><br>
-            Błędne: <b style="color:red">${s.wrong}</b><br>
-            Zarobione łącznie: <b>${s.earned.toFixed(2)} zł</b><br>
-            Wydane w sklepie: <b>${s.spent.toFixed(2)} zł</b>
-        `; 
-        document.getElementById("stats-popup").style.display = "flex"; 
-        playSound('click'); 
     };
     
     // Anty-cheat

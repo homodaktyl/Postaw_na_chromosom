@@ -1688,20 +1688,23 @@ body.theme-casino .big-btn:active::after {
 
     /* ================== GLOBALNE STYLE (POPRAWIONE) ================== */
     body {
-        font-family: var(--font-main); /* Używa dynamicznej czcionki */
+        font-family: var(--font-main);
         background: var(--bg-color);
         color: var(--text-color);
         margin: 0;
         padding: 0;
         display: flex;
         justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        transition: background 0.4s ease, color 0.4s ease, filter 0.4s;
-        overflow-x: hidden;
-    }
+        align-items: center; /* Centrowanie */
+        min-height: 100vh; /* Minimalna wysokość to cały ekran */
+        transition: background 0.4s ease, color 0.4s ease;
+    
+        /* NAPRAWA PRZEWIJANIA: */
+        overflow-x: hidden; /* Ukryj pasek poziomy (od animacji) */
+        overflow-y: auto;   /* POKAŻ pasek pionowy, jeśli strona jest za długa */
+}
 
-    .container {
+.container {
         position: relative;
         background: var(--container-bg);
         /* Zwiększony padding i max-width */
@@ -1711,8 +1714,13 @@ body.theme-casino .big-btn:active::after {
         width: 100%;
         max-width: 640px; /* Szersza ramka */
         text-align: center;
-        overflow: hidden;
-        margin: 15px;
+        
+        /* ZMIANA: overflow visible, żeby nie ucinało cieni ani treści */
+        overflow: visible; 
+        
+        /* ZMIANA: Margines 40px góra/dół, 15px boki */
+        margin: 40px 15px;
+        
         transition: background 0.4s ease, box-shadow 0.4s ease, border 0.4s;
         border: 2px solid var(--border-color);
         z-index: 10;
@@ -1824,14 +1832,15 @@ body.theme-casino .big-btn:active::after {
 
 /* W pliku style.css */
 
-#sound-toggle {
+/* Przycisk Ustawień (Zębatka) */
+#settings-btn {
     position: absolute;
     top: 15px;
     left: 15px;
     
     width: 44px;
     height: 44px;
-    font-size: 22px;
+    font-size: 24px;
     
     background: rgba(0, 0, 0, 0.75);
     color: #ffffff;
@@ -1846,53 +1855,38 @@ body.theme-casino .big-btn:active::after {
     z-index: 2000;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     transition: transform 0.2s, background 0.2s;
-
-    /* === TA LINIJKA NAPRAWIA BŁĄD === */
-    user-select: none;          /* Standard */
-    -webkit-user-select: none;  /* Safari / Chrome */
-    -moz-user-select: none;     /* Firefox */
+    user-select: none;
 }
 
-/* Pasek głośności (Suwak) */
-#volume-control {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    
-    background: rgba(0, 0, 0, 0.75);
-    padding: 8px 15px;
-    border-radius: 25px;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    z-index: 2000;
+#settings-btn:hover {
+    transform: scale(1.1) rotate(90deg); /* Obraca się przy najechaniu! */
+    background: rgba(0, 0, 0, 0.9);
+    border-color: #fff;
 }
 
+/* Ikona głośnika w popupie */
 #volume-icon {
-    font-size: 20px;
-    color: #fff;
+    font-size: 24px;
+    color: var(--text-color);
     cursor: default;
     user-select: none;
 }
 
-/* Stylizacja samego suwaka */
+/* Stylizacja suwaka (Teraz wewnątrz panelu, więc usuwamy position:absolute) */
 #volume-slider {
-    -webkit-appearance: none; /* Reset stylu przeglądarki */
-    width: 100px;
-    height: 6px;
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
     background: #555;
     border-radius: 5px;
     outline: none;
     cursor: pointer;
 }
 
-/* Uchwyt suwaka (Kropka) */
 #volume-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     background: #ffffff;
     border: 2px solid #ccc;
@@ -1902,10 +1896,8 @@ body.theme-casino .big-btn:active::after {
 
 #volume-slider::-webkit-slider-thumb:hover {
     transform: scale(1.2);
-    background: #4da6ff; /* Niebieski po najechaniu */
+    background: #4da6ff;
 }
-    #sound-toggle:hover { opacity: 1; transform: scale(1.1); }
-
     #timer-bar-container {
         width: 100%;
         height: 10px;
@@ -2557,4 +2549,26 @@ body.theme-valentines .big-btn:hover {
 @keyframes popBounce {
     from { transform: scale(1); }
     to { transform: scale(1.2); }
+}
+
+/* === OPTYMALIZACJA MOBILNA === */
+@media (max-width: 600px) {
+    .container {
+        padding: 60px 20px 30px; /* Mniejsze odstępy wewnątrz */
+        margin: 20px 10px;       /* Mniejsze marginesy na zewnątrz */
+        width: 90%;              /* Lekki luz po bokach */
+    }
+    
+    h1 {
+        font-size: 24px; /* Mniejszy tytuł */
+    }
+    
+    .big-btn {
+        padding: 15px;   /* Mniejsze przyciski */
+        font-size: 16px;
+    }
+    
+    #question-text {
+        font-size: 20px; /* Mniejsza czcionka pytania */
+    }
 }

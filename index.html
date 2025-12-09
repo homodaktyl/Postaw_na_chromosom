@@ -13,6 +13,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -22,10 +24,8 @@
 <div id="theme-effects"></div>
 
 <div class="container">
-    <div id="volume-control">
-        <span id="volume-icon">🔊</span>
-        <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="0.5">
-    </div>
+    <div id="settings-btn">⚙️</div>
+    
     <div id="wallet-display">Portfel: 0.00 zł</div>
 
     <div id="start-screen">
@@ -51,17 +51,16 @@
         <button id="powerup-shop-btn" class="big-btn" style="background:#8e44ad; margin-bottom: 10px;" data-text="⚡ Sklep z Mocami">⚡ Sklep z Mocami</button>
         
         <div style="display:flex; gap:10px;">
-            <button id="stats-btn" class="big-btn" style="background:#7f8c8d; flex:1;" data-text="Statystyki">Statystyki</button>
             <button id="achievements-btn" class="big-btn" style="background:#e67e22; flex:1;" data-text="🏆 Osiągnięcia">🏆 Osiągnięcia</button>
             <button id="shop-btn" class="big-btn" style="background:#f39c12; flex:1;" data-text="🛍️ Motywy">🛍️ Motywy</button>
         </div>
-
-	<div style="margin-top: 15px; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 15px;">
+        
+        <div style="margin-top: 15px; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 15px;">
             <div style="display:flex; gap:10px; align-items: center;">
-                <button id="survival-btn" class="big-btn" style="background:#c0392b; flex:1; font-family:'Orbitron', sans-serif;" data-text="💀 TRYB PRZETRWANIA">💀 TRYB PRZETRWANIA</button>
+                <button id="survival-btn" class="big-btn" style="background:#c0392b; flex:1; font-family:'Orbitron', sans-serif;" data-text="💀 PRZETRWANIE">💀 PRZETRWANIE</button>
                 <button onclick="playSound('click'); document.getElementById('survival-info-popup').style.display='flex'" class="big-btn" style="background:#7f8c8d; width:50px; height:50px; padding:0; display:flex; justify-content:center; align-items:center; font-size:24px; flex: 0 0 auto;" data-text="ℹ️">ℹ️</button>
             </div>
-            <div id="survival-timer" style="font-size:11px; color:#e74c3c; margin-top:5px; height:15px;"></div>
+            <div id="survival-timer" style="font-size:11px; color:#e74c3c; margin-top:5px; min-height:15px;"></div>
         </div>
         
         <p style="font-size:12px; opacity:0.6; margin-top:15px;">Limit: 5 pytań na 24h</p>
@@ -87,12 +86,10 @@
         <button id="answer1" class="big-btn answer-btn" data-text="Odp A">Odp A</button>
         <button id="answer2" class="big-btn answer-btn" data-text="Odp B">Odp B</button>
         <button id="answer3" class="big-btn answer-btn" data-text="Odp C">Odp C</button>
-	<button id="answer4" class="big-btn answer-btn" data-text="Odp D">Odp D</button>
+        <button id="answer4" class="big-btn answer-btn" data-text="Odp D">Odp D</button>
 
         <div id="money-display">Zarobione: 0.00 zł</div>
         <div id="message" style="height:20px; margin-top:10px; font-weight:bold;"></div>
-        
-        <div id="active-powerups-bar" style="display:none;"></div>
     </div>
 
     <div id="end-screen">
@@ -110,6 +107,24 @@
     </div>
 </div>
 
+<div id="settings-popup" class="popup-overlay">
+    <div class="popup-content">
+        <h2>⚙️ Ustawienia</h2>
+        
+        <div style="margin: 20px 0; background: rgba(0,0,0,0.05); padding: 15px; border-radius: 10px;">
+            <p style="margin: 0 0 10px 0; font-weight:bold;">Głośność:</p>
+            <div id="volume-control-panel" style="display:flex; align-items:center; justify-content:center; gap:10px;">
+                <span id="volume-icon">🔊</span>
+                <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="0.5" style="width:100%;">
+            </div>
+        </div>
+
+        <button id="stats-btn" class="big-btn" style="background:#7f8c8d; margin-bottom:10px;" data-text="📊 Statystyki">📊 Statystyki</button>
+        
+        <button onclick="closePopup('settings-popup')" class="big-btn" style="background:#95a5a6;" data-text="Zamknij">Zamknij</button>
+    </div>
+</div>
+
 <div id="shop-popup" class="popup-overlay">
     <div class="popup-content">
         <h2>🛍️ Sklep z Motywami</h2>
@@ -119,17 +134,34 @@
     </div>
 </div>
 
+<div id="powerup-shop-popup" class="popup-overlay">
+    <div class="popup-content">
+        <h2>⚡ Sklep z Mocami</h2>
+        <p>Twój portfel: <b id="powerup-wallet" style="color:#27ae60;">0.00 zł</b></p>
+        <div id="powerup-list" style="display:flex; flex-direction:column; gap:10px; max-height:300px; overflow-y:auto;"></div>
+        <button onclick="closePopup('powerup-shop-popup')" class="big-btn" style="background:#95a5a6; margin-top:10px;" data-text="Zamknij">Zamknij</button>
+    </div>
+</div>
+
+<div id="inventory-popup" class="popup-overlay">
+    <div class="popup-content">
+        <h2>🎒 Twój Plecak</h2>
+        <p>Wybierz moc do użycia:</p>
+        <div id="inventory-list" style="display:flex; flex-direction:column; gap:10px; margin:15px 0;"></div>
+        <button onclick="closePopup('inventory-popup')" class="big-btn" style="background:#95a5a6;" data-text="Anuluj">Anuluj</button>
+    </div>
+</div>
+
 <div id="survival-info-popup" class="popup-overlay">
     <div class="popup-content" style="text-align:left;">
         <h2 style="color:#c0392b; text-align:center;">💀 Zasady Przetrwania</h2>
         <ul style="font-size:14px; padding-left:20px; margin-bottom:15px;">
             <li>Jeden błąd = <b>Koniec Gry</b>.</li>
-            <li>Brak nagród pieniężnych.</li>
-            <li>Każde kolejne pytanie ma <b>1 sekundę mniej</b> czasu!</li>
-            <li>Można grać raz na <b>1 godzinę</b>.</li>
+            <li>Brak nagród pieniężnych (tylko Power-upy).</li>
+            <li>Każde pytanie to <b>1 sekunda mniej</b> na odpowiedź!</li>
+            <li>Cooldown: <b>1 godzina</b> po każdej próbie.</li>
         </ul>
-        
-        <h3 style="font-size:16px; border-bottom:1px solid #ccc;">🎁 Nagrody (Seria):</h3>
+        <h3 style="font-size:16px; border-bottom:1px solid #ccc;">🎁 Nagrody:</h3>
         <ul style="font-size:13px; list-style:none; padding:0;">
             <li><b>6-10 pkt:</b> 1x Losowy Power-up</li>
             <li><b>11-15 pkt:</b> 2x Losowy Power-up</li>
@@ -139,11 +171,22 @@
             <li style="margin-top:5px; font-weight:900; color:#3498db; text-shadow: 0 0 5px rgba(52, 152, 219, 0.5);">
                 30+ pkt: 6x Power-up + <span class="rainbow-text">MOTYW SZKLANY 💎</span>
             </li>
-            </li>
         </ul>
-        
         <div style="text-align:center; margin-top:15px;">
-            <button onclick="closePopup('survival-info-popup')" class="big-btn" style="background:#95a5a6;">Rozumiem</button>
+            <button onclick="closePopup('survival-info-popup')" class="big-btn" style="background:#95a5a6;" data-text="Rozumiem">Rozumiem</button>
+        </div>
+    </div>
+</div>
+
+<div id="theme-unlock-popup" class="popup-overlay">
+    <div class="popup-content" style="border: 3px solid #f1c40f; box-shadow: 0 0 20px #f1c40f;">
+        <h2 style="color:#f39c12; text-transform:uppercase;">🎉 Nowy Motyw! 🎉</h2>
+        <p>Odblokowano nagrodę specjalną:</p>
+        <div id="unlocked-theme-icon" style="font-size: 80px; margin: 15px 0; animation: popBounce 1s infinite alternate;">🎁</div>
+        <div id="unlocked-theme-name" style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-bottom: 20px;">Nazwa Motywu</div>
+        <div style="display:flex; gap:10px; justify-content:center; margin-top:15px;">
+            <button onclick="closePopup('theme-unlock-popup')" class="big-btn" style="background:#95a5a6; flex:1; font-size:16px;">Odbierz</button>
+            <button id="unlock-equip-btn" class="big-btn" style="background:#2ecc71; flex:1; font-size:16px;">Wyposaż</button>
         </div>
     </div>
 </div>
@@ -151,29 +194,16 @@
 <div id="achievements-popup" class="popup-overlay">
     <div class="popup-content" style="max-height: 80vh; display: flex; flex-direction: column;">
         <h2>🏆 Osiągnięcia</h2>
-        <div id="achievements-list" style="overflow-y: auto; flex: 1; padding-right: 5px;">
-            </div>
+        <div id="achievements-list" style="overflow-y: auto; flex: 1; padding-right: 5px;"></div>
         <button onclick="closePopup('achievements-popup')" class="big-btn" style="background:#95a5a6; margin-top:10px;" data-text="Zamknij">Zamknij</button>
     </div>
 </div>
 
-<div id="powerup-shop-popup" class="popup-overlay">
+<div id="stats-popup" class="popup-overlay">
     <div class="popup-content">
-        <h2>⚡ Sklep z Mocami</h2>
-        <p>Twój portfel: <b id="powerup-wallet" style="color:#27ae60;">0.00 zł</b></p>
-        <div id="powerup-list" style="display:flex; flex-direction:column; gap:10px; max-height:300px; overflow-y:auto;">
-            </div>
-        <button onclick="closePopup('powerup-shop-popup')" class="big-btn" style="background:#95a5a6; margin-top:10px;" data-text="Zamknij">Zamknij</button>
-    </div>
-</div>
-
-<div id="inventory-popup" class="popup-overlay">
-    <div class="popup-content">
-        <h2>🎒 Twój Plecak</h2>
-        <p>Wybierz moc do użycia:</p>
-        <div id="inventory-list" style="display:flex; flex-direction:column; gap:10px; margin:15px 0;">
-            </div>
-        <button onclick="closePopup('inventory-popup')" class="big-btn" style="background:#95a5a6;" data-text="Anuluj">Anuluj</button>
+        <h2>Twoje Statystyki</h2>
+        <div id="stats-content" style="text-align:left; line-height:1.6;"></div>
+        <button onclick="closePopup('stats-popup')" class="big-btn" style="background:#95a5a6; margin-top:15px;" data-text="Zamknij">Zamknij</button>
     </div>
 </div>
 
@@ -183,14 +213,11 @@
         <h2>Sklep z Kodami</h2>
         <p>Cena fajek: <b>20.00 zł</b></p>
         <p>Twój portfel: <b id="exchange-wallet"></b></p>
-        
         <button id="buy-code-btn" class="big-btn" data-text="Kup kod (-20 zł)">Kup kod (-20 zł)</button>
-        
         <div style="text-align:left; margin-top:15px;">
             <small>Historia kodów:</small>
             <div id="codes-history" style="max-height:100px; overflow-y:auto; background:rgba(0,0,0,0.05); padding:5px; font-family:monospace;"></div>
         </div>
-        
         <button onclick="closePopup('exchange-popup')" class="big-btn" style="background:#95a5a6; margin-top:10px;" data-text="Anuluj">Anuluj</button>
     </div>
 </div>
@@ -204,14 +231,6 @@
     </div>
 </div>
 
-<div id="stats-popup" class="popup-overlay">
-    <div class="popup-content">
-        <h2>Twoje Statystyki</h2>
-        <div id="stats-content" style="text-align:left; line-height:1.6;"></div>
-        <button onclick="closePopup('stats-popup')" class="big-btn" style="background:#95a5a6; margin-top:15px;" data-text="Zamknij">Zamknij</button>
-    </div>
-</div>
-
 <div id="ai-popup" class="popup-overlay">
     <div class="popup-content" style="border: 2px solid #6a11cb;">
         <h2 style="color:#6a11cb;">🤖 Podpowiedź AI</h2>
@@ -220,48 +239,25 @@
     </div>
 </div>
 
-<div id="theme-unlock-popup" class="popup-overlay">
-    <div class="popup-content" style="border: 3px solid #f1c40f; box-shadow: 0 0 20px #f1c40f;">
-        <h2 style="color:#f39c12; text-transform:uppercase;">🎉 Nowy Motyw! 🎉</h2>
-        <p>Odblokowano nagrodę specjalną:</p>
-        
-        <div id="unlocked-theme-icon" style="font-size: 80px; margin: 15px 0; animation: popBounce 1s infinite alternate;">🎁</div>
-        
-        <div id="unlocked-theme-name" style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-bottom: 20px;">Nazwa Motywu</div>
-        
-<div style="display:flex; gap:10px; justify-content:center; margin-top:15px;">
-    <button onclick="closePopup('theme-unlock-popup')" class="big-btn" style="background:#95a5a6; flex:1; font-size:16px;">Odbierz</button>
-    
-    <button id="unlock-equip-btn" class="big-btn" style="background:#2ecc71; flex:1; font-size:16px;">Wyposaż</button>
-</div>
-    </div>
-</div>
-
 <div id="admin-popup" class="popup-overlay">
     <div class="popup-content" style="border:2px solid #c0392b;">
         <h2 style="color:#c0392b;">Panel Admina</h2>
-        
         <div id="admin-login-view">
             <p>Podaj hasło:</p>
             <input type="password" id="admin-pass-input" style="padding:10px; font-size:16px; border-radius:5px; border:1px solid #ccc; margin-bottom:10px; width:80%;">
             <button id="admin-login-btn" class="big-btn" style="background:#c0392b;" data-text="Zaloguj">Zaloguj</button>
         </div>
-
         <div id="admin-panel-view" style="display:none; text-align:left;">
             <p>Ostatni kod: <b id="admin-last-code">brak</b></p>
-            
             <div style="display:flex; gap:10px; margin:15px 0;">
                 <button id="admin-reset-time" class="big-btn" style="background:#e67e22; font-size:14px; flex:1;" data-text="Reset Czasu">Reset Czasu</button>
                 <button id="admin-add-money" class="big-btn" style="background:#2ecc71; font-size:14px; flex:1;" data-text="+20 zł">+20 zł</button>
             </div>
-
             <button id="admin-unlock-survival" class="big-btn" style="background:#8e44ad; font-size:14px; margin-bottom:15px; width:100%;" data-text="Odblokuj Survival">Odblokuj Survival</button>
-
             <hr>
             <p style="margin:5px 0;">Historia kodów:</p>
             <div id="admin-history" style="max-height: 100px; overflow-y: auto;"></div>
         </div>
-
         <button onclick="closePopup('admin-popup')" class="big-btn" style="background:#95a5a6; margin-top:10px;" data-text="Zamknij">Zamknij</button>
     </div>
 </div>
