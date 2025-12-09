@@ -1025,6 +1025,10 @@ function openPowerUpShop() {
     document.getElementById("powerup-shop-popup").style.display = "flex";
 }
 
+function openSettings() {
+    document.getElementById("settings-popup").style.display = "flex";
+}
+
 function buyPowerUp(item) {
     if(gameState.wallet >= item.price) {
         gameState.wallet -= item.price;
