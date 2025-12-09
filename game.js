@@ -25,6 +25,7 @@ let timerId = null;
 let timeLeft = QUESTION_TIME || 30;
 let globalVolume = 0.5; // Domyślnie 50%
 let lastWinSoundTime = 0;
+let lastClickSoundTime = 0;
 let canAnswer = false;
 let cheatWarningsTotal = 0;
 
@@ -720,11 +721,9 @@ function endGame() {
     if (isWin) {
         playSound('win');
         gif.src = "https://media1.tenor.com/m/y0zptlFKiYIAAAAd/yay-kitty.gif";
-        generateAIComment(true);
     } else {
         playSound('lose');
         gif.src = "https://media1.tenor.com/m/JRJPU6H35PwAAAAd/spider-man-spider-man-web-of-shadows.gif";
-        generateAIComment(false);
     }
 }
 
@@ -928,16 +927,28 @@ function showFloatingMoney(amount) {
     el.style.left = "50%"; el.style.top = "50%";
     document.getElementById("quiz-screen").appendChild(el); setTimeout(() => el.remove(), 1000);
 }
+
 function playSound(type) {
     // Jeśli głośność jest 0, nie graj nic
     if(globalVolume <= 0) return;
 
-    // Zabezpieczenie przed nakładaniem się 'win'
+    const now = Date.now();
+
+    // Zabezpieczenie przed nakładaniem się 'win' (było w oryginale)
     if (type === 'win') {
-        const now = Date.now();
         if (now - lastWinSoundTime < 1000) return; 
         lastWinSoundTime = now;
     }
+
+    // --- NOWOŚĆ: Zabezpieczenie przed podwójnym 'click' ---
+    if (type === 'click') {
+        // Jeśli minęło mniej niż 150ms od ostatniego kliknięcia, ignorujemy
+        if (now - lastClickSoundTime < 150) {
+            return; 
+        }
+        lastClickSoundTime = now;
+    }
+    // ------------------------------------------------------
 
     const sounds = { 
         correct: "sounds/correct.mp3", 
@@ -954,6 +965,7 @@ function playSound(type) {
         audio.play().catch(()=>{});
     }
 }
+
 function showToast(msg, type='info') {
     const c = document.getElementById("toast-container"); if(!c) return;
     const t = document.createElement("div"); t.className = `toast ${type}`;
@@ -990,17 +1002,6 @@ async function handleAI() {
         if (hint) { document.getElementById("ai-content").innerText = hint; document.getElementById("ai-popup").style.display = "flex"; currentSession.aiUsed = true; btn.innerText = "✨ Wykorzystano"; } 
         else { showToast("Błąd AI.", "error"); btn.disabled = false; btn.innerText = "✨ Zapytaj AI"; }
     }
-}
-async function generateAIComment(win) {
-    const box = document.getElementById("ai-comment-box"); const txt = document.getElementById("ai-comment-text");
-    if(!box || !txt) return; box.style.display = "block"; txt.innerText = "AI pisze opinię...";
-    const isSurvival = currentSession.isSurvival;
-    const prompt = isSurvival 
-        ? `Gracz przetrwał ${currentSession.correct} rund w trybie Survival. Skomentuj ten wynik (krótko, złośliwie lub z podziwem).`
-        : `Gracz skończył grę. Zarobił ${currentSession.money} zł. Poprawne: ${currentSession.correct}/5. Napisz jedno złośliwe lub gratulacyjne zdanie.`;
-    
-    const comment = await askGemini(prompt);
-    if (comment) txt.innerText = comment; else box.style.display = "none";
 }
 
 // Otwieranie Sklepu z Mocami
