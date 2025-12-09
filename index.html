@@ -1,643 +1,33 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Postaw na chromosom</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Postaw na chromosom</title>
 
-<!-- Import czcionki dla motywu Blossom -->
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 
-<style>
-    /* ================== MOTYWY KOLORYSTYCZNE ================== */
-    :root {
-        /* Domyślny (Jasny) */
-        --bg-color: #f0f2f5;
-        --container-bg: #ffffff;
-        --text-color: #333;
-        --accent-color: #4a90e2;
-        --accent-hover: #357abd;
-        --btn-text: #fff;
-        --border-color: #ddd;
-        --font-main: Arial, sans-serif; /* Domyślna czcionka */
-    }
-
-    /* Ciemny (3 zł) */
-    body.theme-dark {
-        --bg-color: #121212;
-        --container-bg: #1e1e1e;
-        --text-color: #e0e0e0;
-        --accent-color: #bb86fc;
-        --accent-hover: #9965f4;
-        --btn-text: #000;
-        --border-color: #333;
-    }
-
-    /* Złoty (5 zł) */
-    body.theme-gold {
-        --bg-color: #2c2500;
-        --container-bg: #fffbe6;
-        --text-color: #5c4d00;
-        --accent-color: #d4af37;
-        --accent-hover: #b5952f;
-        --btn-text: #fff;
-        --border-color: #e6c200;
-    }
-
-    /* Hacker (10 zł) */
-    body.theme-hacker {
-        --bg-color: #000000;
-        --container-bg: rgba(13, 17, 23, 0.9);
-        --text-color: #00ff00;
-        --accent-color: #008000;
-        --accent-hover: #00a000;
-        --btn-text: #000;
-        --border-color: #00ff00;
-        --font-main: 'Courier New', Courier, monospace; 
-    }
-
-    /* Neon (8 zł) */
-    body.theme-neon {
-        --bg-color: #050505;
-        --container-bg: #101010;
-        --text-color: #fff;
-        --accent-color: #ff00ff;
-        --accent-hover: #d600ff;
-        --btn-text: #fff;
-        --border-color: #ff00ff;
-    }
-    body.theme-neon .container {
-        box-shadow: 0 0 20px #ff00ff, inset 0 0 10px #ff00ff;
-    }
-
-    /* Ocean (6 zł) */
-    body.theme-ocean {
-        --bg-color: #a7dbd8;
-        --container-bg: rgba(224, 255, 255, 0.9);
-        --text-color: #004d40;
-        --accent-color: #0097a7;
-        --accent-hover: #00838f;
-        --btn-text: #fff;
-        --border-color: #4dd0e1;
-    }
-
-    /* Retro (7 zł) */
-    body.theme-retro {
-        --bg-color: #d7cba4;
-        --container-bg: #f4e4bc;
-        --text-color: #4e342e;
-        --accent-color: #8d6e63;
-        --accent-hover: #6d4c41;
-        --btn-text: #fff;
-        --border-color: #a1887f;
-        --font-main: 'Georgia', serif;
-        filter: sepia(0.4) contrast(1.1);
-    }
-
-    /* Kosmos (15 zł) */
-    body.theme-cosmos {
-        --bg-color: #050510;
-        --container-bg: #0b0b1a;
-        --text-color: #e6e6ff;
-        --accent-color: #6666ff;
-        --accent-hover: #4d4dff;
-        --btn-text: #fff;
-        --border-color: #3333cc;
-    }
-
-    /* Blossom (9 zł) - ULEPSZONY */
-    body.theme-blossom {
-        --bg-color: #ffe6ee;
-        --container-bg: rgba(255, 250, 252, 0.95);
-        --text-color: #880e4f;
-        --accent-color: #ff80ab;
-        --accent-hover: #f06292;
-        --btn-text: #fff;
-        --border-color: #f48fb1;
-        --font-main: 'Dancing Script', cursive; 
-    }
-    body.theme-blossom .container {
-        box-shadow: 0 0 35px rgba(255, 128, 171, 0.5); /* Różowa poświata */
-        border: 2px solid #ff80ab;
-    }
-    body.theme-blossom h1 {
-        font-size: 38px;
-        text-shadow: 2px 2px 2px rgba(255, 192, 203, 0.8);
-    }
-    body.theme-blossom .big-btn {
-        font-family: 'Dancing Script', cursive; 
-        font-size: 22px;
-        letter-spacing: 1px;
-    }
-
-    /* Boże Narodzenie (5 zł) */
-    body.theme-christmas {
-        --bg-color: #0f2e18;
-        --container-bg: #f0f8ff;
-        --text-color: #c0392b;
-        --accent-color: #c0392b;
-        --accent-hover: #a93226;
-        --btn-text: #fff;
-        --border-color: #27ae60;
-    }
-
-    /* Walentynki (5 zł) */
-    body.theme-valentines {
-        --bg-color: #ffeef0;
-        --container-bg: #fff0f5;
-        --text-color: #d63384;
-        --accent-color: #ff69b4;
-        --accent-hover: #ff1493;
-        --btn-text: #fff;
-        --border-color: #ffb6c1;
-    }
-
-    /* Halloween (5 zł) */
-    body.theme-halloween {
-        --bg-color: #2d1b4e;
-        --container-bg: #1a1a2e;
-        --text-color: #ff9f43;
-        --accent-color: #ff6b6b;
-        --accent-hover: #ff4757;
-        --btn-text: #fff;
-        --border-color: #5f27cd;
-    }
-
-    /* ================== EFEKTY SPECJALNE (ANIMACJE) ================== */
-    #theme-effects {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 0;
-        overflow: hidden;
-    }
-
-    .particle { position: absolute; pointer-events: none; }
-
-    /* Śnieg */
-    .particle.snow {
-        top: -20px; font-size: 20px; opacity: 0.8;
-        animation: fall linear forwards;
-    }
-    @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
-
-    /* Sakura (Blossom) */
-    .particle.sakura {
-        top: -20px;
-        width: 15px; height: 15px;
-        background: #f8bbd0;
-        border-radius: 15px 0 15px 0;
-        opacity: 0.9;
-        box-shadow: 0 0 5px #f48fb1;
-        animation: sakuraFall linear forwards;
-    }
-    @keyframes sakuraFall {
-        0% { transform: translateY(0) rotate(0deg) translateX(0); }
-        25% { transform: translateY(25vh) rotate(45deg) translateX(30px); }
-        50% { transform: translateY(50vh) rotate(90deg) translateX(-30px); }
-        75% { transform: translateY(75vh) rotate(135deg) translateX(30px); }
-        100% { transform: translateY(110vh) rotate(180deg) translateX(0); }
-    }
-
-    /* Serca */
-    .particle.heart {
-        bottom: -20px; font-size: 20px; opacity: 0.8;
-        animation: rise linear forwards;
-    }
-    @keyframes rise { to { transform: translateY(-110vh) scale(1.5); opacity: 0; } }
-
-    /* Dynia */
-    .glowing-pumpkin {
-        position: absolute; bottom: 20px; right: 20px; font-size: 80px;
-        animation: pumpkinPulse 2s infinite alternate;
-        filter: drop-shadow(0 0 20px orange); z-index: 5;
-    }
-    @keyframes pumpkinPulse {
-        from { transform: scale(1); filter: drop-shadow(0 0 10px orange); }
-        to { transform: scale(1.1); filter: drop-shadow(0 0 30px yellow); }
-    }
-
-    /* Złoto */
-    .particle.shine {
-        font-size: 24px; color: #fff7cc; text-shadow: 0 0 10px #ffd700;
-        animation: shineFade 1.5s forwards;
-    }
-    @keyframes shineFade {
-        0% { transform: scale(0) rotate(0deg); opacity: 0; }
-        50% { transform: scale(1.5) rotate(45deg); opacity: 1; }
-        100% { transform: scale(0) rotate(90deg); opacity: 0; }
-    }
-
-    /* Ocean */
-    .ocean-wave {
-        position: fixed; bottom: 0; left: 0; width: 200%;
-        background-repeat: repeat-x;
-        z-index: -1;
-        opacity: 0.6;
-    }
-    .ocean-wave.bg {
-        height: 250px; 
-        background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg"><path fill="%23006064" fill-opacity="0.3" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
-        animation: waveAnim 15s linear infinite;
-    }
-    .ocean-wave.mid {
-        height: 200px;
-        background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg"><path fill="%2300bcd4" fill-opacity="0.4" d="M0,96L48,122.7C96,149,192,203,288,208C384,213,480,171,576,149.3C672,128,768,128,864,149.3C960,171,1056,213,1152,218.7C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
-        animation: waveAnim 12s linear infinite reverse;
-    }
-    .ocean-wave.fg {
-        height: 150px;
-        background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg"><path fill="%234dd0e1" fill-opacity="0.6" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,261.3C960,256,1056,224,1152,213.3C1248,203,1344,213,1392,218.7L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
-        animation: waveAnim 10s linear infinite;
-    }
-    @keyframes waveAnim {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-    }
-
-    .particle.fish { font-size: 30px; position: fixed; z-index: 0; }
-    .fish-right { animation: swimRight linear forwards; transform: scaleX(-1); }
-    @keyframes swimRight { from { left: -10%; } to { left: 110%; } }
-    .fish-left { animation: swimLeft linear forwards; transform: scaleX(1); }
-    @keyframes swimLeft { from { left: 110%; } to { left: -10%; } }
-
-    /* Retro */
-    .retro-overlay {
-        position: fixed; inset: 0; pointer-events: none; z-index: 999;
-        background: radial-gradient(circle, rgba(0,0,0,0) 50%, rgba(0,0,0,0.4) 90%);
-        box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
-    }
-    .retro-grain {
-        position: fixed; inset: 0; z-index: 1; pointer-events: none;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.2'/%3E%3C/svg%3E");
-        animation: flickerRetro 0.15s infinite;
-        opacity: 0.3;
-    }
-    .retro-line {
-        position: fixed; top: 0; left: 10%; width: 2px; height: 100%;
-        background: rgba(0,0,0,0.1);
-        animation: scanline 3s linear infinite;
-        z-index: 1;
-    }
-    @keyframes flickerRetro { 0% { opacity: 0.3; } 50% { opacity: 0.25; } 100% { opacity: 0.3; } }
-    @keyframes scanline { 0% { left: 5%; } 100% { left: 95%; } }
-
-    /* Kosmos */
-    .particle.star {
-        background: #fff;
-        border-radius: 50%;
-        box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.8);
-        animation: twinkle 3s infinite ease-in-out alternate;
-    }
-    @keyframes twinkle { 
-        0% { opacity: 0.3; transform: scale(0.8); } 
-        100% { opacity: 1; transform: scale(1.3); } 
-    }
-
-    .falling-star {
-        position: absolute;
-        width: 3px; height: 3px; background: white;
-        border-radius: 50%; box-shadow: 0 0 5px white; z-index: 0;
-        animation: fallStar linear forwards;
-    }
-    .falling-star::after {
-        content: ''; position: absolute;
-        bottom: 0; left: 50%; width: 2px; height: 80px; 
-        background: linear-gradient(to top, rgba(255,255,255,1), rgba(255,255,255,0));
-        transform: translateX(-50%);
-    }
-    @keyframes fallStar {
-        from { transform: translateY(-100px); opacity: 1; }
-        to { transform: translateY(120vh); opacity: 0; }
-    }
-
-    /* Matrix */
-    canvas#matrix-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
-
-    /* ================== GLOBALNE STYLE (POPRAWIONE) ================== */
-    body {
-        font-family: var(--font-main); /* Używa dynamicznej czcionki */
-        background: var(--bg-color);
-        color: var(--text-color);
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        transition: background 0.4s ease, color 0.4s ease, filter 0.4s;
-        overflow-x: hidden;
-    }
-
-    .container {
-        position: relative;
-        background: var(--container-bg);
-        /* Zwiększony padding i max-width */
-        padding: 75px 40px 40px; 
-        border-radius: 20px;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-        width: 100%;
-        max-width: 640px; /* Szersza ramka */
-        text-align: center;
-        overflow: hidden;
-        margin: 15px;
-        transition: background 0.4s ease, box-shadow 0.4s ease, border 0.4s;
-        border: 2px solid var(--border-color);
-        z-index: 10;
-    }
-
-    h1 { margin-top: 0; font-size: 28px; margin-bottom: 15px; }
-
-    #start-screen, #quiz-screen, #end-screen {
-        display: none; 
-    }
-
-    /* ZWIĘKSZONA CZCIONKA PYTAŃ */
-    #question-text {
-        font-size: 28px;
-        font-weight: bold;
-        margin: 20px 0 30px;
-        line-height: 1.4;
-    }
-
-    button { font-family: inherit; }
-
-    .big-btn {
-        width: 100%;
-        padding: 18px;
-        margin: 10px 0;
-        font-size: 18px;
-        font-weight: bold;
-        border-radius: 12px;
-        border: none;
-        cursor: pointer;
-        background: var(--accent-color);
-        color: var(--btn-text);
-        transition: transform 0.1s, box-shadow 0.1s, background 0.2s;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
-
-    .big-btn:hover {
-        background: var(--accent-hover);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-    }
-
-    .big-btn:active { transform: translateY(1px); }
-    
-    .big-btn:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-        background: #999 !important;
-        transform: none !important;
-    }
-
-    /* Przycisk AI */
-    #ask-ai-btn {
-        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-        color: white;
-        border: 2px solid rgba(255,255,255,0.2);
-    }
-    #ask-ai-btn:hover:not(:disabled) {
-        box-shadow: 0 0 15px rgba(37, 117, 252, 0.5);
-    }
-
-    /* Odpowiedzi */
-    .answer-btn {
-        background: transparent;
-        color: var(--text-color);
-        border: 2px solid var(--accent-color);
-    }
-    .answer-btn:hover {
-        background: rgba(0,0,0,0.05);
-    }
-
-    /* Animacje Odpowiedzi */
-    .answer-correct-anim {
-        background: #2ecc71 !important;
-        border-color: #27ae60 !important;
-        color: white !important;
-        animation: pulse 0.4s;
-    }
-    .answer-wrong-anim {
-        background: #e74c3c !important;
-        border-color: #c0392b !important;
-        color: white !important;
-        animation: shake 0.4s;
-    }
-
-    @keyframes shake {
-        0%, 100% { transform: translateX(0); }
-        25% { transform: translateX(-5px); }
-        75% { transform: translateX(5px); }
-    }
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-        100% { transform: scale(1); }
-    }
-
-    /* UI Elementy - Pozycjonowane absolutnie */
-    #wallet-display {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        background: rgba(0,0,0,0.05);
-        padding: 6px 12px;
-        border-radius: 20px;
-        font-weight: bold;
-        font-size: 14px;
-        cursor: pointer;
-    }
-
-    #sound-toggle {
-        position: absolute;
-        top: 15px;
-        left: 15px;
-        font-size: 22px;
-        cursor: pointer;
-        opacity: 0.7;
-        transition: 0.2s;
-    }
-    #sound-toggle:hover { opacity: 1; transform: scale(1.1); }
-
-    #timer-bar-container {
-        width: 100%;
-        height: 10px;
-        background: rgba(0,0,0,0.1);
-        border-radius: 5px;
-        margin: 15px 0;
-        overflow: hidden;
-    }
-    #timer-bar {
-        width: 100%;
-        height: 100%;
-        background: #e74c3c;
-        transition: width 1s linear;
-    }
-
-    #media img, #media video {
-        max-width: 100%;
-        border-radius: 10px;
-        margin-bottom: 10px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-
-    #money-progress-container {
-        width: 100%;
-        height: 16px;
-        background: rgba(0,0,0,0.1);
-        border-radius: 8px;
-        margin-top: 15px;
-        overflow: hidden;
-    }
-    #money-progress-bar {
-        width: 0%;
-        height: 100%;
-        background: #2ecc71;
-        transition: width 0.3s;
-    }
-
-    /* PŁYWAJĄCA KASA */
-    .floating-money {
-        position: absolute;
-        font-size: 24px;
-        font-weight: bold;
-        color: #2ecc71;
-        animation: floatUp 1s forwards;
-        pointer-events: none;
-        z-index: 100;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    }
-    @keyframes floatUp {
-        0% { opacity: 1; transform: translateY(0) scale(1); }
-        100% { opacity: 0; transform: translateY(-50px) scale(1.2); }
-    }
-
-    /* SKLEP GRID */
-    .shop-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-        margin: 15px 0;
-        max-height: 300px;
-        overflow-y: auto;
-    }
-    .shop-item {
-        border: 2px solid var(--border-color);
-        border-radius: 12px;
-        padding: 12px;
-        cursor: pointer;
-        transition: 0.2s;
-        background: rgba(0,0,0,0.02);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 5px;
-    }
-    .shop-item:hover {
-        border-color: var(--accent-color);
-        transform: translateY(-2px);
-    }
-    .shop-item.owned {
-        background: rgba(46, 204, 113, 0.1);
-        border-color: #2ecc71;
-    }
-    .shop-item.active {
-        box-shadow: 0 0 0 3px var(--accent-color);
-        border-color: var(--accent-color);
-    }
-    .shop-icon { font-size: 28px; }
-    .shop-name { font-size: 14px; font-weight: bold; }
-    .shop-price { font-size: 12px; color: #777; }
-    
-    /* POPUPY */
-    .popup-overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.7);
-        backdrop-filter: blur(3px);
-        display: none;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-    }
-    .popup-content {
-        background: var(--container-bg);
-        color: var(--text-color);
-        padding: 30px;
-        border-radius: 20px;
-        width: 90%;
-        max-width: 400px;
-        text-align: center;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        position: relative;
-    }
-    @keyframes popIn {
-        from { transform: scale(0.8); opacity: 0; }
-        to { transform: scale(1); opacity: 1; }
-    }
-
-    /* TOAST */
-    #toast-container {
-        position: fixed;
-        top: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 100000;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        pointer-events: none;
-    }
-    .toast {
-        background: #333;
-        color: #fff;
-        padding: 12px 20px;
-        border-radius: 50px;
-        font-weight: 500;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        animation: slideDown 0.3s, fadeOut 0.5s 3.5s forwards;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-    .toast.success { background: #2ecc71; }
-    .toast.error { background: #e74c3c; }
-    .toast.info    { background: #1e88e5; }
-    .toast.ai      { background: linear-gradient(135deg, #6a11cb, #2575fc); }
-    @keyframes slideDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-    @keyframes fadeOut { to { opacity: 0; transform: translateY(-20px); } }
-
-    /* ADMIN BUTTON (Lewy dolny) */
-    #admin-secret {
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 80px;
-        height: 80px;
-        z-index: 10000;
-        /* background: rgba(255,0,0,0.2);  */
-    }
-</style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div id="toast-container"></div>
-
-<!-- EFEKTY TŁA (ANIMACJE) -->
 <div id="theme-effects"></div>
 
-<!-- GŁÓWNY KONTENER -->
 <div class="container">
-    <div id="sound-toggle">🔊</div>
+    <div id="volume-control">
+        <span id="volume-icon">🔊</span>
+        <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="0.5">
+    </div>
     <div id="wallet-display">Portfel: 0.00 zł</div>
 
-    <!-- EKRAN START -->
     <div id="start-screen">
         <h1>Postaw na chromosom</h1>
         <p>Zbij fortunę albo rzuć palenie!</p>
@@ -647,10 +37,8 @@
             <div id="day-streak-display" style="font-size:14px; margin-top:5px; color: #e67e22;"></div>
         </div>
 
-        <!-- Licznik czasu -->
         <div id="countdown" style="color:#e74c3c; font-weight:bold; min-height:24px;"></div>
 
-        <!-- Progress Bar -->
         <div style="margin-top:15px;">
             <div id="money-progress-container"><div id="money-progress-bar"></div></div>
             <div id="money-progress-text" style="font-size:12px; margin-top:5px;">0 / 20 zł</div>
@@ -658,17 +46,27 @@
 
         <div id="code-display" style="margin-top:10px; font-weight:bold; color:var(--accent-color);"></div>
 
-        <button id="start-btn" class="big-btn">ZACZNIJ QUIZ</button>
+        <button id="start-btn" class="big-btn" data-text="ZACZNIJ QUIZ">ZACZNIJ QUIZ</button>
+
+        <button id="powerup-shop-btn" class="big-btn" style="background:#8e44ad; margin-bottom: 10px;" data-text="⚡ Sklep z Mocami">⚡ Sklep z Mocami</button>
         
         <div style="display:flex; gap:10px;">
-            <button id="stats-btn" class="big-btn" style="background:#7f8c8d; flex:1;">Statystyki</button>
-            <button id="shop-btn" class="big-btn" style="background:#f39c12; flex:1;">🛍️ Motywy</button>
+            <button id="stats-btn" class="big-btn" style="background:#7f8c8d; flex:1;" data-text="Statystyki">Statystyki</button>
+            <button id="achievements-btn" class="big-btn" style="background:#e67e22; flex:1;" data-text="🏆 Osiągnięcia">🏆 Osiągnięcia</button>
+            <button id="shop-btn" class="big-btn" style="background:#f39c12; flex:1;" data-text="🛍️ Motywy">🛍️ Motywy</button>
+        </div>
+
+	<div style="margin-top: 15px; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 15px;">
+            <div style="display:flex; gap:10px; align-items: center;">
+                <button id="survival-btn" class="big-btn" style="background:#c0392b; flex:1; font-family:'Orbitron', sans-serif;" data-text="💀 TRYB PRZETRWANIA">💀 TRYB PRZETRWANIA</button>
+                <button onclick="playSound('click'); document.getElementById('survival-info-popup').style.display='flex'" class="big-btn" style="background:#7f8c8d; width:50px; height:50px; padding:0; display:flex; justify-content:center; align-items:center; font-size:24px; flex: 0 0 auto;" data-text="ℹ️">ℹ️</button>
+            </div>
+            <div id="survival-timer" style="font-size:11px; color:#e74c3c; margin-top:5px; height:15px;"></div>
         </div>
         
         <p style="font-size:12px; opacity:0.6; margin-top:15px;">Limit: 5 pytań na 24h</p>
     </div>
 
-    <!-- EKRAN QUIZU -->
     <div id="quiz-screen">
         <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
             <span id="question-counter">Pytanie 1/5</span>
@@ -677,22 +75,26 @@
         <div id="timer-bar-container"><div id="timer-bar"></div></div>
 
         <div id="media"></div>
-        <button id="video-confirm-btn" class="big-btn" style="display:none; background:#8e44ad;">Obejrzałem film</button>
+        <button id="video-confirm-btn" class="big-btn" style="display:none; background:#8e44ad;" data-text="Obejrzałem film">Obejrzałem film</button>
 
         <div id="question-text">Treść pytania...</div>
 
-        <!-- AI Button -->
-        <button id="ask-ai-btn" class="big-btn">✨ Zapytaj AI</button>
+        <div style="display:flex; gap:10px; margin-bottom:10px;">
+            <button id="ask-ai-btn" class="big-btn" style="flex:1;" data-text="✨ Zapytaj AI">✨ Zapytaj AI</button>
+            <button id="open-inventory-btn" class="big-btn" style="flex:1; background:#9b59b6;" data-text="🎒 Moce">🎒 Moce</button>
+        </div>
 
-        <button id="answer1" class="big-btn answer-btn">Odp A</button>
-        <button id="answer2" class="big-btn answer-btn">Odp B</button>
-        <button id="answer3" class="big-btn answer-btn">Odp C</button>
+        <button id="answer1" class="big-btn answer-btn" data-text="Odp A">Odp A</button>
+        <button id="answer2" class="big-btn answer-btn" data-text="Odp B">Odp B</button>
+        <button id="answer3" class="big-btn answer-btn" data-text="Odp C">Odp C</button>
+	<button id="answer4" class="big-btn answer-btn" data-text="Odp D">Odp D</button>
 
         <div id="money-display">Zarobione: 0.00 zł</div>
         <div id="message" style="height:20px; margin-top:10px; font-weight:bold;"></div>
+        
+        <div id="active-powerups-bar" style="display:none;"></div>
     </div>
 
-    <!-- EKRAN KOŃCOWY -->
     <div id="end-screen">
         <h1>Koniec gry!</h1>
         <div id="final-money" style="font-size:24px; font-weight:bold; color:#27ae60; margin:15px 0;">+0.00 zł</div>
@@ -704,1059 +106,171 @@
         <div id="end-text"></div>
         <img id="end-gif" src="" style="max-width:100%; border-radius:10px; margin-top:10px;">
         
-        <button id="restart-btn" class="big-btn" style="margin-top:20px;">Wróć do menu</button>
+        <button id="restart-btn" class="big-btn" style="margin-top:20px;" data-text="Wróć do menu">Wróć do menu</button>
     </div>
 </div>
 
-<!-- POPUPY -->
-
-<!-- SKLEP -->
 <div id="shop-popup" class="popup-overlay">
     <div class="popup-content">
         <h2>🛍️ Sklep z Motywami</h2>
         <p>Twój portfel: <b id="shop-wallet" style="color:#27ae60;">0.00 zł</b></p>
-        <div id="shop-grid" class="shop-grid">
-            <!-- Generowane przez JS -->
-        </div>
-        <button onclick="closePopup('shop-popup')" class="big-btn" style="background:#95a5a6;">Zamknij</button>
+        <div id="shop-grid" class="shop-grid"></div>
+        <button onclick="closePopup('shop-popup')" class="big-btn" style="background:#95a5a6;" data-text="Zamknij">Zamknij</button>
     </div>
 </div>
 
-<!-- WYMIANA -->
+<div id="survival-info-popup" class="popup-overlay">
+    <div class="popup-content" style="text-align:left;">
+        <h2 style="color:#c0392b; text-align:center;">💀 Zasady Przetrwania</h2>
+        <ul style="font-size:14px; padding-left:20px; margin-bottom:15px;">
+            <li>Jeden błąd = <b>Koniec Gry</b>.</li>
+            <li>Brak nagród pieniężnych.</li>
+            <li>Każde kolejne pytanie ma <b>1 sekundę mniej</b> czasu!</li>
+            <li>Można grać raz na <b>1 godzinę</b>.</li>
+        </ul>
+        
+        <h3 style="font-size:16px; border-bottom:1px solid #ccc;">🎁 Nagrody (Seria):</h3>
+        <ul style="font-size:13px; list-style:none; padding:0;">
+            <li><b>6-10 pkt:</b> 1x Losowy Power-up</li>
+            <li><b>11-15 pkt:</b> 2x Losowy Power-up</li>
+            <li><b>16-20 pkt:</b> 3x Losowy Power-up</li>
+            <li><b>21-25 pkt:</b> 4x Losowy Power-up</li>
+            <li style="color:#e67e22; font-weight:bold;">25-29 pkt: 5x Losowy Power-up + Motyw Królewski 👑</li>
+            <li style="margin-top:5px; font-weight:900; color:#3498db; text-shadow: 0 0 5px rgba(52, 152, 219, 0.5);">
+                30+ pkt: 6x Power-up + <span class="rainbow-text">MOTYW SZKLANY 💎</span>
+            </li>
+            </li>
+        </ul>
+        
+        <div style="text-align:center; margin-top:15px;">
+            <button onclick="closePopup('survival-info-popup')" class="big-btn" style="background:#95a5a6;">Rozumiem</button>
+        </div>
+    </div>
+</div>
+
+<div id="achievements-popup" class="popup-overlay">
+    <div class="popup-content" style="max-height: 80vh; display: flex; flex-direction: column;">
+        <h2>🏆 Osiągnięcia</h2>
+        <div id="achievements-list" style="overflow-y: auto; flex: 1; padding-right: 5px;">
+            </div>
+        <button onclick="closePopup('achievements-popup')" class="big-btn" style="background:#95a5a6; margin-top:10px;" data-text="Zamknij">Zamknij</button>
+    </div>
+</div>
+
+<div id="powerup-shop-popup" class="popup-overlay">
+    <div class="popup-content">
+        <h2>⚡ Sklep z Mocami</h2>
+        <p>Twój portfel: <b id="powerup-wallet" style="color:#27ae60;">0.00 zł</b></p>
+        <div id="powerup-list" style="display:flex; flex-direction:column; gap:10px; max-height:300px; overflow-y:auto;">
+            </div>
+        <button onclick="closePopup('powerup-shop-popup')" class="big-btn" style="background:#95a5a6; margin-top:10px;" data-text="Zamknij">Zamknij</button>
+    </div>
+</div>
+
+<div id="inventory-popup" class="popup-overlay">
+    <div class="popup-content">
+        <h2>🎒 Twój Plecak</h2>
+        <p>Wybierz moc do użycia:</p>
+        <div id="inventory-list" style="display:flex; flex-direction:column; gap:10px; margin:15px 0;">
+            </div>
+        <button onclick="closePopup('inventory-popup')" class="big-btn" style="background:#95a5a6;" data-text="Anuluj">Anuluj</button>
+    </div>
+</div>
+
 <div id="exchange-popup" class="popup-overlay">
     <div class="popup-content">
         <div style="font-size:40px;">🪙</div>
         <h2>Sklep z Kodami</h2>
-        <p>Koszt kodu na paczkę fajek: <b>20.00 zł</b></p>
+        <p>Cena fajek: <b>20.00 zł</b></p>
         <p>Twój portfel: <b id="exchange-wallet"></b></p>
         
-        <button id="buy-code-btn" class="big-btn">Kup kod (-20 zł)</button>
+        <button id="buy-code-btn" class="big-btn" data-text="Kup kod (-20 zł)">Kup kod (-20 zł)</button>
         
         <div style="text-align:left; margin-top:15px;">
             <small>Historia kodów:</small>
             <div id="codes-history" style="max-height:100px; overflow-y:auto; background:rgba(0,0,0,0.05); padding:5px; font-family:monospace;"></div>
         </div>
         
-        <button onclick="closePopup('exchange-popup')" class="big-btn" style="background:#95a5a6; margin-top:10px;">Anuluj</button>
+        <button onclick="closePopup('exchange-popup')" class="big-btn" style="background:#95a5a6; margin-top:10px;" data-text="Anuluj">Anuluj</button>
     </div>
 </div>
 
-<!-- SUKCES KOD -->
 <div id="new-code-popup" class="popup-overlay">
     <div class="popup-content" style="border: 2px solid #2ecc71;">
         <h2 style="color:#2ecc71;">Sukces! 🎉</h2>
         <p>Twój tajny kod:</p>
         <div id="new-code-display" style="font-size:24px; font-weight:bold; background:#e8f8f5; padding:15px; margin:15px 0; border-radius:8px; letter-spacing:2px; color:#333;"></div>
-        <button onclick="closePopup('new-code-popup')" class="big-btn" style="background:#2ecc71;">Super!</button>
+        <button onclick="closePopup('new-code-popup')" class="big-btn" style="background:#2ecc71;" data-text="Super!">Super!</button>
     </div>
 </div>
 
-<!-- STATYSTYKI -->
 <div id="stats-popup" class="popup-overlay">
     <div class="popup-content">
         <h2>Twoje Statystyki</h2>
         <div id="stats-content" style="text-align:left; line-height:1.6;"></div>
-        <button onclick="closePopup('stats-popup')" class="big-btn" style="background:#95a5a6; margin-top:15px;">Zamknij</button>
+        <button onclick="closePopup('stats-popup')" class="big-btn" style="background:#95a5a6; margin-top:15px;" data-text="Zamknij">Zamknij</button>
     </div>
 </div>
 
-<!-- AI HINT (Z ID "ai-popup" i "ai-content" - poprawione) -->
 <div id="ai-popup" class="popup-overlay">
     <div class="popup-content" style="border: 2px solid #6a11cb;">
         <h2 style="color:#6a11cb;">🤖 Podpowiedź AI</h2>
         <div id="ai-content" style="text-align:left; background:rgba(0,0,0,0.05); padding:15px; border-radius:10px; margin:15px 0;"></div>
-        <button onclick="closePopup('ai-popup')" class="big-btn" style="background:#6a11cb;">Dzięki!</button>
+        <button onclick="closePopup('ai-popup')" class="big-btn" style="background:#6a11cb;" data-text="Dzięki!">Dzięki!</button>
     </div>
 </div>
 
-<!-- ADMIN - ZMODYFIKOWANY -->
+<div id="theme-unlock-popup" class="popup-overlay">
+    <div class="popup-content" style="border: 3px solid #f1c40f; box-shadow: 0 0 20px #f1c40f;">
+        <h2 style="color:#f39c12; text-transform:uppercase;">🎉 Nowy Motyw! 🎉</h2>
+        <p>Odblokowano nagrodę specjalną:</p>
+        
+        <div id="unlocked-theme-icon" style="font-size: 80px; margin: 15px 0; animation: popBounce 1s infinite alternate;">🎁</div>
+        
+        <div id="unlocked-theme-name" style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-bottom: 20px;">Nazwa Motywu</div>
+        
+<div style="display:flex; gap:10px; justify-content:center; margin-top:15px;">
+    <button onclick="closePopup('theme-unlock-popup')" class="big-btn" style="background:#95a5a6; flex:1; font-size:16px;">Odbierz</button>
+    
+    <button id="unlock-equip-btn" class="big-btn" style="background:#2ecc71; flex:1; font-size:16px;">Wyposaż</button>
+</div>
+    </div>
+</div>
+
 <div id="admin-popup" class="popup-overlay">
     <div class="popup-content" style="border:2px solid #c0392b;">
         <h2 style="color:#c0392b;">Panel Admina</h2>
         
-        <!-- Sekcja logowania -->
         <div id="admin-login-view">
             <p>Podaj hasło:</p>
             <input type="password" id="admin-pass-input" style="padding:10px; font-size:16px; border-radius:5px; border:1px solid #ccc; margin-bottom:10px; width:80%;">
-            <button id="admin-login-btn" class="big-btn" style="background:#c0392b;">Zaloguj</button>
+            <button id="admin-login-btn" class="big-btn" style="background:#c0392b;" data-text="Zaloguj">Zaloguj</button>
         </div>
 
-        <!-- Sekcja właściwa (ukryta) -->
         <div id="admin-panel-view" style="display:none; text-align:left;">
             <p>Ostatni kod: <b id="admin-last-code">brak</b></p>
             
             <div style="display:flex; gap:10px; margin:15px 0;">
-                <button id="admin-reset-time" class="big-btn" style="background:#e67e22; font-size:14px; flex:1;">Reset Czasu</button>
-                <button id="admin-add-money" class="big-btn" style="background:#2ecc71; font-size:14px; flex:1;">+20 zł</button>
+                <button id="admin-reset-time" class="big-btn" style="background:#e67e22; font-size:14px; flex:1;" data-text="Reset Czasu">Reset Czasu</button>
+                <button id="admin-add-money" class="big-btn" style="background:#2ecc71; font-size:14px; flex:1;" data-text="+20 zł">+20 zł</button>
             </div>
+
+            <button id="admin-unlock-survival" class="big-btn" style="background:#8e44ad; font-size:14px; margin-bottom:15px; width:100%;" data-text="Odblokuj Survival">Odblokuj Survival</button>
 
             <hr>
             <p style="margin:5px 0;">Historia kodów:</p>
             <div id="admin-history" style="max-height: 100px; overflow-y: auto;"></div>
         </div>
 
-        <button onclick="closePopup('admin-popup')" class="big-btn" style="background:#95a5a6; margin-top:10px;">Zamknij</button>
+        <button onclick="closePopup('admin-popup')" class="big-btn" style="background:#95a5a6; margin-top:10px;" data-text="Zamknij">Zamknij</button>
     </div>
 </div>
 
 <div id="admin-secret"></div>
 
-<script>
-// ================== KONFIGURACJA ==================
-const API_KEY = "AIzaSyDOhkvx4GLwZlfmO9uW33wAqveMTdJGsVY"; // Twój klucz - poprawna zmienna
-const WEBHOOK_URL = "https://discord.com/api/webhooks/1438853742924660816/MhnAUwDxCOX6NZp6H3Jd0mzC9I8SOHDw4zNkgpg3B-IMI8-yMu6CzofShfEvu33tF2PV";
-const QUESTION_TIME = 30; // Czas na pytanie (w sekundach)
-
-// Baza Motywów
-const THEMES = [
-    { id: 'default', name: 'Jasny (Domyślny)', price: 0, icon: '⚪' },
-    { id: 'dark', name: 'Ciemny', price: 3, icon: '⚫' },
-    { id: 'gold', name: 'Złoty', price: 5, icon: '🏆' },
-    { id: 'hacker', name: 'Hacker', price: 10, icon: '💻' },
-    { id: 'neon', name: 'Neon', price: 8, icon: '🟣' },
-    { id: 'ocean', name: 'Ocean', price: 6, icon: '🌊' },
-    { id: 'retro', name: 'Retro', price: 7, icon: '📺' },
-    { id: 'cosmos', name: 'Kosmos', price: 15, icon: '🌌' },
-    { id: 'blossom', name: 'Kwitnąca Wiśnia', price: 9, icon: '🌸' },
-    { id: 'christmas', name: 'Boże Narodzenie', price: 5, icon: '🎄' },
-    { id: 'valentines', name: 'Walentynki', price: 5, icon: '💖' },
-    { id: 'halloween', name: 'Halloween', price: 5, icon: '🎃' }
-];
-
-const QUESTIONS = [
-    { q: "Ile jest papierosów w jednej paczce?", a: ["15", "20", "25"], correct: 1 },
-    { q: "Jaki to model pociągu?", a: ["ED161", "EU44", "ED160"], correct: 2, mediaType: "image", mediaUrl: "images/pociag.jpg" },
-    { q: "Jak ma na imię koleżanka Amelki?", a: ["Martyna", "Marta", "Emilka"], correct: 0 },
-    { q: "Co to za dźwięk?", a: ["Twoj stary chrapie", "Szlifierka kątowa", "Zepsuty wiatrak"], correct: 0, mediaType: "audio", mediaUrl: "sounds/augh.mp3" },
-    { q: "Jak nazywa się ta broń?", a: ["Guardan", "Gardan", "Guardian"], correct: 2, mediaType: "image", mediaUrl: "images/bron_z_valo.jpg" },
-    { q: "Co przeskrobał Iso?", a: ["Nie dał ci skina", "Zwyzywał cię po rusku", "Pokazał ci siura"], correct: 1, mediaType: "video", mediaUrl: "videos/iso.mp4" },
-    { q: "Przed czym chroni ta ściana?", a: ["Przez najazdem przeciwników na B", "Przed niczym", "Przed granatami"], correct: 1, mediaType: "video", mediaUrl: "videos/sciana.mp4" },
-    { q: "Co następnie powiedział Tomek?", a: ["Ale masz seksi dupcie", "Dzięki kochana", "Good girl"], correct: 2, mediaType: "videoCut", mediaUrlShort: "videos/good_cut.mp4", mediaUrlFull:  "videos/good.mp4", mediaStart: 24 },
-    { q: "Gdzie Tomek próbuje się dodzwonić?", a: ["Umówić na seks", "Do lokalnego burdelu", "Do serduszka Amelki"], correct: 2, mediaType: "videoCut", mediaUrlShort: "videos/dzwoni_cut.mp4", mediaUrlFull:  "videos/dzwoni.mp4", mediaStart: 13 },
-    { q: "Którego dnia była ci pisana śmierć przez chorobę?", a: ["29 październik", "4 listopada", "31 września"], correct: 0 },
-    { q: "Ile złotych zaoszczędziłeś crackując Train Sim World 6?", a: ["6 499.49 zł", "459.99 zł", "16 474.90 zł"], correct: 2 },
-    { q: "Jaka waluta obowiązuje na yubo?", a: ["Ruble", "Pixelki", "Coinsy"], correct: 1 },
-    { q: "Do kogo napisałeś tę wiadomość?", a: ["Do Martyny", "Do dziwki", "Do Amelki"], correct: 2, mediaType: "image", mediaUrl: "images/dojenie.jpg" },
-    { q: "Dlaczego niuna płakała na live?", a: ["Bo chłopak z nią zerwał", "Bo Tomek nie chciał jej wyruchać", "Bo spłonął McDonald's"], correct: 2 },
-    { q: "Jaki kształt ma penis kaczora?", a: ["Podłużny", "Spiralny", "Trójkątny"], correct: 1 },
-    { q: "Jaki jest wzór na deltę?", a: ["b^2 - 4ac", "a^2 + b^2 = c^2", "e = mc^2"], correct: 0 },
-    { q: "Co robi Tomek gdy skończą się fajki?", a: ["Kupuje nową paczkę w sklepie", "Robi loda w krzakach", "Idzie żebrać na ulicę"], correct: 2 },
-    { q: "Jak ma na imię ta ryba?", a: ["Pusia", "Ryba bananowa", "Tomek"], correct: 2, mediaType: "image", mediaUrl: "images/ryba.jpg" },
-    { q: "Co to za budynek?", a: ["Burning Towers", "World Trade Center", "Tilted Towers"], correct: 1, mediaType: "image", mediaUrl: "images/budynek.jpg" },
-    { q: "Jak nazywa się to miejsce w Fortnite?", a: ["Przyjemny Park", "Słone Strzechy", "Lepki Lasek"], correct: 0, mediaType: "image", mediaUrl: "images/park.jpg" },
-    { q: "Jak nazywa się ten przystojniak?", a: ["Tomek", "Darius", "Garen"], correct: 1, mediaType: "image", mediaUrl: "images/lold.jpg" },
-    { q: "Jak nazywa się ten przystojniak?", a: ["Feniks", "Brimstone", "Tejo"], correct: 2, mediaType: "image", mediaUrl: "images/valo.jpg" },
-    { q: "Co palisz na tym filmiku?", a: ["Malboraska", "Kenta", "Winstona"], correct: 1, mediaType: "video", mediaUrl: "videos/tomek.mp4" },
-    { q: "Gdzie znajduje się ten monumentalny pomnik Jezusa Chrystusa?", a: ["W Rio De Janeiro", "W Gdańsku", "W Świebodzinie"], correct: 2, mediaType: "image", mediaUrl: "images/pomnik.jpg" },
-    { q: "Co stało się dalej?", a: ["Amelka chrumknęła", "Tomek zaczął jęczeć", "Tomek zaczął śpiewać piosenkę Zombie"], correct: 1, mediaType: "videoCut", mediaUrlShort: "videos/chrumknij_cut.mp4", mediaUrlFull:  "videos/chrumknij.mp4", mediaStart: 13 },
-    { q: "Gdzie zostałeś zamknięty?", a: ["W ulcie", "W piwnicy", "W ciemnicy"], correct: 2, mediaType: "videoCut", mediaUrlShort: "videos/ciemnica_cut.mp4", mediaUrlFull:  "videos/ciemnica.mp4", mediaStart: 4 },
-    { q: "Co powie zaraz Tomek?", a: ["Sage please fuck my ass", "Sage give me ass", "Sage can i eat your ass"], correct: 1, mediaType: "videoCut", mediaUrlShort: "videos/ass_cut.mp4", mediaUrlFull:  "videos/ass.mp4", mediaStart: 12 },
-
-];
-console.log("LICZBA PYTAŃ:", QUESTIONS.length);
-console.log("OSTATNIE PYTANIE:", QUESTIONS[QUESTIONS.length - 1]);
-
-// Zmienne Globalne
-let gameState = {
-    wallet: 0,
-    bestScore: 0,
-    lastPlayTime: null,
-    ownedThemes: ['default'],
-    activeTheme: 'default',
-    codesHistory: [],
-    stats: { games:0, earned:0, spent:0, correct:0, wrong:0, streak:0, streakDate: null }
-};
-
-let currentSession = {
-    questions: [],
-    index: 0,
-    money: 0,
-    correct: 0,
-    aiUsed: false,
-    finished: false // FIX: Add finished flag to prevent double rewards
-};
-
-let timerId = null;
-let timeLeft = QUESTION_TIME;
-let isSoundOn = true;
-let canAnswer = false;
-let effectsInterval = null; 
-let hackerInterval = null;
-let goldInterval = null;
-let oceanFishInterval = null;
-let cosmosStarsInterval = null;
-let cosmosMeteorInterval = null;
-let lavenderInterval = null;
-let sakuraInterval = null;
-
-// Anty-Cheat
-let cheatWarningsTotal = 0; // Licznik ostrzeżeń na całą grę
-
-// ================== GEMINI API HELPER (FINALNA) ==================
-async function askGemini(prompt) {
-    if (!API_KEY) {
-        showToast("Brak klucza API! Skonfiguruj go w kodzie.", "error");
-        return null;
-    }
-    
-    // Używamy stabilnego modelu, który na 100% działa z publicznymi kluczami
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
-    
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-        });
-
-        if (!response.ok) throw new Error("API Error");
-
-        const data = await response.json();
-        return data.candidates?.[0]?.content?.parts?.[0]?.text || null;
-    } catch (e) {
-        console.error(e);
-        return null;
-    }
-}
-
-// ================== INIT & SAVE ==================
-function loadData() {
-    const raw = localStorage.getItem("tomekQuiz_data_v2");
-    if(raw) {
-        gameState = Object.assign(gameState, JSON.parse(raw));
-    }
-    applyTheme(gameState.activeTheme);
-    updateUI();
-}
-
-function saveData() {
-    localStorage.setItem("tomekQuiz_data_v2", JSON.stringify(gameState));
-    updateUI();
-}
-
-function updateUI() {
-    document.getElementById("wallet-display").innerText = "Portfel: " + gameState.wallet.toFixed(2) + " zł";
-    document.getElementById("best-display").innerText = "Najlepszy wynik: " + gameState.bestScore.toFixed(2) + " zł";
-    
-    // Oblicz bonus na jutro
-    let nextBonus = 0;
-    const nextStreak = gameState.stats.streak + 1;
-    if (nextStreak > 1) { // Bonus zaczyna się od dnia 2
-        nextBonus = nextStreak <= 9 ? 0.10 : 0.20;
-    }
-    
-    document.getElementById("day-streak-display").innerText = `Passa dni: ${gameState.stats.streak} 🔥 (jutro: +${nextBonus.toFixed(2)} zł)`;
-    
-    // Progress Bar
-    const pct = Math.min(100, (gameState.wallet / 20) * 100);
-    document.getElementById("money-progress-bar").style.width = pct + "%";
-    document.getElementById("money-progress-text").innerText = `${gameState.wallet.toFixed(2)} / 20.00 zł`;
-    
-    checkTimeLimit();
-}
-
-function applyTheme(themeId) {
-    document.body.className = ""; // Reset
-    if(themeId !== 'default') document.body.classList.add(`theme-${themeId}`);
-    
-    // Obsługa efektów
-    stopThemeEffects();
-    if(themeId === 'christmas') startSnow();
-    if(themeId === 'valentines') startHearts();
-    if(themeId === 'halloween') startPumpkin();
-    if(themeId === 'hacker') startHacker();
-    if(themeId === 'gold') startGold();
-    if(themeId === 'ocean') startOcean();
-    if(themeId === 'retro') startRetro();
-    if(themeId === 'cosmos') startCosmos();
-    if(themeId === 'blossom') startSakura();
-}
-
-// ================== EFEKTY SPECJALNE (JS) ==================
-function stopThemeEffects() {
-    if(effectsInterval) clearInterval(effectsInterval);
-    if(hackerInterval) clearInterval(hackerInterval);
-    if(goldInterval) clearInterval(goldInterval);
-    if(oceanFishInterval) clearInterval(oceanFishInterval);
-    if(cosmosStarsInterval) clearInterval(cosmosStarsInterval);
-    if(cosmosMeteorInterval) clearInterval(cosmosMeteorInterval);
-    if(lavenderInterval) clearInterval(lavenderInterval);
-    if(sakuraInterval) clearInterval(sakuraInterval);
-    
-    const container = document.getElementById("theme-effects");
-    container.innerHTML = "";
-    
-    const oldCanvas = document.getElementById("matrix-canvas");
-    if(oldCanvas) oldCanvas.remove();
-}
-
-function startSnow() {
-    const container = document.getElementById("theme-effects");
-    effectsInterval = setInterval(() => {
-        const el = document.createElement("div");
-        el.className = "particle snow";
-        el.innerText = "❄️";
-        el.style.left = Math.random() * 100 + "vw";
-        el.style.animationDuration = Math.random() * 3 + 2 + "s";
-        container.appendChild(el);
-        setTimeout(() => el.remove(), 5000);
-    }, 300);
-}
-
-function startSakura() {
-    const container = document.getElementById("theme-effects");
-    sakuraInterval = setInterval(() => {
-        const el = document.createElement("div");
-        el.className = "particle sakura";
-        el.style.left = Math.random() * 100 + "vw";
-        el.style.animationDuration = Math.random() * 4 + 4 + "s";
-        container.appendChild(el);
-        setTimeout(() => el.remove(), 8000);
-    }, 300);
-}
-
-function startHearts() {
-    const container = document.getElementById("theme-effects");
-    effectsInterval = setInterval(() => {
-        const el = document.createElement("div");
-        el.className = "particle heart";
-        el.innerText = "❤️";
-        el.style.left = Math.random() * 100 + "vw";
-        el.style.animationDuration = Math.random() * 3 + 2 + "s";
-        container.appendChild(el);
-        setTimeout(() => el.remove(), 5000);
-    }, 400);
-}
-
-function startPumpkin() {
-    const container = document.getElementById("theme-effects");
-    const el = document.createElement("div");
-    el.className = "glowing-pumpkin";
-    el.innerText = "🎃";
-    container.appendChild(el);
-}
-
-function startGold() {
-    const container = document.getElementById("theme-effects");
-    goldInterval = setInterval(() => {
-        const el = document.createElement("div");
-        el.className = "particle shine";
-        el.innerText = "✦";
-        el.style.left = Math.random() * 95 + "vw";
-        el.style.top = Math.random() * 95 + "vh";
-        container.appendChild(el);
-        setTimeout(() => el.remove(), 1500);
-    }, 600);
-}
-
-function startOcean() {
-    const container = document.getElementById("theme-effects");
-    // Fale
-    const waveBg = document.createElement("div"); waveBg.className = "ocean-wave bg";
-    const waveMid = document.createElement("div"); waveMid.className = "ocean-wave mid";
-    const waveFg = document.createElement("div"); waveFg.className = "ocean-wave fg";
-    container.appendChild(waveBg);
-    container.appendChild(waveMid);
-    container.appendChild(waveFg);
-
-    // Ryby
-    oceanFishInterval = setInterval(() => {
-        const el = document.createElement("div");
-        el.className = "particle fish";
-        const fishTypes = ['🐠', '🐟', '🐡'];
-        el.innerText = fishTypes[Math.floor(Math.random() * fishTypes.length)];
-        
-        const direction = Math.random() > 0.5 ? 1 : 0; 
-        
-        // Ryby tylko w dolnych 5% (głęboko pod wodą)
-        el.style.bottom = (Math.random() * 5) + "%"; 
-        
-        if (direction === 0) {
-            el.classList.add('fish-right');
-            el.style.animationDuration = (10 + Math.random() * 5) + "s";
-        } else {
-            el.classList.add('fish-left');
-            el.style.animationDuration = (10 + Math.random() * 5) + "s";
-        }
-        
-        container.appendChild(el);
-        setTimeout(() => el.remove(), 15000);
-    }, 2000);
-}
-
-function startRetro() {
-    const container = document.getElementById("theme-effects");
-    const grain = document.createElement("div");
-    grain.className = "retro-grain";
-    container.appendChild(grain);
-    
-    const overlay = document.createElement("div");
-    overlay.className = "retro-overlay";
-    container.appendChild(overlay);
-    
-    const line = document.createElement("div");
-    line.className = "retro-line";
-    container.appendChild(line);
-}
-
-function startCosmos() {
-    const container = document.getElementById("theme-effects");
-    
-    // Gwiazdy tła (pulsujące)
-    for(let i=0; i<200; i++) {
-        const el = document.createElement("div");
-        el.className = "particle star";
-        el.style.left = Math.random() * 100 + "vw";
-        el.style.top = Math.random() * 100 + "vh";
-        el.style.width = (Math.random() * 2 + 1) + "px";
-        el.style.height = el.style.width;
-        el.style.animationDuration = (Math.random() * 3 + 2) + "s"; 
-        container.appendChild(el);
-    }
-    
-    // Spadające gwiazdy
-    cosmosMeteorInterval = setInterval(() => {
-        const el = document.createElement("div");
-        el.className = "falling-star"; 
-        const startX = Math.random() * 100;
-        
-        el.style.top = "-10px";
-        el.style.left = startX + "vw";
-        el.style.animationDuration = (Math.random() * 1 + 0.5) + "s";
-        
-        container.appendChild(el);
-        setTimeout(() => el.remove(), 2000);
-    }, 800);
-}
-
-function startHacker() {
-    const container = document.getElementById("theme-effects");
-    const canvas = document.createElement("canvas");
-    canvas.id = "matrix-canvas";
-    container.appendChild(canvas);
-    
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    
-    const letters = '01ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const cols = canvas.width / 20;
-    const drops = Array(Math.floor(cols)).fill(1);
-    
-    function draw() {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = '#0f0';
-        ctx.font = '15px monospace';
-        
-        drops.forEach((y, i) => {
-            const text = letters[Math.floor(Math.random() * letters.length)];
-            const x = i * 20;
-            ctx.fillText(text, x, y * 20);
-            
-            if(y * 20 > canvas.height && Math.random() > 0.975) {
-                drops[i] = 0;
-            }
-            drops[i]++;
-        });
-    }
-    
-    hackerInterval = setInterval(draw, 50);
-}
-
-// ================== LOGIKA GRY ==================
-function startGame() {
-    if(!checkTimeLimit(true)) return;
-
-    // Inicjalizacja sesji
-    currentSession = {
-        questions: shuffle([...QUESTIONS]).slice(0, 5),
-        index: 0,
-        money: 0,
-        correct: 0,
-        aiUsed: false,
-        finished: false // FIX: Initialize finished state
-    };
-    
-    cheatWarningsTotal = 0; // Reset ostrzeżeń na nową grę
-    
-    gameState.stats.games++;
-    gameState.lastPlayTime = Date.now();
-    saveData();
-    
-    showScreen('quiz-screen');
-    loadQuestion();
-    playSound('click');
-
-    // --- LOGIKA DAILY STREAK (PRZENIESIONA) ---
-    // Pobranie dzisiejszej daty (jako data kalendarzowa, ignoruje godzinę)
-    // UWAGA: Logika ta działa przy Uruchomieniu Gry, co jest zgodne z 24h timerem.
-    const today = new Date().toDateString();
-    
-    // Jeśli to pierwsza gra w ogóle
-    if (!gameState.stats.streakDate) {
-        gameState.stats.streakDate = today;
-        gameState.stats.streak = 1;
-        saveData();
-    } else if (gameState.stats.streakDate !== today) {
-        // Jeśli data ostatniej gry jest inna niż dzisiaj
-        const lastPlay = new Date(gameState.stats.streakDate);
-        const now = new Date(today);
-        
-        // Oblicz różnicę w dniach kalendarzowych
-        const diffTime = Math.abs(now - lastPlay);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-        
-        // Logika 24h-48h okna czasowego (bazując na dniach kalendarzowych)
-        // Jeśli diffDays == 1, to znaczy że grałeś wczoraj -> streak++
-        // Jeśli diffDays > 1, to znaczy że była przerwa > 1 dzień -> reset
-        
-        if (diffDays === 1) {
-            // Grał wczoraj -> zwiększamy streak
-            gameState.stats.streak++;
-            
-            // Bonus za streak
-            let bonus = 0;
-            if (gameState.stats.streak <= 9) bonus = 0.10;
-            else bonus = 0.20;
-            
-            if (bonus > 0) {
-                gameState.wallet += bonus;
-                gameState.stats.earned += bonus;
-                showToast(`🔥 Streak Bonus: +${bonus.toFixed(2)} zł`, "success");
-            }
-        } else {
-            // Przerwa dłuższa niż 1 dzień -> reset streaka
-            gameState.stats.streak = 0;
-        }
-        
-        // Zaktualizuj datę ostatniej gry na dzisiaj
-        gameState.stats.streakDate = today;
-        saveData();
-        updateUI(); // Odśwież UI po bonusie
-    }
-}
-
-function loadQuestion() {
-    clearInterval(timerId);
-    canAnswer = false;
-    
-    const q = currentSession.questions[currentSession.index];
-    if(!q) { endGame(); return; }
-
-    // UI Reset
-    document.getElementById("question-counter").innerText = `Pytanie ${currentSession.index + 1}/5`;
-    document.getElementById("money-display").innerText = "Zarobione: " + currentSession.money.toFixed(2) + " zł";
-    document.getElementById("question-text").innerText = q.q;
-    document.getElementById("message").innerText = "";
-    document.getElementById("timer-bar").style.width = "100%";
-    
-    // AI Btn logic
-    const aiBtn = document.getElementById("ask-ai-btn");
-    aiBtn.innerText = currentSession.aiUsed ? "✨ Wykorzystano" : "✨ Zapytaj AI";
-    aiBtn.disabled = currentSession.aiUsed;
-    aiBtn.onclick = handleAI;
-
-    // Odpowiedzi
-    const btns = [1,2,3].map(i => document.getElementById("answer"+i));
-    btns.forEach((b, i) => {
-        b.innerText = q.a[i];
-        b.className = "big-btn answer-btn";
-        b.style.display = "block";
-        b.onclick = () => handleAnswer(i);
-    });
-
-    // Media
-    const mediaDiv = document.getElementById("media");
-    mediaDiv.innerHTML = "";
-    const confirmBtn = document.getElementById("video-confirm-btn");
-    confirmBtn.style.display = "none";
-
-    if(q.mediaType === 'image') mediaDiv.innerHTML = `<img src="${q.mediaUrl}">`;
-    if(q.mediaType === 'audio') mediaDiv.innerHTML = `<audio controls src="${q.mediaUrl}"></audio>`;
-    
-    if(q.mediaType === 'video' || q.mediaType === 'videoCut') {
-        btns.forEach(b => b.style.display = "none");
-        const v = document.createElement("video");
-        v.src = q.mediaType === 'videoCut' ? q.mediaUrlShort : q.mediaUrl;
-        v.controls = true;
-        mediaDiv.appendChild(v);
-        
-        confirmBtn.style.display = "block";
-        confirmBtn.onclick = () => {
-            confirmBtn.style.display = "none";
-            btns.forEach(b => b.style.display = "block");
-            startTimer();
-        };
-    } else {
-        startTimer();
-    }
-}
-
-function startTimer() {
-    timeLeft = QUESTION_TIME;
-    canAnswer = true;
-    document.getElementById("timer-display").innerText = timeLeft + "s";
-    
-    timerId = setInterval(() => {
-        timeLeft--;
-        document.getElementById("timer-display").innerText = timeLeft + "s";
-        document.getElementById("timer-bar").style.width = (timeLeft/QUESTION_TIME*100) + "%";
-        
-        if(timeLeft <= 0) {
-            clearInterval(timerId);
-            processAnswer(false, "Czas minął!");
-        }
-    }, 1000);
-}
-
-function handleAnswer(idx) {
-    if(!canAnswer) return;
-    const q = currentSession.questions[currentSession.index];
-    const isCorrect = idx === q.correct;
-    
-    const btn = document.getElementById("answer"+(idx+1));
-    btn.classList.add(isCorrect ? "answer-correct-anim" : "answer-wrong-anim");
-    
-    processAnswer(isCorrect);
-}
-
-function processAnswer(isCorrect, msgOverride) {
-    canAnswer = false;
-    clearInterval(timerId);
-    
-    const msgEl = document.getElementById("message");
-    
-    if(isCorrect) {
-        playSound('correct');
-        const reward = getRewardAmount();
-        currentSession.money += reward;
-        currentSession.correct++;
-        gameState.stats.correct++;
-        msgEl.style.color = "#2ecc71";
-        msgEl.innerText = `Dobrze! +${reward.toFixed(2)} zł`;
-        showFloatingMoney(reward);
-    } else {
-        playSound('wrong');
-        currentSession.money = Math.max(0, currentSession.money - 0.5);
-        gameState.stats.wrong++;
-        msgEl.style.color = "#e74c3c";
-        msgEl.innerText = msgOverride || "Źle! -0.50 zł";
-    }
-    
-    document.getElementById("money-display").innerText = "Zarobione: " + currentSession.money.toFixed(2) + " zł";
-
-    // VideoCut logic
-    const q = currentSession.questions[currentSession.index];
-    if(q.mediaType === 'videoCut') {
-        const mDiv = document.getElementById("media");
-        mDiv.innerHTML = "";
-        const v = document.createElement("video");
-        v.src = q.mediaUrlFull;
-        v.controls = true; 
-        
-        // FIX: Start from specified time or default 12s
-        v.addEventListener('loadedmetadata', function() {
-            this.currentTime = q.mediaStart !== undefined ? q.mediaStart : 12;
-            this.play();
-        });
-        
-        mDiv.appendChild(v);
-        
-        // FIX: Prevent double execution using local flag
-        let transitionHandled = false;
-        const doTransition = () => {
-            if(transitionHandled) return;
-            transitionHandled = true;
-            nextQ();
-        };
-
-        v.onended = doTransition;
-        // Fallback jeśli video nie ruszy
-        setTimeout(doTransition, 15000); 
-    } else {
-        setTimeout(nextQ, 1500);
-    }
-}
-
-function nextQ() {
-    currentSession.index++;
-    loadQuestion();
-}
-
-function endGame() {
-    // FIX: Check if already finished to prevent double rewards
-    if(currentSession.finished) return;
-    currentSession.finished = true;
-
-    gameState.wallet += currentSession.money;
-    gameState.stats.earned += currentSession.money;
-    if(currentSession.money > gameState.bestScore) gameState.bestScore = currentSession.money;
-    saveData();
-    
-    showScreen('end-screen');
-    document.getElementById("final-money").innerText = `+${currentSession.money.toFixed(2)} zł`;
-    
-    const gif = document.getElementById("end-gif");
-    const txt = document.getElementById("end-text");
-    
-    if(currentSession.money > 0) {
-        playSound('win');
-        gif.src = "https://media1.tenor.com/m/y0zptlFKiYIAAAAd/yay-kitty.gif";
-        txt.innerText = "Świetna robota!";
-        // AI Comment
-        generateAIComment(true);
-    } else {
-        playSound('lose');
-        gif.src = "https://media1.tenor.com/m/JRJPU6H35PwAAAAd/spider-man-spider-man-web-of-shadows.gif";
-        txt.innerText = "Nic nie zarobiłeś...";
-        generateAIComment(false);
-    }
-}
-
-// ================== FUNKCJE SKLEPU ==================
-function openShop() {
-    const grid = document.getElementById("shop-grid");
-    grid.innerHTML = "";
-    document.getElementById("shop-wallet").innerText = gameState.wallet.toFixed(2) + " zł";
-    
-    THEMES.forEach(t => {
-        const div = document.createElement("div");
-        const owned = gameState.ownedThemes.includes(t.id);
-        const active = gameState.activeTheme === t.id;
-        
-        div.className = `shop-item ${owned ? 'owned' : ''} ${active ? 'active' : ''}`;
-        div.onclick = () => buyTheme(t);
-        
-        div.innerHTML = `
-            <div class="shop-icon">${t.icon}</div>
-            <div class="shop-name">${t.name}</div>
-            <div class="shop-price">${owned ? 'Posiadane' : t.price + ' zł'}</div>
-        `;
-        grid.appendChild(div);
-    });
-    
-    document.getElementById("shop-popup").style.display = "flex";
-}
-
-function buyTheme(theme) {
-    if(gameState.ownedThemes.includes(theme.id)) {
-        // Equip
-        gameState.activeTheme = theme.id;
-        applyTheme(theme.id);
-        saveData();
-        openShop(); // refresh UI
-        playSound('click');
-        showToast("Ustawiono motyw: " + theme.name, "success");
-    } else {
-        // Buy
-        if(gameState.wallet >= theme.price) {
-            gameState.wallet -= theme.price;
-            gameState.stats.spent += theme.price;
-            gameState.ownedThemes.push(theme.id);
-            gameState.activeTheme = theme.id;
-            applyTheme(theme.id);
-            saveData();
-            openShop();
-            updateUI();
-            playSound('win');
-            showToast("Kupiono motyw!", "success");
-        } else {
-            playSound('wrong');
-            showToast("Za mało pieniędzy!", "error");
-        }
-    }
-}
-
-// ================== AI & WEBHOOK ==================
-async function handleAI() {
-    const btn = document.getElementById("ask-ai-btn");
-    btn.innerText = "⏳ Myślę...";
-    btn.disabled = true;
-    
-    const q = currentSession.questions[currentSession.index];
-    const prompt = `Jesteś pomocnikiem w quizie. Pytanie: "${q.q}". Odpowiedzi: ${q.a.join(", ")}. Która to poprawna? Odpowiedz krótko i zabawnie.`;
-    
-    const hint = await askGemini(prompt);
-
-    if (hint) {
-        document.getElementById("ai-content").innerText = hint; 
-        document.getElementById("ai-popup").style.display = "flex";
-        currentSession.aiUsed = true;
-        btn.innerText = "✨ Wykorzystano";
-    } else {
-        showToast("Błąd AI. Spróbuj ponownie.", "error");
-        btn.disabled = false;
-        btn.innerText = "✨ Zapytaj AI";
-    }
-}
-
-async function generateAIComment(win) {
-    const box = document.getElementById("ai-comment-box");
-    const txt = document.getElementById("ai-comment-text");
-    box.style.display = "block";
-    txt.innerText = "AI pisze opinię...";
-    
-    const prompt = `Gracz skończył grę. Zarobił ${currentSession.money} zł. Poprawne: ${currentSession.correct}/5. Napisz jedno złośliwe lub gratulacyjne zdanie.`;
-    
-    const comment = await askGemini(prompt);
-    
-    if (comment) {
-        txt.innerText = comment;
-    } else {
-        box.style.display = "none";
-    }
-}
-
-// ================== POMOCNICZE ==================
-function showScreen(id) {
-    ['start-screen', 'quiz-screen', 'end-screen'].forEach(s => 
-        document.getElementById(s).style.display = (s===id ? 'block' : 'none')
-    );
-    // Animacja wejścia
-    const el = document.getElementById(id);
-    el.classList.remove('fade-in');
-    void el.offsetWidth;
-    el.classList.add('fade-in');
-}
-
-function checkTimeLimit(isClick = false) {
-    const now = Date.now();
-    const last = gameState.lastPlayTime || 0;
-    const diff = now - last;
-    const day = 24 * 60 * 60 * 1000;
-    
-    const btn = document.getElementById("start-btn");
-    const cd = document.getElementById("countdown");
-
-    if(diff < day) {
-        btn.disabled = true;
-        btn.style.opacity = "0.5";
-        
-        const left = day - diff;
-        const h = Math.floor(left/3600000);
-        const m = Math.floor((left%3600000)/60000);
-        const s = Math.floor((left%60000)/1000);
-        cd.innerText = `Następna gra za: ${h}h ${m}m ${s}s`;
-        
-        if(isClick) showToast("Musisz poczekać 24h!", "error");
-        return false;
-    } else {
-        btn.disabled = false;
-        btn.style.opacity = "1";
-        cd.innerText = "";
-        return true;
-    }
-}
-
-// Globalny reset dla admina
-window.forceReset = function() {
-    gameState.lastPlayTime = 0;
-    saveData();
-    checkTimeLimit();
-    showToast("Zresetowano czas!", "success");
-}
-
-function getRewardAmount() {
-    const total = gameState.wallet + currentSession.money;
-    if(total < 5) return 0.5;
-    if(total < 10) return 0.4;
-    return 0.2;
-}
-
-function showFloatingMoney(amount) {
-    const el = document.createElement("div");
-    el.className = "floating-money";
-    el.innerText = `+${amount.toFixed(2)}`;
-    el.style.left = "50%";
-    el.style.top = "50%";
-    document.getElementById("quiz-screen").appendChild(el);
-    setTimeout(() => el.remove(), 1000);
-}
-
-function shuffle(array) {
-    let currentIndex = array.length, randomIndex;
-
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex--;
-
-        // Zamiana elementów
-        [array[currentIndex], array[randomIndex]] = [
-            array[randomIndex], array[currentIndex]
-        ];
-    }
-
-    return array;
-}
-
-function playSound(type) {
-    if(!isSoundOn) return;
-    const sounds = {
-        correct: "sounds/correct.mp3",
-        wrong: "sounds/wrong.mp3",
-        click: "sounds/click.mp3",
-        win: "sounds/win.mp3",
-        lose: "sounds/lose.mp3"
-    };
-    new Audio(sounds[type]).play().catch(()=>{});
-}
-
-function showToast(msg, type='info') {
-    const c = document.getElementById("toast-container");
-    const t = document.createElement("div");
-    t.className = `toast ${type}`;
-    t.innerHTML = `<span>${type==='error'?'⛔':type==='success'?'✅':'ℹ️'}</span> ${msg}`;
-    c.appendChild(t);
-    setTimeout(() => t.remove(), 4000);
-}
-
-function closePopup(id) {
-    document.getElementById(id).style.display = "none";
-    playSound('click');
-}
-
-// INICJALIZACJA PRZYCISKÓW I EVENTÓW
-window.onload = function() {
-    loadData();
-    showScreen('start-screen'); // Ważne: Pokaż start na początku!
-    
-    // Timer 24h
-    setInterval(() => checkTimeLimit(), 1000);
-
-    // Eventy Przycisków
-    document.getElementById("start-btn").onclick = startGame;
-    document.getElementById("shop-btn").onclick = openShop;
-    
-    document.getElementById("restart-btn").onclick = () => {
-        showScreen('start-screen');
-        playSound('click');
-    };
-
-    // Dźwięk toggle
-    document.getElementById("sound-toggle").onclick = function() {
-        isSoundOn = !isSoundOn;
-        this.innerText = isSoundOn ? "🔊" : "🔇";
-        this.style.opacity = isSoundOn ? "1" : "0.5";
-    };
-
-    // Wymiana (Portfel klik)
-    document.getElementById("wallet-display").onclick = () => {
-        document.getElementById("exchange-wallet").innerText = gameState.wallet.toFixed(2) + " zł";
-        const h = document.getElementById("codes-history");
-        h.innerHTML = gameState.codesHistory.map(c => `<div>${c}</div>`).join("") || "Brak kodów";
-        document.getElementById("exchange-popup").style.display = "flex";
-        playSound('click');
-    };
-
-    // Kupno kodu
-    document.getElementById("buy-code-btn").onclick = () => {
-        if(gameState.wallet >= 20) {
-            gameState.wallet -= 20;
-            const code = "KOD-" + Math.floor(Math.random()*100000);
-            gameState.codesHistory.unshift(code);
-            saveData();
-            
-            closePopup("exchange-popup");
-            document.getElementById("new-code-display").innerText = code;
-            document.getElementById("new-code-popup").style.display = "flex";
-            playSound('win');
-            
-            // Webhook
-            fetch(WEBHOOK_URL, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ content: `Kupiono kod: ${code}` })
-            }).catch(()=>{});
-            
-        } else {
-            showToast("Za mało pieniędzy!", "error");
-            playSound('wrong');
-        }
-    };
-
-    // Statystyki
-    document.getElementById("stats-btn").onclick = () => {
-        const s = gameState.stats;
-        document.getElementById("stats-content").innerHTML = `
-            Gier: <b>${s.games}</b><br>
-            Poprawne: <b style="color:green">${s.correct}</b><br>
-            Błędne: <b style="color:red">${s.wrong}</b><br>
-            Zarobione łącznie: <b>${s.earned.toFixed(2)} zł</b><br>
-            Wydane w sklepie: <b>${s.spent.toFixed(2)} zł</b>
-        `;
-        document.getElementById("stats-popup").style.display = "flex";
-        playSound('click');
-    };
-
-    // --- LOGIKA ADMINA (ZMODYFIKOWANA) ---
-    const adminBtn = document.getElementById("admin-secret");
-    let adminTimer;
-
-    // Funkcja otwierająca panel
-    const openAdminPanel = () => {
-        // Reset widoku do logowania
-        document.getElementById("admin-login-view").style.display = "block";
-        document.getElementById("admin-panel-view").style.display = "none";
-        document.getElementById("admin-pass-input").value = "";
-        document.getElementById("admin-popup").style.display = "flex";
-    };
-
-    // Obsługa przytrzymania
-    const startPress = () => adminTimer = setTimeout(openAdminPanel, 1000);
-    const endPress = () => clearTimeout(adminTimer);
-    
-    adminBtn.onmousedown = startPress;
-    adminBtn.onmouseup = endPress;
-    adminBtn.ontouchstart = startPress;
-    adminBtn.ontouchend = endPress;
-
-    // Logowanie
-    document.getElementById("admin-login-btn").onclick = () => {
-        const pass = document.getElementById("admin-pass-input").value;
-        if(pass === "JD") {
-            // Pokaż właściwy panel
-            document.getElementById("admin-login-view").style.display = "none";
-            document.getElementById("admin-panel-view").style.display = "block";
-            
-            // Załaduj dane
-            document.getElementById("admin-last-code").innerText = gameState.codesHistory[0] || "brak";
-            document.getElementById("admin-history").innerHTML = gameState.codesHistory.join("<br>");
-        } else {
-            showToast("Błędne hasło!", "error");
-        }
-    };
-
-    // Przyciski w panelu
-    document.getElementById("admin-reset-time").onclick = () => {
-        forceReset();
-    };
-
-    document.getElementById("admin-add-money").onclick = () => {
-        gameState.wallet += 20;
-        updateUI();
-        showToast("Dodano 20 zł do portfela", "success");
-    };
-
-    // --- ANTY-CHEAT (NOWOŚĆ) ---
-    document.addEventListener("visibilitychange", () => {
-        const quizActive = document.getElementById("quiz-screen").style.display === "block";
-        
-        // Jeśli gra jest aktywna (jesteśmy w quizie) i karta została ukryta
-        if (document.hidden && quizActive && canAnswer) {
-            cheatWarningsTotal++; // Zwiększ GLOBALNY licznik ostrzeżeń
-            
-            if (cheatWarningsTotal === 1) {
-                // Pierwsze ostrzeżenie W CAŁEJ GRZE
-                showToast("⚠️ Nie wychodź z aplikacji! Kolejna próba zakończy pytanie porażką.", "error");
-            } else if (cheatWarningsTotal >= 2) {
-                // Kara (każde kolejne wyjście)
-                processAnswer(false, "Oszukiwanie! Pytanie pominięte.");
-            }
-        }
-    });
-};
-</script>
+<script src="data.js"></script>
+<script src="shop.js"></script>
+<script src="game.js"></script>
 
 </body>
 </html>

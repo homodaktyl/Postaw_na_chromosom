@@ -1,0 +1,2560 @@
+    /* ================== MOTYWY KOLORYSTYCZNE ================== */
+    :root {
+        /* Domyślny (Jasny) */
+        --bg-color: #f0f2f5;
+        --container-bg: #ffffff;
+        --text-color: #333;
+        --accent-color: #4a90e2;
+        --accent-hover: #357abd;
+        --btn-text: #fff;
+        --border-color: #ddd;
+        --font-main: Arial, sans-serif; /* Domyślna czcionka */
+    }
+
+    /* Ciemny (3 zł) */
+    body.theme-dark {
+        --bg-color: #121212;
+        --container-bg: #1e1e1e;
+        --text-color: #e0e0e0;
+        --accent-color: #bb86fc;
+        --accent-hover: #9965f4;
+        --btn-text: #000;
+        --border-color: #333;
+    }
+
+    /* Złoty (4 zł) */
+    body.theme-gold {
+        --bg-color: #2c2500;
+        --container-bg: #fffbe6;
+        --text-color: #5c4d00;
+        --accent-color: #d4af37;
+        --accent-hover: #b5952f;
+        --btn-text: #fff;
+        --border-color: #e6c200;
+    }
+
+    /* Hacker (5 zł) */
+    body.theme-hacker {
+        --bg-color: #000000;
+        --container-bg: rgba(13, 17, 23, 0.9);
+        --text-color: #00ff00;
+        --accent-color: #008000;
+        --accent-hover: #00a000;
+        --btn-text: #000;
+        --border-color: #00ff00;
+        --font-main: 'Courier New', Courier, monospace; 
+    }
+
+    /* Neon (6 zł) */
+    body.theme-neon {
+        --bg-color: #050505;
+        --container-bg: #101010;
+        --text-color: #fff;
+        --accent-color: #ff00ff;
+        --accent-hover: #d600ff;
+        --btn-text: #fff;
+        --border-color: #ff00ff;
+    }
+    body.theme-neon .container {
+        box-shadow: 0 0 20px #ff00ff, inset 0 0 10px #ff00ff;
+    }
+
+    /* Ocean (7 zł) */
+    body.theme-ocean {
+        --bg-color: #a7dbd8;
+        --container-bg: rgba(224, 255, 255, 0.9);
+        --text-color: #004d40;
+        --accent-color: #0097a7;
+        --accent-hover: #00838f;
+        --btn-text: #fff;
+        --border-color: #4dd0e1;
+    }
+
+    /* Retro (8 zł) */
+    body.theme-retro {
+        --bg-color: #d7cba4;
+        --container-bg: #f4e4bc;
+        --text-color: #4e342e;
+        --accent-color: #8d6e63;
+        --accent-hover: #6d4c41;
+        --btn-text: #fff;
+        --border-color: #a1887f;
+        --font-main: 'Georgia', serif;
+        filter: sepia(0.4) contrast(1.1);
+    }
+
+    /* Kosmos (9 zł) */
+    body.theme-cosmos {
+        --bg-color: #050510;
+        --container-bg: #0b0b1a;
+        --text-color: #e6e6ff;
+        --accent-color: #6666ff;
+        --accent-hover: #4d4dff;
+        --btn-text: #fff;
+        --border-color: #3333cc;
+    }
+
+/* ================== BLOSSOM / KWITNĄCA WIŚNIA (ZEN GARDEN) ================== */
+
+body.theme-blossom {
+    --bg-color: #ffe6e6;
+    --container-bg: rgba(255, 255, 255, 0.85); /* Papier ryżowy */
+    --text-color: #5c3a3a; /* Ciemny brąz (jak gałęzie) */
+    --accent-color: #ff80ab; /* Różowy akcent */
+    --btn-text: #fff;
+    --border-color: #ffb3c6;
+    
+    /* ZMIANA: Nowa czcionka Quicksand */
+    --font-main: 'Quicksand', sans-serif;
+    
+    /* Dodajemy pogrubienie, bo Quicksand jest naturalnie cienka */
+    font-weight: 600; 
+    
+    background-color: #ffe6e6;
+    overflow: hidden;
+}
+
+/* TŁO - WSCHÓD SŁOŃCA + JAPOŃSKI WZÓR */
+body.theme-blossom::before {
+    content: "";
+    position: fixed; inset: 0; z-index: -2;
+    /* Gradient nieba */
+    background: linear-gradient(to top, #ffc3a0 0%, #ffafbd 100%);
+}
+
+body.theme-blossom::after {
+    content: "";
+    position: fixed; inset: 0; z-index: -1;
+    opacity: 0.15;
+    /* Wzór fal Seigaiha (generowany CSS-em) */
+    background-image: 
+        radial-gradient(circle at 100% 150%, transparent 20%, #fff 21%, #fff 34%, transparent 35%, transparent),
+        radial-gradient(circle at 0% 150%, transparent 20%, #fff 21%, #fff 34%, transparent 35%, transparent),
+        radial-gradient(circle at 50% 100%, transparent 20%, #fff 21%, #fff 34%, transparent 35%, transparent),
+        radial-gradient(circle at 100% 50%, transparent 20%, #fff 21%, #fff 34%, transparent 35%, transparent),
+        radial-gradient(circle at 0% 50%, transparent 20%, #fff 21%, #fff 34%, transparent 35%, transparent),
+        radial-gradient(circle at 50% 0%, transparent 20%, #fff 21%, #fff 34%, transparent 35%, transparent);
+    background-size: 100px 100px;
+    animation: calmFlow 60s linear infinite;
+}
+
+@keyframes calmFlow {
+    0% { background-position: 0 0; }
+    100% { background-position: 50px 50px; }
+}
+
+/* KONTENER - PAPIER RYŻOWY (WASHI) */
+body.theme-blossom .container {
+    background-color: var(--container-bg);
+    border: 2px solid #fff;
+    border-radius: 20px;
+    
+    /* Miękki, rozproszony cień */
+    box-shadow: 
+        0 10px 30px rgba(255, 105, 180, 0.2),
+        inset 0 0 40px rgba(255, 255, 255, 0.8);
+        
+    backdrop-filter: blur(10px);
+}
+
+/* NAGŁÓWKI */
+body.theme-blossom h1 {
+    font-weight: 700;
+    color: #d84378;
+    text-shadow: 2px 2px 0px rgba(255,255,255,0.8);
+}
+
+/* PRZYCISKI - PŁATKI KWIATÓW */
+body.theme-blossom .big-btn {
+    background: linear-gradient(135deg, #ff9eb5 0%, #ff7597 100%);
+    border: none;
+    border-radius: 15px 50px 15px 50px; /* Kształt liścia/płatka */
+    color: #fff;
+    
+    /* ZMIANA: Dopasowany rozmiar dla Quicksand */
+    font-size: 22px; 
+    font-weight: 700;
+    
+    box-shadow: 0 5px 15px rgba(255, 117, 151, 0.4);
+    transition: transform 0.3s, border-radius 0.3s, box-shadow 0.3s;
+}
+
+/* Hover - Rozkwitanie */
+body.theme-blossom .big-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    border-radius: 50px 15px 50px 15px; /* Zmiana kształtu */
+    background: linear-gradient(135deg, #ffb3c6 0%, #ff8da1 100%);
+    box-shadow: 0 10px 25px rgba(255, 117, 151, 0.6);
+}
+
+/* === ANIMACJA PŁATKÓW (Poprawiona fizyka) === */
+.sakura-petal {
+    position: fixed;
+    top: -20px;
+    background-color: #ffc0cb;
+    border-radius: 150% 0 150% 0; /* Kształt płatka */
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.8;
+    /* Animacja spadania + wirowania 3D */
+    animation: sakuraFall linear infinite;
+}
+
+@keyframes sakuraFall {
+    0% {
+        transform: translate(0, 0) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+        opacity: 0;
+    }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% {
+        transform: translate(100px, 110vh) rotateX(360deg) rotateY(180deg) rotateZ(360deg);
+        opacity: 0;
+    }
+}
+
+    /* KRÓLEWSKI (11 zł) */
+    body.theme-royal {
+    /* Promienisty gradient imitujący welur/aksamit w sali tronowej */
+    background: radial-gradient(circle at center, #6a0dad 0%, #2e003e 70%, #1a0024 100%);
+    
+    /* Zmienne kolorystyczne */
+    --container-bg: #fffbf0; /* Bardzo jasny kremowy */
+    --text-color: #4b0082;   /* Indygo / Głęboki fiolet */
+    --accent-color: #d4af37; /* Złoto */
+    --accent-hover: #c5a028;
+    --btn-text: #3e004f;     /* Ciemny fiolet na złotym przycisku */
+    --border-color: #d4af37;
+    
+    /* Wymuszona czcionka */
+    --font-main: 'Dancing Script', cursive; 
+}
+
+/* Stylizacja Kontenera - Wygląd drogiego pergaminu */
+body.theme-royal .container {
+    border: 3px solid #d4af37;
+    border-radius: 25px;
+    /* Złota poświata (zewnętrzna i wewnętrzna) */
+    box-shadow: 
+        0 0 20px rgba(212, 175, 55, 0.6), 
+        inset 0 0 30px rgba(212, 175, 55, 0.2);
+    
+    /* Delikatna tekstura papieru (opcjonalna, zrobiona gradientem) */
+    background-image: linear-gradient(to bottom right, rgba(255,215,0,0.05), transparent);
+}
+
+/* Nagłówki - Złoty Cień */
+body.theme-royal h1 {
+    text-shadow: 2px 2px 0px rgba(212, 175, 55, 0.4);
+    font-size: 42px; /* Większy, bardziej dostojny nagłówek */
+}
+
+/* === PRZYCISKI PREMIUM (Sztabki Złota) === */
+body.theme-royal .big-btn {
+    font-family: 'Dancing Script', cursive;
+    font-size: 26px; /* Duża, czytelna czcionka */
+    font-weight: bold;
+    border: 2px solid #b8860b; /* Ciemne złoto na krawędzi */
+    
+    /* EFEKT METALICZNEGO ZŁOTA (Gradient) */
+    background: linear-gradient(
+        135deg, 
+        #ffd700 0%, 
+        #fdb931 25%, 
+        #d4af37 50%, 
+        #fdb931 75%, 
+        #ffd700 100%
+    );
+    background-size: 200% auto;
+    color: #2e003e; /* Ciemny fioletowy tekst dla kontrastu */
+    
+    text-shadow: 0px 1px 0px rgba(255,255,255,0.4); /* Wypukły tekst */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Cień pod przyciskiem */
+    
+    transition: 0.5s; /* Płynne przejście połysku */
+}
+
+/* Efekt najechania na przycisk (przesunięcie światła) */
+body.theme-royal .big-btn:hover:not(:disabled) {
+    background-position: right center; /* Przesuwa gradient (błysk) */
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 20px rgba(212, 175, 55, 0.4); /* Mocniejsza poświata */
+    border-color: #ffd700;
+}
+
+/* Przycisk AI w wersji Królewskiej (Fioletowy klejnot) */
+body.theme-royal #ask-ai-btn {
+    background: linear-gradient(135deg, #8e2de2, #4a00e0);
+    color: white;
+    border: 2px solid #d4af37;
+    box-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+}
+
+/* Drobny detal: Licznik pieniędzy jako "Skarbiec" */
+body.theme-royal #wallet-display {
+    background: linear-gradient(to right, #ffd700, #fdb931);
+    color: #2e003e;
+    border: 1px solid #b8860b;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* TOXIC (12 zł) */
+body.theme-toxic {
+    --bg-color: #000000;
+    --container-bg: rgba(10, 20, 10, 0.95);
+    --text-color: #39ff14; /* Neonowa zieleń */
+    --accent-color: #32cd32;
+    --accent-hover: #228b22;
+    --btn-text: #000;
+    --border-color: #39ff14;
+    /* Nowa czcionka */
+    --font-main: 'Share Tech Mono', monospace; 
+}
+
+body.theme-toxic .container {
+    box-shadow: 0 0 25px rgba(57, 255, 20, 0.5); /* Zielona poświata kontenera */
+    border: 2px solid #39ff14;
+}
+
+body.theme-toxic h1, 
+body.theme-toxic .big-btn {
+    text-shadow: 0 0 8px rgba(57, 255, 20, 0.8); /* Świecący tekst */
+    text-transform: uppercase; /* Bardziej techniczny wygląd */
+    letter-spacing: 2px;
+}
+
+    /* EFEKT PROMIENIOWANIA (OVERLAY) === */
+.toxic-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Klikanie przelatuje przez to */
+    z-index: 5; /* Nad tłem, ale pod oknami */
+    /* Zielona winieta */
+    box-shadow: inset 0 0 150px rgba(57, 255, 20, 0.6);
+    /* Animacja pulsowania */
+    animation: radiationPulse 2s infinite alternate ease-in-out;
+    background: radial-gradient(circle, transparent 60%, rgba(0, 50, 0, 0.4) 100%);
+}
+
+@keyframes radiationPulse {
+    0% { box-shadow: inset 0 0 50px rgba(57, 255, 20, 0.3); opacity: 0.8; }
+    100% { box-shadow: inset 0 0 200px rgba(57, 255, 20, 0.7); opacity: 1; }
+}
+
+/* Efekt scanline (paski jak na starym monitorze) */
+.toxic-scanlines {
+    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
+    background-size: 100% 4px;
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 6;
+    opacity: 0.3;
+}
+
+/* ================== ULEPSZONY MOTYW WINDOWS 95 ================== */
+body.theme-win95 {
+    --bg-color: #008080; /* Klasyczny morski Windowsa */
+    --container-bg: #c0c0c0; /* Srebrny */
+    --text-color: #000;
+    --accent-color: #000080; /* Granatowy pasek tytułu */
+    --accent-hover: #1010a0;
+    --btn-text: #fff;
+    --border-color: #dfdfdf;
+    --font-main: 'Tahoma', 'Segoe UI', sans-serif; /* Bardziej systemowa */
+    
+    /* Kursor Retro */
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="30" viewBox="0 0 24 30"><path fill="black" stroke="white" stroke-width="2" d="M1,1 L1,23 L6,18 L10,27 L14,25 L10,16 L17,16 L1,1 Z"/></svg>'), auto;
+}
+
+/* Szum pikselowy na tle (Dithering) */
+body.theme-win95::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: radial-gradient(rgba(0,0,0,0.1) 1px, transparent 1px);
+    background-size: 4px 4px;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Główny kontener gry - styl okna Win95 */
+body.theme-win95 .container {
+    border: 3px solid #dfdfdf;
+    border-top-color: #fff;
+    border-left-color: #fff;
+    border-right-color: #808080;
+    border-bottom-color: #808080;
+    box-shadow: 2px 2px 0 #000;
+    border-radius: 0;
+}
+
+/* Przyciski - styl 3D */
+body.theme-win95 .big-btn {
+    background: #c0c0c0;
+    color: #000;
+    border: 2px solid #dfdfdf;
+    border-top-color: #fff;
+    border-left-color: #fff;
+    border-right-color: #808080;
+    border-bottom-color: #808080;
+    box-shadow: 1px 1px 0 #000;
+    font-weight: bold;
+    border-radius: 0;
+    text-transform: capitalize;
+}
+body.theme-win95 .big-btn:active {
+    border-top-color: #808080;
+    border-left-color: #808080;
+    border-right-color: #fff;
+    border-bottom-color: #fff;
+    box-shadow: none;
+    transform: translate(1px, 1px);
+}
+
+
+/* ================== MINECRAFT 2.0 (HIGH QUALITY) ================== */
+
+body.theme-minecraft {
+    /* Animowana trawa w tle */
+    background-image: url('images/grass.jpg'); 
+    background-size: 100px;
+    image-rendering: pixelated;
+    animation: bgScroll 20s linear infinite; /* Tło się przesuwa */
+    
+    --container-bg: #c6c6c6; /* Jasny szary interfejsu */
+    --text-color: #404040;
+    --accent-color: #727272;
+    --btn-text: #fff;
+    --border-color: #000;
+    --font-main: 'VT323', monospace; /* Font Pikselowy */
+    font-size: 24px; 
+    line-height: 1.2;
+}
+
+/* Ruch tła */
+@keyframes bgScroll {
+    from { background-position: 0 0; }
+    to { background-position: 100px 100px; }
+}
+body.theme-minecraft .big-btn {
+    font-size: 32px; /* Było 28px, teraz będzie duża pikseloza */
+    padding: 15px;   /* Trochę więcej miejsca */
+}
+
+body.theme-minecraft h1 {
+    font-size: 42px; /* Większy tytuł */
+    letter-spacing: 2px;
+}
+
+/* Kontener - wygląda jak okno ekwipunku */
+body.theme-minecraft .container {
+    background-color: #c6c6c6;
+    border: 4px solid #373737; /* Ciemna ramka */
+    box-shadow: 
+        inset 4px 4px 0 #fff, 
+        inset -4px -4px 0 #555;
+    border-radius: 0;
+    image-rendering: pixelated;
+}
+
+body.theme-minecraft h1 {
+    text-shadow: 2px 2px 0 #8f8f8f;
+    color: #3f3f3f;
+}
+
+/* PRZYCISKI - Cobblestone */
+body.theme-minecraft .big-btn {
+    background-image: url('images/cobble.png'); /* Tekstura bruku */
+    background-size: 64px;
+    image-rendering: pixelated;
+    
+    color: #fff;
+    text-shadow: 2px 2px 0 #000;
+    font-size: 28px;
+    border: 2px solid #000;
+    box-shadow: 
+        inset 2px 2px 0 rgba(255,255,255,0.3),
+        inset -2px -2px 0 rgba(0,0,0,0.5),
+        4px 4px 0 rgba(0,0,0,0.5); /* Cień pod przyciskiem */
+    
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+/* Hover - Skok o piksele */
+body.theme-minecraft .big-btn:hover {
+    transform: translateY(-4px); /* Skok do góry */
+    box-shadow: 
+        inset 2px 2px 0 rgba(255,255,255,0.3),
+        inset -2px -2px 0 rgba(0,0,0,0.5),
+        4px 8px 0 rgba(0,0,0,0.5); /* Cień się wydłuża */
+    filter: brightness(1.1);
+}
+
+body.theme-minecraft .big-btn:active {
+    transform: translateY(2px);
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+}
+/* ================== TNT 3D (PRAWDZIWY SZEŚCIAN) ================== */
+
+/* Kontener, który spada w dół */
+.mc-tnt-wrapper {
+    position: fixed;
+    width: 60px; height: 60px;
+    z-index: 1000;
+    pointer-events: none;
+    /* Animacja spadania */
+    animation: tntFall 3s ease-in forwards;
+    /* Ustawienie perspektywy dla efektu 3D */
+    perspective: 600px; 
+}
+
+/* Sama kostka, która się obraca */
+.mc-tnt-cube {
+    width: 100%; height: 100%;
+    position: relative;
+    transform-style: preserve-3d; /* Kluczowe dla 3D */
+    /* Animacja obracania się kostki */
+    animation: tntSpin 3s linear infinite;
+}
+
+/* Wspólny styl dla wszystkich ścianek */
+.mc-tnt-face {
+    position: absolute;
+    width: 60px; height: 60px;
+    background-size: cover;
+    image-rendering: pixelated; /* Pikseloza jak w grze */
+    border: 1px solid rgba(0,0,0,0.1); /* Delikatna krawędź */
+    
+    /* Animacja migania (Primed TNT) */
+    animation: tntBlink 0.5s step-start infinite;
+}
+
+/* Pozycjonowanie ścianek w 3D */
+.face-front  { transform: rotateY(  0deg) translateZ(30px); background-image: url('images/tnt_side.png'); }
+.face-back   { transform: rotateY(180deg) translateZ(30px); background-image: url('images/tnt_side.png'); }
+.face-right  { transform: rotateY( 90deg) translateZ(30px); background-image: url('images/tnt_side.png'); }
+.face-left   { transform: rotateY(-90deg) translateZ(30px); background-image: url('images/tnt_side.png'); }
+.face-top    { transform: rotateX( 90deg) translateZ(30px); background-image: url('images/tnt_top.png'); }
+.face-bottom { transform: rotateX(-90deg) translateZ(30px); background-image: url('images/tnt_top.png'); }
+
+/* === ANIMACJE === */
+
+/* Spadanie w dół */
+@keyframes tntFall {
+    0% { top: -100px; }
+    100% { top: 110vh; }
+}
+
+/* Obracanie się w 3D */
+@keyframes tntSpin {
+    0% { transform: rotateX(0) rotateY(0) rotateZ(0); }
+    100% { transform: rotateX(360deg) rotateY(720deg) rotateZ(180deg); }
+}
+
+/* Efekt "Primed TNT" (Miganie na biało) */
+@keyframes tntBlink {
+    50% { 
+        /* Filtr robiący TNT białym (Flash) */
+        filter: brightness(0) invert(1); 
+        /* Alternatywnie: filter: brightness(3) grayscale(1); jeśli wolisz tylko jasne */
+    }
+}
+@keyframes tntFall {
+    0% { top: -100px; transform: rotate(0deg); }
+    100% { top: 110vh; transform: rotate(360deg); }
+}
+
+@keyframes tntFlash {
+    0% { filter: brightness(1); }
+    50% { filter: brightness(1.8) sepia(1); } /* Miganie na biało */
+}
+
+/* 2. Creeper (Jumpscare z boku) */
+.mc-creeper {
+    position: fixed;
+    bottom: 0;
+    right: -150px; /* Schowany */
+    width: 120px;
+    height: 120px;
+    background-image: url('images/creeper.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 2000;
+    pointer-events: none;
+    
+    animation: creeperPeek 4s ease-in-out forwards;
+}
+
+@keyframes creeperPeek {
+    0% { right: -150px; transform: rotate(0deg); }
+    10% { right: 0px; transform: rotate(-5deg); } /* Wysuwa się */
+    30% { right: 0px; transform: rotate(-5deg); } /* Patrzy */
+    40% { right: -150px; } /* Chowa się */
+    100% { right: -150px; }
+}
+
+/* 3. Redstone Particles (Cząsteczki) */
+.mc-redstone {
+    position: fixed;
+    width: 8px; height: 8px;
+    background-color: #ff0000;
+    box-shadow: 0 0 5px #ff0000;
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0.8;
+    
+    animation: redstoneFloat 2s linear forwards;
+}
+
+@keyframes redstoneFloat {
+    0% { transform: translateY(0) scale(1); opacity: 0.8; }
+    50% { opacity: 0.5; }
+    100% { transform: translateY(-50px) scale(0); opacity: 0; }
+}
+/* ================== CYBERPUNK 2077 (NETRUNNER EDITION) ================== */
+
+body.theme-cyberpunk {
+    --bg-color: #050505;
+    --container-bg: rgba(10, 10, 15, 0.85); /* Ciemny, półprzezroczysty */
+    --text-color: #fcee0a; /* CYBER YELLOW */
+    --accent-color: #00e5ff; /* Cyan */
+    --accent-hover: #ff0055; /* Magenta przy hoverze */
+    --btn-text: #000;
+    --border-color: #fcee0a;
+    --font-main: 'Orbitron', sans-serif; /* Techniczny font */
+    
+    /* Siatka w tle (Grid) */
+    background-image: 
+        linear-gradient(rgba(0, 229, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 229, 255, 0.1) 1px, transparent 1px);
+    background-size: 40px 40px;
+    overflow: hidden;
+}
+
+/* KONTENER - Styl Arasaka */
+body.theme-cyberpunk .container {
+    border: 2px solid #fcee0a;
+    border-left-width: 10px; /* Gruby pasek z lewej */
+    border-radius: 0;
+    
+    /* Ścięte rogi (Samurai Style) */
+    clip-path: polygon(
+        0 0, 
+        100% 0, 
+        100% 90%, 
+        95% 100%, 
+        0 100%, 
+        0 15% /* Ścięcie lewego górnego rogu */
+    );
+    
+    box-shadow: 
+        0 0 15px rgba(252, 238, 10, 0.3),
+        inset 0 0 50px rgba(0, 0, 0, 0.8);
+        
+    /* Odbicia "naklejki" na rogach robione gradientem */
+    background-image: 
+        linear-gradient(135deg, transparent 10px, #fcee0a 10px, #fcee0a 12px, transparent 12px),
+        linear-gradient(225deg, transparent 10px, #fcee0a 10px, #fcee0a 12px, transparent 12px);
+    background-position: top right, bottom left;
+    background-repeat: no-repeat;
+    background-size: 50px 50px;
+}
+
+/* TYTUŁ - Glitch Effect */
+body.theme-cyberpunk h1 {
+    font-size: 32px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-shadow: 2px 0 #ff0055, -2px 0 #00e5ff;
+    animation: cyberGlitch 3s infinite alternate-reverse;
+}
+
+/* PRZYCISKI - Taktyczne */
+body.theme-cyberpunk .big-btn {
+    background: rgba(252, 238, 10, 0.1); /* Półprzezroczysty żółty */
+    border: 1px solid #fcee0a;
+    color: #fcee0a;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 2px;
+    position: relative;
+    transition: 0.2s;
+    
+    /* Ścięty róg przycisku */
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+body.theme-cyberpunk .big-btn:hover {
+    background: #fcee0a;
+    color: #000;
+    box-shadow: 0 0 20px #fcee0a;
+    text-shadow: none;
+    transform: translateX(5px); /* Przesunięcie w bok przy najechaniu */
+}
+
+/* ELEMENTY SPECJALNE (WKLEJ NA DOLE STYLE.CSS) */
+
+/* 1. Skaner Arasaka */
+.cyber-scanner {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 5px;
+    background: #00e5ff;
+    box-shadow: 0 0 15px #00e5ff, 0 0 30px #fcee0a;
+    opacity: 0.6;
+    z-index: 1;
+    pointer-events: none;
+    animation: scanlineMove 3s linear infinite;
+}
+@keyframes scanlineMove {
+    0% { top: -10%; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 110%; opacity: 0; }
+}
+
+/* 2. System Breach Alert */
+.cyber-breach-popup {
+    position: fixed;
+    top: 40%; left: 50%;
+    transform: translate(-50%, -50%) scaleX(0); /* Startuje ściśnięty */
+    width: 80%;
+    max-width: 400px;
+    background: rgba(255, 0, 0, 0.9);
+    border: 2px solid #fcee0a;
+    color: #fcee0a;
+    padding: 20px;
+    text-align: center;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    text-transform: uppercase;
+    z-index: 10000;
+    box-shadow: 0 0 50px red;
+    
+    /* Animacja otwierania */
+    animation: breachOpen 0.2s forwards;
+}
+@keyframes breachOpen {
+    to { transform: translate(-50%, -50%) scaleX(1); }
+}
+.breach-blink {
+    animation: blinkText 0.1s infinite;
+}
+@keyframes blinkText {
+    0% { color: #fcee0a; }
+    50% { color: #000; }
+}
+
+/* 3. Glitch Animacja tekstu */
+@keyframes cyberGlitch {
+    0% { text-shadow: 2px 0 #ff0055, -2px 0 #00e5ff; transform: skew(0deg); }
+    20% { text-shadow: 2px 0 #ff0055, -2px 0 #00e5ff; transform: skew(0deg); }
+    21% { text-shadow: -2px 0 #fcee0a, 2px 0 #ff0055; transform: skew(10deg); } /* Szarpnięcie */
+    22% { text-shadow: 2px 0 #ff0055, -2px 0 #00e5ff; transform: skew(0deg); }
+    100% { text-shadow: 2px 0 #ff0055, -2px 0 #00e5ff; transform: skew(0deg); }
+}
+
+/* 4. Canvas dla Matrixa */
+#cyber-matrix {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1; opacity: 0.3; pointer-events: none;
+}
+
+/* ================== INFERNO / PIEKŁO (PREMIUM ULTIMATE) ================== */
+
+body.theme-inferno {
+    --bg-color: #050000;
+    --container-bg: rgba(15, 0, 0, 0.95);
+    --text-color: #ffffff;
+    --accent-color: #ff3300;
+    --btn-text: #fff;
+    --border-color: #ff3300;
+    --font-main: 'Georgia', serif;
+    
+    background-color: #000;
+    overflow-x: hidden;
+}
+
+/* TŁO (Bez zmian) */
+body.theme-inferno::before {
+    content: "";
+    position: fixed; inset: 0; z-index: -2;
+    background: radial-gradient(circle at 50% 120%, #800000 0%, #200000 40%, #000000 80%);
+    animation: hellGlow 6s infinite alternate ease-in-out;
+}
+@keyframes hellGlow {
+    0% { opacity: 0.8; transform: scale(1); }
+    100% { opacity: 1; transform: scale(1.05); }
+}
+
+/* KONTENER (Bez zmian) */
+body.theme-inferno .container {
+    background-color: var(--container-bg);
+    border: 1px solid #ff3300;
+    box-shadow: 0 0 50px rgba(255, 50, 0, 0.3), inset 0 0 20px rgba(20, 0, 0, 1);
+    border-radius: 2px;
+    position: relative; z-index: 10;
+}
+
+/* === EFEKT 2: FALOWANIE GORĄCA NA TEKŚCIE === */
+@keyframes heatWaveText {
+    0%, 100% { filter: blur(0px); transform: skewX(0deg); text-shadow: 0 2px 4px rgba(0,0,0,0.8), 0 0 5px #ff4500; }
+    33% { filter: blur(0.5px); transform: skewX(1deg); }
+    66% { filter: blur(0.5px); transform: skewX(-1deg); text-shadow: 0 2px 4px rgba(0,0,0,0.8), 0 0 15px #ffcc00; }
+}
+
+body.theme-inferno h1, body.theme-inferno #question-text {
+    color: #ffcc00;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    /* Dodajemy animację falowania */
+    animation: heatWaveText 3s ease-in-out infinite alternate;
+}
+
+/* === EFEKT 3: DYNAMICZNE OŚWIETLENIE PRZYCISKÓW (Obsydian) === */
+body.theme-inferno .big-btn {
+    background: linear-gradient(to bottom, #2a0a0a, #1a0000); 
+    border: 1px solid #5a0000;
+    border-bottom: 3px solid #5a0000;
+    color: #e0e0e0;
+    font-size: 20px; font-weight: bold; text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    transition: transform 0.1s, border 0.2s;
+    position: relative;
+    overflow: hidden; /* Ważne dla efektu światła */
+    /* Zmienne dla JS */
+    --x: 50%;
+    --y: 50%;
+}
+
+/* Warstwa światła podążająca za myszką */
+body.theme-inferno .big-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    /* Radialny gradient pozycjonowany zmiennymi z JS */
+    background: radial-gradient(circle at var(--x) var(--y), rgba(255, 100, 0, 0.7) 0%, transparent 60%);
+    opacity: 0; /* Domyślnie ukryte */
+    transition: opacity 0.3s;
+    pointer-events: none;
+    mix-blend-mode: hard-light; /* Tryb mieszania dla efektu żaru */
+}
+
+/* Pokaż światło po najechaniu */
+body.theme-inferno .big-btn:hover::before {
+    opacity: 1;
+}
+
+body.theme-inferno .big-btn:hover {
+    border-color: #ff4500;
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+/* Pasek żaru na dole przycisku */
+body.theme-inferno .big-btn::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; width: 100%; height: 2px;
+    background: #ff4500;
+    box-shadow: 0 0 15px #ff4500;
+    opacity: 0.7;
+}
+
+/* === EFEKT NOWY: PŁONĄCE ODPOWIEDZI === */
+/* Nadpisujemy standardowe animacje tylko dla tego motywu */
+@keyframes infernoBurnAnim {
+    0% { background: #ff3300; color: white; transform: scale(1); border-color: yellow; box-shadow: 0 0 20px #ff3300;}
+    40% { background: #ffcc00; color: black; transform: scale(1.05); border-color: white; box-shadow: 0 0 50px #ff4500; filter: contrast(1.5); }
+    100% { background: #222; color: #555; transform: scale(0.95); border-color: #333; box-shadow: inset 0 0 20px black;}
+}
+
+/* Stosujemy !important, żeby nadpisać style inline dodawane przez JS gry */
+body.theme-inferno .answer-btn.answer-correct-anim,
+body.theme-inferno .answer-btn.answer-wrong-anim {
+    animation: infernoBurnAnim 0.5s ease-out forwards !important;
+    background-image: none !important; /* Usuwamy gradient przycisku */
+}
+
+
+/* POZOSTAŁE ELEMENTY (Cząsteczki, pęknięcia) - Bez zmian */
+.inferno-particle {
+    position: fixed; pointer-events: none; border-radius: 50%;
+}
+.inferno-crack-overlay {
+    position: fixed; inset: 0;
+    background: radial-gradient(circle, transparent 50%, rgba(255,0,0,0.2) 100%);
+    box-shadow: inset 0 0 100px red;
+    z-index: 999; pointer-events: none; mix-blend-mode: hard-light;
+    opacity: 0; transition: opacity 0.2s;
+}
+@keyframes shakeContainer {
+    0% { transform: translate(0, 0); } 20% { transform: translate(-3px, 3px); } 40% { transform: translate(3px, -3px); } 60% { transform: translate(-3px, -3px); } 80% { transform: translate(3px, 3px); } 100% { transform: translate(0, 0); }
+}
+
+/* ================== STORM / BURZA (PREMIUM) ================== */
+
+body.theme-storm {
+    --bg-color: #0d1117;
+    --container-bg: rgba(20, 30, 45, 0.9);
+    --text-color: #e6f1ff; /* Zimny biały */
+    --accent-color: #4da6ff; /* Elektryczny błękit */
+    --btn-text: #fff;
+    --border-color: #4da6ff;
+    --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+    /* Tło - Ciemne niebo */
+    background: linear-gradient(to bottom, #080a10, #162030);
+    overflow-x: hidden;
+}
+
+/* KONTENER - MOKRA SZYBA */
+body.theme-storm .container {
+    background-color: var(--container-bg);
+    border: 1px solid #304060;
+    border-top: 1px solid #607090; /* Światło od góry */
+    
+    /* Ciężki cień "frontu burzowego" */
+    box-shadow: 
+        0 20px 50px rgba(0,0,0,0.8),
+        inset 0 0 30px rgba(0,0,0,0.5);
+        
+    border-radius: 8px;
+    position: relative;
+    z-index: 10;
+    
+    /* Delikatne rozmycie tła pod spodem */
+    backdrop-filter: blur(5px);
+}
+
+/* NAGŁÓWKI - Pochylone od wiatru */
+body.theme-storm h1 {
+    font-style: italic; /* Wiatr */
+    text-shadow: 0 0 10px rgba(77, 166, 255, 0.6);
+    letter-spacing: 1px;
+}
+
+/* PRZYCISKI - MOKRY METAL */
+body.theme-storm .big-btn {
+    /* Gradient metaliczny z "mokrym" połyskiem */
+    background: linear-gradient(180deg, #3a4a60 0%, #1a2a40 50%, #0a1a30 100%);
+    border: 1px solid #4da6ff;
+    border-top: 1px solid #aaccff; /* Odbicie światła na górnej krawędzi */
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-style: italic; /* Wiatr */
+    
+    /* Cień + Wewnętrzny blask */
+    box-shadow: 
+        0 5px 15px rgba(0,0,0,0.6),
+        inset 0 1px 0 rgba(255,255,255,0.2);
+        
+    position: relative;
+    overflow: hidden;
+    transition: 0.2s;
+}
+
+/* Efekt kropli na przycisku (pseudo-element) */
+body.theme-storm .big-btn::after {
+    content: "";
+    position: absolute;
+    top: -50%; left: -50%; width: 200%; height: 200%;
+    background: linear-gradient(to bottom right, rgba(255,255,255,0.3), transparent, transparent);
+    transform: rotate(25deg);
+    pointer-events: none;
+}
+
+body.theme-storm .big-btn:hover {
+    background: linear-gradient(180deg, #4da6ff 0%, #1a5080 100%);
+    box-shadow: 0 0 20px #4da6ff;
+    transform: translateY(-2px) skewX(-2deg); /* Przechylenie */
+}
+
+/* === ELEMENTY SPECJALNE === */
+
+/* 1. Deszcz (ukośny) */
+.storm-rain-drop {
+    position: fixed;
+    top: -100px;
+    width: 2px;
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, rgba(200,200,255,0.6));
+    transform: rotate(20deg); /* Kąt deszczu */
+    pointer-events: none;
+    z-index: 1;
+    animation: rainFallFast 0.8s linear infinite;
+}
+@keyframes rainFallFast {
+    to { transform: translateY(110vh) translateX(-20px) rotate(20deg); }
+}
+
+/* 2. Błyskawica (Flash całego ekranu) */
+.storm-flash-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: #fff;
+    opacity: 0;
+    z-index: 9999;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+}
+
+/* 3. Mokra Szyba (Overlay na ekranie) */
+.storm-glass-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 20; /* Nad wszystkim (prawie) */
+    pointer-events: none;
+    /* Generujemy wzór kropli CSS-em */
+    background-image: 
+        radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.2), transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.2), transparent),
+        radial-gradient(2px 2px at 50px 160px, rgba(255,255,255,0.2), transparent),
+        radial-gradient(2px 2px at 80px 120px, rgba(255,255,255,0.2), transparent);
+    background-size: 100px 200px; /* Powtarzalny wzór */
+    opacity: 0.6;
+    backdrop-filter: blur(1px); /* Lekkie rozmycie wszystkiego pod spodem */
+}
+
+/* 4. Chmury w tle */
+.storm-cloud {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: radial-gradient(circle, rgba(20,30,50,0.8) 0%, transparent 70%);
+    background-size: 60% 60%;
+    opacity: 0.4;
+    z-index: 0;
+    animation: cloudMove 30s linear infinite alternate;
+}
+@keyframes cloudMove {
+    from { transform: translateX(-10%) scale(1); }
+    to { transform: translateX(10%) scale(1.1); }
+}
+
+/* Animacja trzęsienia przy piorunie */
+@keyframes thunderShake {
+    0% { transform: translate(0,0); }
+    20% { transform: translate(-5px, 5px); }
+    40% { transform: translate(5px, -5px); }
+    60% { transform: translate(-5px, -5px); }
+    80% { transform: translate(5px, 5px); }
+    100% { transform: translate(0,0); }
+}
+
+/* ================== SKETCHBOOK / SZKICOWNIK (PREMIUM HAND-DRAWN) ================== */
+
+/* W pliku style.css */
+
+body.theme-sketchbook {
+    --bg-color: #f4f3ee;
+    --container-bg: #fff;
+    --text-color: #2c3e50;
+    --accent-color: #2980b9;
+    --btn-text: #2c3e50;
+    --border-color: #2c3e50;
+    --font-main: 'Indie Flower', 'Patrick Hand', cursive;
+    
+    /* ZMIANA: Powiększona czcionka i lekkie pogrubienie dla czytelności */
+    font-size: 24px; 
+    font-weight: 600; 
+    
+    /* Tło (bez zmian) */
+    background-color: #f4f3ee;
+    background-image: 
+        radial-gradient(circle at 90% 10%, rgba(139, 69, 19, 0.15) 0%, rgba(139, 69, 19, 0.05) 20%, transparent 30%),
+        radial-gradient(circle at 10% 85%, transparent 9%, rgba(139, 69, 19, 0.2) 10%, rgba(139, 69, 19, 0.2) 12%, transparent 13%),
+        linear-gradient(#e1e1e1 1px, transparent 1px),
+        linear-gradient(90deg, #e1e1e1 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 20px 20px, 20px 20px;
+    position: relative;
+}
+
+/* ZMIANA: Powiększenie przycisków w tym motywie */
+body.theme-sketchbook .big-btn {
+    font-size: 28px; /* Wyraźniejsze litery na przyciskach */
+    padding: 20px;
+    border-width: 3px;
+}
+
+/* Warstwa szumu (pogniecenia) */
+body.theme-sketchbook::before {
+    content: "";
+    position: fixed; inset: 0; pointer-events: none; z-index: -1;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+}
+
+/* KONTENER - RYSOWANY DŁUGOPISEM */
+body.theme-sketchbook .container {
+    background: #fff;
+    /* Imitacja odręcznej ramki */
+    border: 3px solid #2c3e50;
+    border-radius: 2% 6% 5% 4% / 1% 1% 2% 4%;
+    box-shadow: 5px 5px 0px rgba(0,0,0,0.1); /* Cień jak przy rysunku */
+    position: relative;
+    
+    /* Podwójna linia (szkic) */
+    outline: 2px solid #2c3e50;
+    outline-offset: 4px;
+}
+
+/* NAGŁÓWKI */
+body.theme-sketchbook h1, body.theme-sketchbook #question-text {
+    font-weight: bold;
+    text-transform: uppercase;
+    transform: rotate(-2deg); /* Lekko krzywo */
+}
+
+/* PRZYCISKI - ZAMAZANE MARKEREM */
+body.theme-sketchbook .big-btn {
+    background: transparent;
+    color: #2c3e50;
+    font-weight: bold;
+    font-size: 24px;
+    border: 3px solid #2c3e50;
+    /* Magia krzywych rogów */
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    transition: 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efekt "drżenia ręki" przy kliknięciu */
+body.theme-sketchbook .big-btn:active {
+    animation: scribbleShake 0.2s infinite;
+    transform: scale(0.98);
+}
+
+/* Hover - Zamalowanie markerem */
+body.theme-sketchbook .big-btn:hover {
+    background: rgba(41, 128, 185, 0.1);
+    /* Wzór bazgrołów w tle przycisku */
+    background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 5px,
+        rgba(41, 128, 185, 0.2) 5px,
+        rgba(41, 128, 185, 0.2) 10px
+    );
+    border-color: #2980b9;
+    color: #2980b9;
+    transform: rotate(1deg) scale(1.02);
+}
+
+/* === ELEMENTY SPECJALNE === */
+
+/* 1. Papierowy Samolot */
+.sketch-plane {
+    position: fixed;
+    font-size: 40px;
+    pointer-events: none;
+    z-index: 5;
+    /* Ruch po sinusoidzie */
+    animation: planeFly 8s linear forwards;
+}
+@keyframes planeFly {
+    0% { left: -10%; top: 60%; transform: rotate(10deg); }
+    25% { top: 40%; transform: rotate(-5deg); }
+    50% { top: 60%; transform: rotate(10deg); }
+    75% { top: 40%; transform: rotate(-5deg); }
+    100% { left: 110%; top: 30%; transform: rotate(0deg); }
+}
+
+/* 2. Animowane Bazgroły (SVG) */
+.sketch-doodle {
+    position: fixed;
+    width: 100px; height: 100px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+    animation: doodleFade 4s ease-in-out forwards;
+}
+@keyframes doodleFade {
+    0% { opacity: 0; transform: scale(0.8) rotate(0deg); }
+    20% { opacity: 0.6; transform: scale(1) rotate(5deg); }
+    80% { opacity: 0.6; }
+    100% { opacity: 0; transform: scale(1.1); }
+}
+
+/* 3. Efekt Gumki (Wymazywanie) */
+.sketch-eraser-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: #fff; /* Biała kartka */
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    /* Tekstura gumki */
+    mask-image: radial-gradient(circle, black 50%, transparent 80%);
+    mask-size: 200% 200%;
+    mask-position: center;
+}
+@keyframes eraserRub {
+    0% { transform: translateX(-50px) rotate(-10deg); opacity: 0.8; }
+    25% { transform: translateX(50px) rotate(10deg); opacity: 0.9; }
+    50% { transform: translateX(-50px) rotate(-10deg); opacity: 0.8; }
+    75% { transform: translateX(50px) rotate(10deg); opacity: 0.9; }
+    100% { transform: translateX(0) rotate(0); opacity: 0; }
+}
+
+/* 4. Zielony Ptaszek (Okejka) */
+@keyframes drawCheck {
+    0% { stroke-dashoffset: 100; opacity: 0; }
+    100% { stroke-dashoffset: 0; opacity: 1; }
+}
+
+/* Animacja Drżenia */
+@keyframes scribbleShake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    25% { transform: translate(-1px, -2px) rotate(-1deg); }
+    50% { transform: translate(-3px, 0px) rotate(1deg); }
+    75% { transform: translate(3px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -1px) rotate(-1deg); }
+}
+
+/* ================== GLASS / SZKLANY (PREMIUM AERO) ================== */
+
+body.theme-glass {
+    --bg-color: #0f2027;
+    /* Szkło jest półprzezroczyste, kolor bierze z tła */
+    --container-bg: rgba(255, 255, 255, 0.1); 
+    --text-color: #ffffff;
+    --accent-color: rgba(255, 255, 255, 0.2);
+    --accent-hover: rgba(255, 255, 255, 0.35);
+    --btn-text: #fff;
+    --border-color: rgba(255, 255, 255, 0.3);
+    /* Nowoczesny, czysty font */
+    --font-main: 'Quicksand', 'Segoe UI', sans-serif; 
+    
+    /* Ciemne, eleganckie tło bazowe */
+    background: #0f2027;
+    background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+    overflow-x: hidden;
+}
+
+/* KONTENER - TAFLA SZKŁA */
+body.theme-glass .container {
+    background-color: var(--container-bg);
+    /* Kluczowy efekt rozmycia tego co pod spodem */
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    
+    /* Subtelna biała ramka */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.5); /* Światło z góry */
+    border-left: 1px solid rgba(255, 255, 255, 0.5); /* Światło z lewej */
+    
+    border-radius: 30px; /* Bardzo zaokrąglone rogi */
+    
+    /* Miękki cień */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    
+    position: relative;
+    overflow: hidden; /* Żeby połysk nie wyszedł poza ramkę */
+    z-index: 10;
+}
+
+/* EFEKT ŚWIETLNY (FALA ŚWIATŁA) */
+body.theme-glass .container::after {
+    content: "";
+    position: absolute;
+    top: 0; left: -100%; width: 50%; height: 100%;
+    /* Ukośny pas światła */
+    background: linear-gradient(
+        to right, 
+        rgba(255,255,255,0) 0%, 
+        rgba(255,255,255,0.15) 50%, 
+        rgba(255,255,255,0) 100%
+    );
+    transform: skewX(-25deg);
+    pointer-events: none;
+    /* Animacja przesuwania światła co 6 sekund */
+    animation: shineMove 6s infinite;
+}
+
+@keyframes shineMove {
+    0% { left: -100%; opacity: 0; }
+    20% { left: 200%; opacity: 1; } /* Szybki przejazd */
+    100% { left: 200%; opacity: 0; } /* Pauza */
+}
+
+/* NAGŁÓWKI */
+body.theme-glass h1 {
+    font-weight: 300; /* Cienki, elegancki font */
+    letter-spacing: 1px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+/* PRZYCISKI - MNIEJSZE KAWAŁKI SZKŁA */
+body.theme-glass .big-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    color: #fff;
+    font-weight: 600;
+    backdrop-filter: blur(5px);
+    transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Hover - Powiększenie i rozjaśnienie */
+body.theme-glass .big-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: scale(1.03) translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}
+
+/* Hover - Holograficzna ramka (tęcza) */
+body.theme-glass .big-btn:hover {
+    /* Delikatna poświata koloru */
+    box-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.5),
+        inset 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+/* ANIMOWANE KULE W TLE (STYLUJE JE CSS, JS JE TWORZY) */
+.glass-orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(60px); /* Bardzo mocne rozmycie */
+    z-index: -1; /* Pod spodem */
+    opacity: 0.5;
+    pointer-events: none;
+    /* Animacja oddychania */
+    animation: orbFloat 10s infinite ease-in-out alternate;
+}
+
+@keyframes orbFloat {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+}
+
+/* ================== CASINO / VEGAS (ULTRA PREMIUM) ================== */
+
+body.theme-casino {
+    --bg-color: #003300;
+    --container-bg: #004d00;
+    --text-color: #fff;
+    --accent-color: #d4af37; /* Złoto */
+    --accent-hover: #f1c40f;
+    --btn-text: #3e2723; /* Ciemny brąz (dobry kontrast na złocie) */
+    --border-color: #d4af37;
+    --font-main: 'Arial Black', 'Impact', sans-serif; /* Gruby, kasynowy font */
+    
+    background-color: #003300;
+    overflow-x: hidden;
+}
+
+/* TŁO - ZIELONE SUKNO STOŁU */
+body.theme-casino::before {
+    content: "";
+    position: fixed; inset: 0; z-index: -2;
+    /* Gradient imitujący oświetlenie stołu (jaśniej na środku) */
+    background: radial-gradient(circle at center, #006600 0%, #003300 80%, #001a00 100%);
+}
+
+/* FAKTURA MATERIAŁU (SZUM) */
+body.theme-casino::after {
+    content: "";
+    position: fixed; inset: 0; z-index: -1;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+    pointer-events: none;
+}
+
+/* KONTENER - RAMA AUTOMATU */
+body.theme-casino .container {
+    background: linear-gradient(135deg, #004d00, #003300);
+    border: 4px solid #d4af37;
+    border-radius: 15px;
+    
+    /* Złota, trójwymiarowa ramka */
+    box-shadow: 
+        0 0 0 4px #8a6e05, /* Ciemne złoto */
+        0 0 0 8px #f9e295, /* Jasne złoto */
+        0 20px 50px rgba(0,0,0,0.8), /* Cień rzucany na stół */
+        inset 0 0 30px rgba(0,0,0,0.5); /* Wewnętrzny cień */
+        
+    position: relative;
+    z-index: 10;
+}
+
+/* NEONOWY GLOW WOKÓŁ UI */
+body.theme-casino .container:hover {
+    box-shadow: 
+        0 0 0 4px #8a6e05,
+        0 0 0 8px #f9e295,
+        0 0 40px #d4af37, /* Neonowy blask */
+        0 20px 50px rgba(0,0,0,0.8);
+}
+
+/* NAGŁÓWKI */
+body.theme-casino h1 {
+    color: #ffd700;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 0 #000, 0 0 10px #ffd700;
+    letter-spacing: 2px;
+}
+
+/* PRZYCISKI - SZTABKI ZŁOTA + CZYTELNY SLOT MACHINE (ZABEZPIECZONE) */
+body.theme-casino .big-btn {
+    background: linear-gradient(to bottom, #fce3ba 0%, #eec465 20%, #d4af37 50%, #997200 100%);
+    border: 2px solid #fff;
+    border-radius: 8px;
+    color: #3e2723;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 22px;
+    box-shadow: 0 5px 0 #5c4100, 0 10px 10px rgba(0,0,0,0.3);
+    transition: transform 0.1s, box-shadow 0.1s;
+    position: relative;
+    overflow: hidden; 
+    display: block; 
+}
+
+/* === INTERAKCJA HOVER === */
+
+/* ZWYKŁY HOVER (Gdyby JS nie zadziałał - tekst zostaje widoczny) */
+body.theme-casino .big-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 0 #5c4100, 0 15px 20px rgba(0,0,0,0.4);
+    filter: brightness(1.1);
+}
+
+/* HOVER Z ANIMACJĄ (Tylko jeśli JS dodał atrybut data-text) */
+body.theme-casino .big-btn[data-text]:hover {
+    color: transparent; /* Ukrywamy tekst tylko gdy mamy kopię w data-text */
+    text-shadow: none;
+}
+
+/* Pseudo-elementy (działają tylko gdy jest data-text) */
+body.theme-casino .big-btn[data-text]:hover::before,
+body.theme-casino .big-btn[data-text]:hover::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0; width: 100%; height: 100%;
+    display: flex; justify-content: center; align-items: center;
+    color: #3e2723;
+    font-weight: 900;
+    pointer-events: none;
+}
+
+body.theme-casino .big-btn[data-text]:hover::before {
+    top: 0;
+    animation: reelSlide 0.6s linear infinite;
+}
+
+body.theme-casino .big-btn[data-text]:hover::after {
+    top: -100%;
+    animation: reelSlide 0.6s linear infinite;
+}
+
+@keyframes reelSlide {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(100%); }
+}
+
+body.theme-casino .big-btn:active {
+    transform: translateY(5px);
+    box-shadow: 0 0 0 #5c4100, inset 0 3px 5px rgba(0,0,0,0.4);
+    color: #3e2723;
+}
+body.theme-casino .big-btn:active::before,
+body.theme-casino .big-btn:active::after {
+    display: none;
+}
+/* ELEMENTY TŁA (Generowane przez JS) */
+
+/* Żetony 3D */
+.casino-chip {
+    position: fixed;
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    border: 5px dashed white;
+    box-shadow: 
+        0 0 0 5px currentColor, /* Kolor żetonu */
+        inset 0 0 0 5px currentColor,
+        inset 0 0 0 10px white,
+        2px 2px 5px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 14px;
+    color: white;
+    z-index: 0; /* Nad tłem, pod grą */
+    pointer-events: none;
+    /* Animacja spadania i obrotu 3D */
+    animation: chipFall 6s linear infinite;
+}
+
+@keyframes chipFall {
+    0% { transform: translateY(-100px) rotateX(0deg) rotateY(0deg); }
+    100% { transform: translateY(110vh) rotateX(360deg) rotateY(180deg); }
+}
+
+/* Karty w tle */
+.casino-card {
+    position: fixed;
+    font-size: 80px;
+    opacity: 0.15; /* Subtelne */
+    z-index: 0;
+    pointer-events: none;
+    animation: cardSpin 15s linear infinite;
+    filter: drop-shadow(2px 2px 2px black);
+}
+
+@keyframes cardSpin {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-20px) rotate(360deg); }
+}
+
+/* Deszcz monet (Przy wygranej) */
+.casino-coin-win {
+    position: fixed;
+    top: -50px;
+    width: 30px; height: 30px;
+    background: radial-gradient(circle at 30% 30%, #ffd700, #b8860b);
+    border: 2px solid #ffd700;
+    border-radius: 50%;
+    z-index: 9999; /* NA SAMYM WIERZCHU */
+    box-shadow: 0 0 10px #ffd700;
+    pointer-events: none;
+    animation: coinRain 1.5s ease-in forwards;
+}
+@keyframes coinRain {
+    to { transform: translateY(110vh) rotateY(720deg); }
+}
+    /* ================== EFEKTY SPECJALNE (ANIMACJE) ================== */
+    #theme-effects {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+    }
+
+    .particle { position: absolute; pointer-events: none; }
+
+    /* Śnieg */
+    .particle.snow {
+        top: -20px; font-size: 20px; opacity: 0.8;
+        animation: fall linear forwards;
+    }
+    @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
+    /* Sakura (Blossom) */
+    .particle.sakura {
+        top: -20px;
+        width: 15px; height: 15px;
+        background: #f8bbd0;
+        border-radius: 15px 0 15px 0;
+        opacity: 0.9;
+        box-shadow: 0 0 5px #f48fb1;
+        animation: sakuraFall linear forwards;
+    }
+    @keyframes sakuraFall {
+        0% { transform: translateY(0) rotate(0deg) translateX(0); }
+        25% { transform: translateY(25vh) rotate(45deg) translateX(30px); }
+        50% { transform: translateY(50vh) rotate(90deg) translateX(-30px); }
+        75% { transform: translateY(75vh) rotate(135deg) translateX(30px); }
+        100% { transform: translateY(110vh) rotate(180deg) translateX(0); }
+    }
+
+    /* Serca */
+    .particle.heart {
+        bottom: -20px; font-size: 20px; opacity: 0.8;
+        animation: rise linear forwards;
+    }
+    @keyframes rise { to { transform: translateY(-110vh) scale(1.5); opacity: 0; } }
+
+    /* Dynia */
+    .glowing-pumpkin {
+        position: absolute; bottom: 20px; right: 20px; font-size: 80px;
+        animation: pumpkinPulse 2s infinite alternate;
+        filter: drop-shadow(0 0 20px orange); z-index: 5;
+    }
+    @keyframes pumpkinPulse {
+        from { transform: scale(1); filter: drop-shadow(0 0 10px orange); }
+        to { transform: scale(1.1); filter: drop-shadow(0 0 30px yellow); }
+    }
+
+    /* Złoto */
+    .particle.shine {
+        font-size: 24px; color: #fff7cc; text-shadow: 0 0 10px #ffd700;
+        animation: shineFade 1.5s forwards;
+    }
+    @keyframes shineFade {
+        0% { transform: scale(0) rotate(0deg); opacity: 0; }
+        50% { transform: scale(1.5) rotate(45deg); opacity: 1; }
+        100% { transform: scale(0) rotate(90deg); opacity: 0; }
+    }
+
+    /* Ocean */
+    .ocean-wave {
+        position: fixed; bottom: 0; left: 0; width: 200%;
+        background-repeat: repeat-x;
+        z-index: -1;
+        opacity: 0.6;
+    }
+    .ocean-wave.bg {
+        height: 250px; 
+        background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg"><path fill="%23006064" fill-opacity="0.3" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+        animation: waveAnim 15s linear infinite;
+    }
+    .ocean-wave.mid {
+        height: 200px;
+        background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg"><path fill="%2300bcd4" fill-opacity="0.4" d="M0,96L48,122.7C96,149,192,203,288,208C384,213,480,171,576,149.3C672,128,768,128,864,149.3C960,171,1056,213,1152,218.7C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+        animation: waveAnim 12s linear infinite reverse;
+    }
+    .ocean-wave.fg {
+        height: 150px;
+        background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg"><path fill="%234dd0e1" fill-opacity="0.6" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,261.3C960,256,1056,224,1152,213.3C1248,203,1344,213,1392,218.7L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+        animation: waveAnim 10s linear infinite;
+    }
+    @keyframes waveAnim {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+
+    .particle.fish { font-size: 30px; position: fixed; z-index: 0; }
+    .fish-right { animation: swimRight linear forwards; transform: scaleX(-1); }
+    @keyframes swimRight { from { left: -10%; } to { left: 110%; } }
+    .fish-left { animation: swimLeft linear forwards; transform: scaleX(1); }
+    @keyframes swimLeft { from { left: 110%; } to { left: -10%; } }
+
+    /* Retro */
+    .retro-overlay {
+        position: fixed; inset: 0; pointer-events: none; z-index: 999;
+        background: radial-gradient(circle, rgba(0,0,0,0) 50%, rgba(0,0,0,0.4) 90%);
+        box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
+    }
+    .retro-grain {
+        position: fixed; inset: 0; z-index: 1; pointer-events: none;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.2'/%3E%3C/svg%3E");
+        animation: flickerRetro 0.15s infinite;
+        opacity: 0.3;
+    }
+    .retro-line {
+        position: fixed; top: 0; left: 10%; width: 2px; height: 100%;
+        background: rgba(0,0,0,0.1);
+        animation: scanline 3s linear infinite;
+        z-index: 1;
+    }
+    @keyframes flickerRetro { 0% { opacity: 0.3; } 50% { opacity: 0.25; } 100% { opacity: 0.3; } }
+    @keyframes scanline { 0% { left: 5%; } 100% { left: 95%; } }
+
+    /* Kosmos */
+    .particle.star {
+        background: #fff;
+        border-radius: 50%;
+        box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.8);
+        animation: twinkle 3s infinite ease-in-out alternate;
+    }
+    @keyframes twinkle { 
+        0% { opacity: 0.3; transform: scale(0.8); } 
+        100% { opacity: 1; transform: scale(1.3); } 
+    }
+
+    .falling-star {
+        position: absolute;
+        width: 3px; height: 3px; background: white;
+        border-radius: 50%; box-shadow: 0 0 5px white; z-index: 0;
+        animation: fallStar linear forwards;
+    }
+    .falling-star::after {
+        content: ''; position: absolute;
+        bottom: 0; left: 50%; width: 2px; height: 80px; 
+        background: linear-gradient(to top, rgba(255,255,255,1), rgba(255,255,255,0));
+        transform: translateX(-50%);
+    }
+    @keyframes fallStar {
+        from { transform: translateY(-100px); opacity: 1; }
+        to { transform: translateY(120vh); opacity: 0; }
+    }
+
+    /* Matrix */
+    canvas#matrix-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+
+    /* ================== GLOBALNE STYLE (POPRAWIONE) ================== */
+    body {
+        font-family: var(--font-main); /* Używa dynamicznej czcionki */
+        background: var(--bg-color);
+        color: var(--text-color);
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        transition: background 0.4s ease, color 0.4s ease, filter 0.4s;
+        overflow-x: hidden;
+    }
+
+    .container {
+        position: relative;
+        background: var(--container-bg);
+        /* Zwiększony padding i max-width */
+        padding: 75px 40px 40px; 
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        width: 100%;
+        max-width: 640px; /* Szersza ramka */
+        text-align: center;
+        overflow: hidden;
+        margin: 15px;
+        transition: background 0.4s ease, box-shadow 0.4s ease, border 0.4s;
+        border: 2px solid var(--border-color);
+        z-index: 10;
+    }
+
+    h1 { margin-top: 0; font-size: 28px; margin-bottom: 15px; }
+
+    #start-screen, #quiz-screen, #end-screen {
+        display: none; 
+    }
+
+    /* ZWIĘKSZONA CZCIONKA PYTAŃ */
+    #question-text {
+        font-size: 28px;
+        font-weight: bold;
+        margin: 20px 0 30px;
+        line-height: 1.4;
+    }
+
+    button { font-family: inherit; }
+
+    .big-btn {
+        width: 100%;
+        padding: 18px;
+        margin: 10px 0;
+        font-size: 18px;
+        font-weight: bold;
+        border-radius: 12px;
+        border: none;
+        cursor: pointer;
+        background: var(--accent-color);
+        color: var(--btn-text);
+        transition: transform 0.1s, box-shadow 0.1s, background 0.2s;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .big-btn:hover {
+        background: var(--accent-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    .big-btn:active { transform: translateY(1px); }
+    
+    .big-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        background: #999 !important;
+        transform: none !important;
+    }
+
+    /* Przycisk AI */
+    #ask-ai-btn {
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        color: white;
+        border: 2px solid rgba(255,255,255,0.2);
+    }
+    #ask-ai-btn:hover:not(:disabled) {
+        box-shadow: 0 0 15px rgba(37, 117, 252, 0.5);
+    }
+
+    /* Odpowiedzi */
+    .answer-btn {
+        background: transparent;
+        color: var(--text-color);
+        border: 2px solid var(--accent-color);
+    }
+    .answer-btn:hover {
+        background: rgba(0,0,0,0.05);
+    }
+
+    /* Animacje Odpowiedzi */
+    .answer-correct-anim {
+        background: #2ecc71 !important;
+        border-color: #27ae60 !important;
+        color: white !important;
+        animation: pulse 0.4s;
+    }
+    .answer-wrong-anim {
+        background: #e74c3c !important;
+        border-color: #c0392b !important;
+        color: white !important;
+        animation: shake 0.4s;
+    }
+
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+    }
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    /* UI Elementy - Pozycjonowane absolutnie */
+    #wallet-display {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: rgba(0,0,0,0.05);
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-weight: bold;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+/* W pliku style.css */
+
+#sound-toggle {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    
+    width: 44px;
+    height: 44px;
+    font-size: 22px;
+    
+    background: rgba(0, 0, 0, 0.75);
+    color: #ffffff;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    cursor: pointer;
+    z-index: 2000;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: transform 0.2s, background 0.2s;
+
+    /* === TA LINIJKA NAPRAWIA BŁĄD === */
+    user-select: none;          /* Standard */
+    -webkit-user-select: none;  /* Safari / Chrome */
+    -moz-user-select: none;     /* Firefox */
+}
+
+/* Pasek głośności (Suwak) */
+#volume-control {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+    background: rgba(0, 0, 0, 0.75);
+    padding: 8px 15px;
+    border-radius: 25px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    z-index: 2000;
+}
+
+#volume-icon {
+    font-size: 20px;
+    color: #fff;
+    cursor: default;
+    user-select: none;
+}
+
+/* Stylizacja samego suwaka */
+#volume-slider {
+    -webkit-appearance: none; /* Reset stylu przeglądarki */
+    width: 100px;
+    height: 6px;
+    background: #555;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+}
+
+/* Uchwyt suwaka (Kropka) */
+#volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 2px solid #ccc;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+#volume-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    background: #4da6ff; /* Niebieski po najechaniu */
+}
+    #sound-toggle:hover { opacity: 1; transform: scale(1.1); }
+
+    #timer-bar-container {
+        width: 100%;
+        height: 10px;
+        background: rgba(0,0,0,0.1);
+        border-radius: 5px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    #timer-bar {
+        width: 100%;
+        height: 100%;
+        background: #e74c3c;
+        transition: width 1s linear;
+    }
+
+    #media img, #media video {
+        max-width: 100%;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    #money-progress-container {
+        width: 100%;
+        height: 16px;
+        background: rgba(0,0,0,0.1);
+        border-radius: 8px;
+        margin-top: 15px;
+        overflow: hidden;
+    }
+    #money-progress-bar {
+        width: 0%;
+        height: 100%;
+        background: #2ecc71;
+        transition: width 0.3s;
+    }
+
+    /* PŁYWAJĄCA KASA */
+    .floating-money {
+        position: absolute;
+        font-size: 24px;
+        font-weight: bold;
+        color: #2ecc71;
+        animation: floatUp 1s forwards;
+        pointer-events: none;
+        z-index: 100;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    @keyframes floatUp {
+        0% { opacity: 1; transform: translateY(0) scale(1); }
+        100% { opacity: 0; transform: translateY(-50px) scale(1.2); }
+    }
+
+/* ================== MOTYWY EVENTOWE (REMASTERED) ================== */
+
+/* --- 1. HALLOWEEN (Cmentarzysko) --- */
+body.theme-halloween {
+    --bg-color: #1a0500;
+    --container-bg: rgba(20, 5, 0, 0.9);
+    --text-color: #ff7b00; /* Dyniowy */
+    --accent-color: #9d00ff; /* Fioletowa magia */
+    --btn-text: #fff;
+    --border-color: #ff7b00;
+    --font-main: 'Creepster', 'Verdana', sans-serif; /* Jeśli nie ma Creepster, użyje Verdana */
+    
+    background-color: #050008;
+    overflow: hidden;
+}
+
+/* Tło - Pajęczyna i mrok */
+body.theme-halloween::before {
+    content: "";
+    position: fixed; inset: 0; z-index: -2;
+    background: radial-gradient(circle at 50% 30%, #2e003e 0%, #000000 80%);
+}
+body.theme-halloween::after {
+    content: "";
+    position: fixed; inset: 0; z-index: -1;
+    /* Wzór pajęczyny z gradientów */
+    background-image: 
+        repeating-radial-gradient(circle at 0 0, transparent 0, #000 20px),
+        repeating-linear-gradient(#111 0, #111 1px, transparent 1px, transparent 20px);
+    opacity: 0.3;
+}
+
+/* Kontener - Nawiedzony Dom */
+body.theme-halloween .container {
+    border: 2px solid #ff7b00;
+    box-shadow: 0 0 20px #9d00ff, inset 0 0 50px rgba(0,0,0,0.9);
+    border-radius: 10px 30px 10px 30px; /* Krzywy kształt */
+}
+
+/* Przyciski - Nagrobki */
+body.theme-halloween .big-btn {
+    background: linear-gradient(to bottom, #444, #222);
+    border: 1px solid #777;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom: 4px solid #000;
+    color: #ddd;
+    text-shadow: 0 2px 5px black;
+    transition: 0.2s;
+}
+body.theme-halloween .big-btn:hover {
+    background: #ff7b00;
+    color: #000;
+    box-shadow: 0 0 20px #ff7b00;
+    transform: scale(1.05) rotate(1deg);
+
+/* Styl dla dużej, statycznej dyni */
+.glowing-pumpkin {
+    position: fixed;
+    bottom: 20px;
+    right: 20px; /* Umieszcza dynię w prawym dolnym rogu */
+    font-size: 80px;
+    z-index: 5;
+    pointer-events: none;
+    animation: pumpkinGlow 2s infinite alternate;
+}
+
+@keyframes pumpkinGlow {
+    from { transform: scale(1); filter: drop-shadow(0 0 10px orange); }
+    to { transform: scale(1.1); filter: drop-shadow(0 0 30px red); }
+}
+}
+
+
+/* --- 2. BOŻE NARODZENIE (Przytulny Kominek) --- */
+body.theme-christmas {
+    --bg-color: #0f2e15;
+    --container-bg: rgba(142, 22, 22, 0.9); /* Czerwony welur */
+    --text-color: #fff;
+    --accent-color: #ffd700; /* Złoto */
+    --btn-text: #fff;
+    --border-color: #ffd700;
+    --font-main: 'Mountains of Christmas', 'Georgia', serif;
+    
+    background-color: #05140a;
+    overflow: hidden;
+}
+
+/* Tło - Śnieżna noc */
+body.theme-christmas::before {
+    content: "";
+    position: fixed; inset: 0; z-index: -2;
+    background: radial-gradient(circle at bottom, #1a472a 0%, #05140a 100%);
+}
+
+/* Kontener - Prezent */
+body.theme-christmas .container {
+    border: 4px dashed #ffd700; /* Złote przeszycia */
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+    border-radius: 15px;
+}
+
+/* Przyciski - Cukierki (Candy Cane) */
+body.theme-christmas .big-btn {
+    background: repeating-linear-gradient(
+        45deg,
+        #c0392b,
+        #c0392b 10px,
+        #e74c3c 10px,
+        #e74c3c 20px
+    );
+    border: 2px solid #fff;
+    border-radius: 25px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px black;
+    box-shadow: 0 4px 0 #7f261f;
+    transition: 0.2s;
+}
+body.theme-christmas .big-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.2);
+    box-shadow: 0 6px 0 #7f261f, 0 0 15px #fff;
+}
+
+
+/* --- 3. WALENTYNKI (Romantyczna Kolacja) --- */
+body.theme-valentines {
+    --bg-color: #2c0010;
+    --container-bg: rgba(255, 240, 245, 0.9); /* Jasny róż */
+    --text-color: #d63384;
+    --accent-color: #ff69b4;
+    --btn-text: #fff;
+    --border-color: #ffb6c1;
+    --font-main: 'Dancing Script', cursive; /* Jeśli masz ten import */
+    
+    background-color: #3a0018;
+    overflow: hidden;
+}
+
+/* Tło - Jedwab */
+body.theme-valentines::before {
+    content: "";
+    position: fixed; inset: 0; z-index: -2;
+    background: radial-gradient(circle, #660029 0%, #2b0010 100%);
+}
+
+/* Kontener - List miłosny */
+body.theme-valentines .container {
+    border: 2px solid #ff69b4;
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgba(255, 105, 180, 0.4);
+}
+
+/* Przyciski - Serca */
+body.theme-valentines .big-btn {
+    background: linear-gradient(to bottom, #ff99cc, #ff66b2);
+    border: none;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 22px;
+    box-shadow: 0 4px 10px rgba(255, 20, 147, 0.4);
+    transition: 0.3s;
+}
+body.theme-valentines .big-btn:hover {
+    background: #ff1493;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #ff1493;
+    animation: heartBeat 1s infinite;
+}
+
+@keyframes heartBeat {
+    0% { transform: scale(1.05); }
+    15% { transform: scale(1.15); }
+    30% { transform: scale(1.05); }
+    45% { transform: scale(1.15); }
+    100% { transform: scale(1.05); }
+}
+
+/* ELEMENTY JS STYLIZACJA */
+.event-ghost {
+    position: fixed; pointer-events: none; opacity: 0.7; font-size: 40px; z-index: 1;
+    animation: ghostFloat 5s ease-in-out infinite alternate;
+}
+@keyframes ghostFloat { from { transform: translateY(0); } to { transform: translateY(-20px); } }
+
+.event-heart {
+    position: fixed; pointer-events: none; z-index: 1; color: #ff69b4;
+}
+
+    /* SKLEP GRID */
+    .shop-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin: 15px 0;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+    .shop-item {
+        border: 2px solid var(--border-color);
+        border-radius: 12px;
+        padding: 12px;
+        cursor: pointer;
+        transition: 0.2s;
+        background: rgba(0,0,0,0.02);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+    .shop-item:hover {
+        border-color: var(--accent-color);
+        transform: translateY(-2px);
+    }
+    .shop-item.owned {
+        background: rgba(46, 204, 113, 0.1);
+        border-color: #2ecc71;
+    }
+    .shop-item.active {
+        box-shadow: 0 0 0 3px var(--accent-color);
+        border-color: var(--accent-color);
+    }
+    .shop-icon { font-size: 28px; }
+    .shop-name { font-size: 14px; font-weight: bold; }
+    .shop-price { font-size: 12px; color: #777; }
+    
+    /* POPUPY */
+    .popup-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.7);
+        backdrop-filter: blur(3px);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+    .popup-content {
+        background: var(--container-bg);
+        color: var(--text-color);
+        padding: 30px;
+        border-radius: 20px;
+        width: 90%;
+        max-width: 400px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+    }
+    @keyframes popIn {
+        from { transform: scale(0.8); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+
+    /* TOAST */
+    #toast-container {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 100000;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        pointer-events: none;
+    }
+    .toast {
+        background: #333;
+        color: #fff;
+        padding: 12px 20px;
+        border-radius: 50px;
+        font-weight: 500;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        animation: slideDown 0.3s, fadeOut 0.5s 3.5s forwards;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .toast.success { background: #2ecc71; }
+    .toast.error { background: #e74c3c; }
+    .toast.info    { background: #1e88e5; }
+    .toast.ai      { background: linear-gradient(135deg, #6a11cb, #2575fc); }
+    @keyframes slideDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    @keyframes fadeOut { to { opacity: 0; transform: translateY(-20px); } }
+
+    /* ADMIN BUTTON (Lewy dolny) */
+    #admin-secret {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 80px;
+        height: 80px;
+        z-index: 10000;
+        /* background: rgba(255,0,0,0.2);  */
+    }
+
+/* 1. Ikony Pulpitu (Kosz, Komputer) */
+.win95-icons-container {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 0;
+}
+.win95-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    font-family: 'Tahoma', sans-serif;
+    font-size: 12px;
+    text-shadow: 1px 1px 0 #000;
+    cursor: pointer;
+    width: 64px;
+    text-align: center;
+    
+    /* Animacja bujania */
+    animation: iconSway 3s ease-in-out infinite;
+}
+.win95-icon-img {
+    font-size: 32px;
+    margin-bottom: 5px;
+    filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.5));
+}
+@keyframes iconSway {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-5deg); }
+    75% { transform: rotate(5deg); }
+}
+
+/* 2. Okienko Błędu (Critical Error) */
+.win95-error-popup {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: #c0c0c0;
+    border: 2px solid #fff;
+    border-right-color: #808080;
+    border-bottom-color: #808080;
+    box-shadow: 2px 2px 0 #000;
+    padding: 3px;
+    width: 300px;
+    z-index: 99999;
+    font-family: 'Tahoma', sans-serif;
+    animation: popError 0.2s forwards;
+}
+@keyframes popError {
+    to { transform: translate(-50%, -50%) scale(1); }
+}
+.win95-error-header {
+    background: #000080;
+    color: white;
+    padding: 2px 5px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+.win95-error-body {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 14px;
+    color: #000;
+}
+.win95-error-icon {
+    font-size: 24px;
+    color: red;
+    background: white;
+    border-radius: 50%;
+    width: 32px; height: 32px;
+    display: flex; justify-content: center; align-items: center;
+    border: 2px solid red;
+    font-weight: bold;
+}
+
+/* 3. Delfiny i Palmy (Wygaszacz) */
+.vaporwave-item {
+    position: fixed;
+    font-size: 40px;
+    top: 10%;
+    left: -100px;
+    opacity: 0.8;
+    z-index: 0;
+    animation: vaporFloat linear forwards;
+    filter: contrast(1.2) saturate(1.2);
+}
+@keyframes vaporFloat {
+    to { transform: translateX(120vw); }
+}
+
+/* 1. Animacja dla Motywu Królewskiego (spadające korony) */
+.particle.royal-item {
+    position: fixed;
+    top: -60px; /* Ważne: startuje nad ekranem */
+    font-size: 24px;
+    z-index: 1000;
+    pointer-events: none; /* Klikanie przenika przez element */
+    
+    /* Podpięcie animacji (czas trwania ustala JavaScript, tutaj ustalamy TYP ruchu) */
+    animation-name: fallRoyal; 
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+/* Definicja ruchu spadania */
+@keyframes fallRoyal {
+    0% { 
+        transform: translateY(0) rotate(0deg); 
+        opacity: 1;
+    }
+    100% { 
+        transform: translateY(110vh) rotate(360deg); /* Spada poza dolną krawędź */
+        opacity: 0.8;
+    }
+}
+
+/* Minecraft TNT */
+.minecraft-tnt {
+    position: fixed; top: -50px; font-size: 30px;
+    animation: fallTnt 3s ease-in forwards; z-index: 1000;
+}
+@keyframes fallTnt { 
+    0% { transform: translateY(0) rotate(0deg); }
+    80% { transform: translateY(80vh) rotate(180deg); opacity: 1; }
+    90% { transform: translateY(80vh) scale(1.5); background: white; opacity: 0.8; } /* Wybuch */
+    100% { opacity: 0; }
+}
+
+/* Cyberpunk Scanline */
+.cyber-scan {
+    position: fixed; top: 0; left: 0; width: 100%; height: 5px;
+    background: #fcee0a; opacity: 0.7; box-shadow: 0 0 10px #fcee0a;
+    animation: scanDown 2s linear infinite; z-index: 9999; pointer-events: none;
+}
+@keyframes scanDown { 0% { top: -10%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 110%; opacity: 0; } }
+
+/* Storm Rain */
+.storm-rain {
+    position: fixed; width: 2px; height: 40px; background: rgba(200,200,255,0.4);
+    top: -50px; animation: rainFall 0.7s linear forwards; pointer-events: none;
+}
+@keyframes rainFall { to { transform: translateY(110vh) translateX(-20px); } }
+
+/* Sketchbook Eraser (Gumka) */
+.eraser-effect {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: white; opacity: 0; z-index: 10000; pointer-events: none;
+    transition: opacity 0.5s;
+}
+
+/* Win95 Clippy */
+#clippy-container {
+    position: fixed; bottom: 20px; right: 20px; width: 100px; z-index: 10000;
+    display: flex; flex-direction: column; align-items: flex-end; font-family: 'Arial';
+}
+#clippy-bubble {
+    background: #ffffcc; border: 1px solid #000; padding: 10px; border-radius: 5px;
+    margin-bottom: 10px; font-size: 12px; color: black; box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+    display: none; width: 300px;
+}
+#clippy-img { width: 200px; height: auto; image-rendering: pixelated; }
+
+/* Inferno Smoke */
+.inferno-smoke {
+    position: fixed; bottom: 0; width: 100%; height: 100%; pointer-events: none;
+    background: radial-gradient(circle, transparent 0%, rgba(0,0,0,0.4) 100%);
+    mix-blend-mode: overlay; z-index: 1;
+}
+
+/* Casino Coin */
+.casino-coin {
+    position: fixed; top: -50px; font-size: 24px; color: gold; text-shadow: 1px 1px 0 #b8860b;
+    animation: coinFall 1.5s ease-in forwards; z-index: 2000;
+}
+@keyframes coinFall { to { transform: translateY(110vh) rotateY(360deg); } }
+
+/* 2. Animacja dla Motywu Toxic (unoszące się bąbelki) */
+.particle.toxic-bubble {
+    position: fixed;
+    bottom: -60px; /* Ważne: startuje pod ekranem */
+    
+    /* Wygląd bąbelka */
+    color: rgba(57, 255, 20, 0.8);
+    background: rgba(0, 50, 0, 0.3);
+    border: 1px solid #39ff14;
+    border-radius: 50%;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    z-index: 0;
+    pointer-events: none;
+
+    /* Podpięcie animacji */
+    animation-name: riseToxic;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+/* Definicja ruchu unoszenia */
+@keyframes riseToxic {
+    0% { 
+        transform: translateY(0) scale(1);
+        opacity: 0; 
+    }
+    20% {
+        opacity: 1;
+    }
+    100% { 
+        transform: translateY(-120vh) scale(1.5); /* Leci wysoko do góry */
+        opacity: 0; 
+    }
+}
+
+/* === OSIĄGNIĘCIA === */
+.achie-item {
+    background: rgba(0,0,0,0.05);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 8px;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+}
+.achie-item.completed {
+    background: rgba(46, 204, 113, 0.15); /* Zielony odcień */
+    border-color: #2ecc71;
+}
+.achie-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.achie-desc {
+    font-size: 12px;
+    opacity: 0.8;
+    margin-bottom: 8px;
+}
+.achie-progress-bg {
+    background: rgba(0,0,0,0.1);
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.achie-progress-fill {
+    height: 100%;
+    background: #f39c12;
+    width: 0%;
+    transition: width 0.5s;
+}
+.achie-item.completed .achie-progress-fill {
+    background: #2ecc71;
+}
+
+/* === ANIMOWANY TĘCZOWY TEKST === */
+.rainbow-text {
+    background: linear-gradient(
+        90deg, 
+        #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff, #ff0000
+    );
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: rainbowMove 3s linear infinite;
+    font-weight: 900;
+    display: inline-block;
+    text-shadow: none !important; /* Wyłączamy cienie, żeby nie psuły efektu */
+}
+
+@keyframes rainbowMove {
+    to { background-position: 200%; }
+}
+
+/* Animacja trzęsienia przycisku (Błąd/Blokada) */
+@keyframes buttonShake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+.btn-shake {
+    animation: buttonShake 0.3s ease-in-out;
+    border-color: #c0392b !important;
+}
+
+@keyframes popBounce {
+    from { transform: scale(1); }
+    to { transform: scale(1.2); }
+}
