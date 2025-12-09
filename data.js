@@ -40,7 +40,7 @@ const QUESTIONS = [
     { q: "Co następnie powiedział Tomek?", a: ["Ale masz seksi dupcie", "Dzięki kochana", "Good girl", "Grzeczna dziewczynka"], correct: 2, mediaType: "videoCut", mediaUrlShort: "videos/good_cut.mp4", mediaUrlFull:  "videos/good.mp4", mediaStart: 24 },
     { q: "Gdzie Tomek próbuje się dodzwonić?", a: ["Umówić na seks", "Do lokalnego burdelu", "Do serduszka Amelki", "Do Andrzeja Dudy"], correct: 2, mediaType: "videoCut", mediaUrlShort: "videos/dzwoni_cut.mp4", mediaUrlFull:  "videos/dzwoni.mp4", mediaStart: 13 },
     { q: "Którego dnia była ci pisana śmierć przez chorobę?", a: ["29 październik", "4 listopada", "31 września", "29 listopada"], correct: 0 },
-    { q: "Ile złotych zaoszczędziłeś crackując Train Sim World 6?", a: ["6 499.49 zł", "459.99 zł", "16 474.90 zł", "18 299.99 zł"], correct: 2 },
+    { q: "Ile złotych zaoszczędziłeś crackując Train Sim World 6 + DLC?", a: ["6 499.49 zł", "459.99 zł", "16 474.90 zł", "18 299.99 zł"], correct: 2 },
     { q: "Jaka waluta obowiązuje na yubo?", a: ["Ruble", "Pixelki", "Coinsy", "Monety"], correct: 1 },
     { q: "Do kogo napisałeś tę wiadomość?", a: ["Do Martyny", "Do dziwki", "Do Amelki", "Do mamy"], correct: 2, mediaType: "image", mediaUrl: "images/dojenie.jpg" },
     { q: "Dlaczego niuna płakała na live?", a: ["Bo chłopak z nią zerwał", "Bo Tomek nie chciał jej wyruchać", "Bo spłonął McDonald's", "Bo ktoś pomylił ją z Dorotą Welman"], correct: 2 },
