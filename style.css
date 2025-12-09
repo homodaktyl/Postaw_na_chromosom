@@ -111,7 +111,8 @@ body.theme-blossom {
     font-weight: 600; 
     
     background-color: #ffe6e6;
-    overflow: hidden;
+    overflow-x: hidden; /* Blokujemy boki */
+    overflow-y: auto;
 }
 
 /* TŁO - WSCHÓD SŁOŃCA + JAPOŃSKI WZÓR */
@@ -632,7 +633,8 @@ body.theme-cyberpunk {
         linear-gradient(rgba(0, 229, 255, 0.1) 1px, transparent 1px),
         linear-gradient(90deg, rgba(0, 229, 255, 0.1) 1px, transparent 1px);
     background-size: 40px 40px;
-    overflow: hidden;
+    overflow-x: hidden; /* Blokujemy boki */
+    overflow-y: auto;
 }
 
 /* KONTENER - Styl Arasaka */
@@ -1534,13 +1536,14 @@ body.theme-casino .big-btn:active::after {
 }
     /* ================== EFEKTY SPECJALNE (ANIMACJE) ================== */
     #theme-effects {
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
         pointer-events: none;
         z-index: 0;
+        overflow: hidden;
     }
 
     .particle { position: absolute; pointer-events: none; }
