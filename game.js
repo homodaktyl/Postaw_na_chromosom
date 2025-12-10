@@ -23,6 +23,7 @@ let currentSession = {
 
 let timerId = null;
 let timeLeft = QUESTION_TIME || 30;
+let aiPaused = false;
 let globalVolume = 0.5; // Domyślnie 50%
 let lastWinSoundTime = 0;
 let lastClickSoundTime = 0;
@@ -521,8 +522,15 @@ function startTimer() {
     if(timerDisplay) timerDisplay.innerText = timeLeft + "s";
     
     timerId = setInterval(() => {
+        // 1. Sprawdzamy, czy czas jest zamrożony przez Power-up (Stop Czas)
         if(currentSession.activeFlags.frozen) return; 
+
+        // 2. --- NOWOŚĆ: Sprawdzamy, czy AI właśnie myśli lub czytasz podpowiedź ---
+        if(typeof aiPaused !== 'undefined' && aiPaused) return; 
+        // --------------------------------------------------------------------------
+
         timeLeft--;
+        
         if(timerDisplay) timerDisplay.innerText = timeLeft + "s";
         const tb = document.getElementById("timer-bar");
         if(tb) tb.style.width = (timeLeft/baseTime*100) + "%";
@@ -979,6 +987,9 @@ function showScreen(id) {
 function closePopup(id) { 
     const el = document.getElementById(id);
     if(el) el.style.display = "none"; 
+    if (id === 'ai-popup') {
+        aiPaused = false;
+    }
     playSound('click'); 
 }
 function shuffle(array) {
@@ -986,23 +997,61 @@ function shuffle(array) {
     while (currentIndex !== 0) { randomIndex = Math.floor(Math.random() * currentIndex); currentIndex--; [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]]; }
     return array;
 }
+// --- POCZĄTEK WKLEJANIA ---
+
 async function askGemini(prompt) {
-    if (!API_KEY) { showToast("Brak klucza API!", "error"); return null; }
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+    console.log("Wysyłanie zapytania do Netlify...");
+    const url = `/.netlify/functions/askGemini`; 
+    
     try {
-        const response = await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }) });
-        if (!response.ok) throw new Error("API Error"); const data = await response.json(); return data.candidates?.[0]?.content?.parts?.[0]?.text || null;
-    } catch (e) { return null; }
-}
-async function handleAI() {
-    const btn = document.getElementById("ask-ai-btn"); if(btn) { btn.innerText = "⏳ Myślę..."; btn.disabled = true; }
-    const q = currentSession.questions[currentSession.index];
-    const hint = await askGemini(`Jesteś pomocnikiem w quizie. Pytanie: "${q.q}". Odpowiedzi: ${q.a.join(", ")}. Która to poprawna? Odpowiedz krótko i zabawnie.`);
-    if(btn) {
-        if (hint) { document.getElementById("ai-content").innerText = hint; document.getElementById("ai-popup").style.display = "flex"; currentSession.aiUsed = true; btn.innerText = "✨ Wykorzystano"; } 
-        else { showToast("Błąd AI.", "error"); btn.disabled = false; btn.innerText = "✨ Zapytaj AI"; }
+        const response = await fetch(url, { 
+            method: 'POST', 
+            headers: {'Content-Type': 'application/json'}, 
+            body: JSON.stringify({ prompt: prompt }) 
+        });
+        
+        if (!response.ok) {
+            console.error("Błąd sieci/serwera:", response.status);
+            throw new Error("Server Error: " + response.status); 
+        }
+        
+        const data = await response.json(); 
+        return data.candidates?.[0]?.content?.parts?.[0]?.text || null;
+    } catch (e) { 
+        console.error("Błąd funkcji askGemini:", e);
+        return null; 
     }
 }
+
+async function handleAI() {
+    aiPaused = true;
+    const btn = document.getElementById("ask-ai-btn"); 
+    if(btn) { 
+        btn.innerText = "⏳ Myślę..."; 
+        btn.disabled = true; 
+    }
+    
+    const q = currentSession.questions[currentSession.index];
+    // Tutaj tworzymy prompt dla AI
+    const promptText = `Jesteś pomocnikiem w quizie. Pytanie: "${q.q}". Odpowiedzi: ${q.a.join(", ")}. Która to poprawna? Odpowiedz krótko i zabawnie.`;
+    
+    const hint = await askGemini(promptText);
+    
+    if(btn) {
+        if (hint) { 
+            document.getElementById("ai-content").innerText = hint; 
+            document.getElementById("ai-popup").style.display = "flex"; 
+            currentSession.aiUsed = true; 
+            btn.innerText = "✨ Wykorzystano"; 
+        } else { 
+            showToast("Błąd AI (sprawdź konsolę)", "error"); 
+            btn.disabled = false; 
+            btn.innerText = "✨ Zapytaj AI"; 
+        }
+    }
+}
+
+// --- KONIEC WKLEJANIA ---
 
 // Otwieranie Sklepu z Mocami
 function openPowerUpShop() {

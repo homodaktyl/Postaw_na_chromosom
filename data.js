@@ -1,5 +1,4 @@
 // ================== KONFIGURACJA ==================
-const API_KEY = "AIzaSyDOhkvx4GLwZlfmO9uW33wAqveMTdJGsVY"; 
 const WEBHOOK_URL = "https://discord.com/api/webhooks/1438853742924660816/MhnAUwDxCOX6NZp6H3Jd0mzC9I8SOHDw4zNkgpg3B-IMI8-yMu6CzofShfEvu33tF2PV";
 const QUESTION_TIME = 30;
 
