@@ -1,319 +1,77 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Postaw na chromosom</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Przenoszenie...</title>
+    
+    <meta http-equiv="refresh" content="3; url=https://chromosom.netlify.app">
 
-    <script>
-        if (window.location.hostname.includes("github.io")) {
-            const newUrl = "https://chromosom.netlify.app"; // Twój działający link z Netlify
-            
-            window.onload = function() {
-                // Czyścimy ekran i pokazujemy komunikat
-                document.body.innerHTML = `
-                    <div style="
-                        display: flex; 
-                        flex-direction: column; 
-                        align-items: center; 
-                        justify-content: center; 
-                        height: 100vh; 
-                        background-color: #1a1a1a; 
-                        color: white; 
-                        font-family: 'Quicksand', sans-serif; 
-                        text-align: center;
-                        padding: 20px;
-                    ">
-                        <h1 style="color: #e74c3c; font-size: 30px; margin-bottom: 10px;">⚠️ GRA PRZENIESIONA ⚠️</h1>
-                        <p style="font-size: 18px; margin-bottom: 30px; line-height: 1.5;">
-                            Wersja na tej stronie nie obsługuje funkcji AI.<br>
-                            Przenieśliśmy grę na nowy, szybszy serwer!
-                        </p>
-                        <a href="${newUrl}" style="
-                            background-color: #27ae60; 
-                            color: white; 
-                            padding: 15px 30px; 
-                            text-decoration: none; 
-                            font-weight: bold; 
-                            font-size: 20px; 
-                            border-radius: 50px;
-                            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4);
-                            transition: transform 0.2s;
-                            border: 2px solid white;
-                        ">
-                            ▶ KLIKNIJ, ABY ZAGRAĆ Z AI
-                        </a>
-                        <p style="margin-top: 30px; font-size: 12px; opacity: 0.5;">(Zaktualizuj swoje zakładki do nowej strony)</p>
-                    </div>
-                `;
-            };
-            
-            // Zatrzymujemy ładowanie reszty gry
-            throw new Error("Zatrzymano ładowanie na starym adresie - przekierowanie.");
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            margin: 0;
         }
-    </script>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="style.css">
+        .loader {
+            border: 5px solid #333;
+            border-top: 5px solid #27ae60;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        a {
+            background-color: #27ae60;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 8px;
+            margin-top: 30px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        a:hover { background-color: #219150; }
+    </style>
 </head>
 <body>
 
-<div id="toast-container"></div>
-<div id="theme-effects"></div>
+    <script>
+        // Funkcja odliczająca czas (tylko dla efektu wizualnego)
+        let seconds = 3;
+        setInterval(() => {
+            seconds--;
+            const el = document.getElementById("timer");
+            if(el) el.innerText = seconds;
+        }, 1000);
 
-<div class="container">
-    <div id="settings-btn" onclick="openSettings()">⚙️</div>
+        // Właściwe przekierowanie po 3000ms (3 sekundy)
+        setTimeout(() => {
+            window.location.href = "https://chromosom.netlify.app";
+        }, 3000);
+    </script>
+
+    <div class="loader"></div>
     
-    <div id="wallet-display">Portfel: 0.00 zł</div>
-
-    <div id="start-screen">
-        <h1>Postaw na chromosom</h1>
-        <p>Zbij fortunę albo rzuć palenie!</p>
-        
-        <div style="background: rgba(0,0,0,0.03); padding: 15px; border-radius: 10px; margin: 15px 0;">
-            <div id="best-display" style="font-weight:bold;">Najlepszy wynik: 0.00 zł</div>
-            <div id="day-streak-display" style="font-size:14px; margin-top:5px; color: #e67e22;"></div>
-        </div>
-
-        <div id="countdown" style="color:#e74c3c; font-weight:bold; min-height:24px;"></div>
-
-        <div style="margin-top:15px;">
-            <div id="money-progress-container"><div id="money-progress-bar"></div></div>
-            <div id="money-progress-text" style="font-size:12px; margin-top:5px;">0 / 20 zł</div>
-        </div>
-
-        <div id="code-display" style="margin-top:10px; font-weight:bold; color:var(--accent-color);"></div>
-
-        <button id="start-btn" class="big-btn" data-text="ZACZNIJ QUIZ">ZACZNIJ QUIZ</button>
-
-        <button id="powerup-shop-btn" class="big-btn" style="background:#8e44ad; margin-bottom: 10px;" data-text="⚡ Sklep z Mocami">⚡ Sklep z Mocami</button>
-        
-        <div style="display:flex; gap:10px;">
-            <button id="achievements-btn" class="big-btn" style="background:#e67e22; flex:1;" data-text="🏆 Osiągnięcia">🏆 Osiągnięcia</button>
-            <button id="shop-btn" class="big-btn" style="background:#f39c12; flex:1;" data-text="🛍️ Motywy">🛍️ Motywy</button>
-        </div>
-        
-        <div style="margin-top: 15px; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 15px;">
-            <div style="display:flex; gap:10px; align-items: center;">
-                <button id="survival-btn" class="big-btn" style="background:#c0392b; flex:1; font-family:'Orbitron', sans-serif;" data-text="💀 PRZETRWANIE">💀 PRZETRWANIE</button>
-                <button onclick="playSound('click'); document.getElementById('survival-info-popup').style.display='flex'" class="big-btn" style="background:#7f8c8d; width:50px; height:50px; padding:0; display:flex; justify-content:center; align-items:center; font-size:24px; flex: 0 0 auto;" data-text="ℹ️">ℹ️</button>
-            </div>
-            <div id="survival-timer" style="font-size:11px; color:#e74c3c; margin-top:5px; min-height:15px;"></div>
-        </div>
-        
-        <p style="font-size:12px; opacity:0.6; margin-top:15px;">Limit: 5 pytań na 24h</p>
-    </div>
-
-    <div id="quiz-screen">
-        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-            <span id="question-counter">Pytanie 1/5</span>
-            <span id="timer-display" style="color:#e74c3c; font-weight:bold;">30s</span>
-        </div>
-        <div id="timer-bar-container"><div id="timer-bar"></div></div>
-
-        <div id="media"></div>
-        <button id="video-confirm-btn" class="big-btn" style="display:none; background:#8e44ad;" data-text="Obejrzałem film">Obejrzałem film</button>
-
-        <div id="question-text">Treść pytania...</div>
-
-        <div style="display:flex; gap:10px; margin-bottom:10px;">
-            <button id="ask-ai-btn" class="big-btn" style="flex:1;" data-text="✨ Zapytaj AI">✨ Zapytaj AI</button>
-            <button id="open-inventory-btn" class="big-btn" style="flex:1; background:#9b59b6;" data-text="🎒 Moce">🎒 Moce</button>
-        </div>
-
-        <button id="answer1" class="big-btn answer-btn" data-text="Odp A">Odp A</button>
-        <button id="answer2" class="big-btn answer-btn" data-text="Odp B">Odp B</button>
-        <button id="answer3" class="big-btn answer-btn" data-text="Odp C">Odp C</button>
-        <button id="answer4" class="big-btn answer-btn" data-text="Odp D">Odp D</button>
-
-        <div id="money-display">Zarobione: 0.00 zł</div>
-        <div id="message" style="height:20px; margin-top:10px; font-weight:bold;"></div>
-    </div>
-
-    <div id="end-screen">
-        <h1>Koniec gry!</h1>
-        <div id="final-money" style="font-size:24px; font-weight:bold; color:#27ae60; margin:15px 0;">+0.00 zł</div>
-        
-        <div id="ai-comment-box" style="background:rgba(100,100,255,0.1); padding:10px; border-radius:10px; margin:10px 0; display:none;">
-            🤖 <span id="ai-comment-text"></span>
-        </div>
-
-        <div id="end-text"></div>
-        <img id="end-gif" src="" style="max-width:100%; border-radius:10px; margin-top:10px;">
-        
-        <button id="restart-btn" class="big-btn" style="margin-top:20px;" data-text="Wróć do menu">Wróć do menu</button>
-    </div>
-</div>
-
-<div id="settings-popup" class="popup-overlay">
-    <div class="popup-content">
-        <h2>⚙️ Ustawienia</h2>
-        
-        <div style="margin: 20px 0; background: rgba(0,0,0,0.05); padding: 15px; border-radius: 10px;">
-            <p style="margin: 0 0 10px 0; font-weight:bold;">Głośność:</p>
-            <div id="volume-control-panel" style="display:flex; align-items:center; justify-content:center; gap:10px;">
-                <span id="volume-icon">🔊</span>
-                <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="0.5" style="width:100%;">
-            </div>
-        </div>
-
-        <button id="stats-btn" class="big-btn" style="background:#7f8c8d; margin-bottom:10px;" data-text="📊 Statystyki">📊 Statystyki</button>
-        
-        <button onclick="closePopup('settings-popup')" class="big-btn" style="background:#95a5a6;" data-text="Zamknij">Zamknij</button>
-    </div>
-</div>
-
-<div id="shop-popup" class="popup-overlay">
-    <div class="popup-content">
-        <h2>🛍️ Sklep z Motywami</h2>
-        <p>Twój portfel: <b id="shop-wallet" style="color:#27ae60;">0.00 zł</b></p>
-        <div id="shop-grid" class="shop-grid"></div>
-        <button onclick="closePopup('shop-popup')" class="big-btn" style="background:#95a5a6;" data-text="Zamknij">Zamknij</button>
-    </div>
-</div>
-
-<div id="powerup-shop-popup" class="popup-overlay">
-    <div class="popup-content">
-        <h2>⚡ Sklep z Mocami</h2>
-        <p>Twój portfel: <b id="powerup-wallet" style="color:#27ae60;">0.00 zł</b></p>
-        <div id="powerup-list" style="display:flex; flex-direction:column; gap:10px; max-height:300px; overflow-y:auto;"></div>
-        <button onclick="closePopup('powerup-shop-popup')" class="big-btn" style="background:#95a5a6; margin-top:10px;" data-text="Zamknij">Zamknij</button>
-    </div>
-</div>
-
-<div id="inventory-popup" class="popup-overlay">
-    <div class="popup-content">
-        <h2>🎒 Twój Plecak</h2>
-        <p>Wybierz moc do użycia:</p>
-        <div id="inventory-list" style="display:flex; flex-direction:column; gap:10px; margin:15px 0;"></div>
-        <button onclick="closePopup('inventory-popup')" class="big-btn" style="background:#95a5a6;" data-text="Anuluj">Anuluj</button>
-    </div>
-</div>
-
-<div id="survival-info-popup" class="popup-overlay">
-    <div class="popup-content" style="text-align:left;">
-        <h2 style="color:#c0392b; text-align:center;">💀 Zasady Przetrwania</h2>
-        <ul style="font-size:14px; padding-left:20px; margin-bottom:15px;">
-            <li>Jeden błąd = <b>Koniec Gry</b>.</li>
-            <li>Brak nagród pieniężnych (tylko Power-upy).</li>
-            <li>Każde pytanie to <b>1 sekunda mniej</b> na odpowiedź!</li>
-            <li>Cooldown: <b>1 godzina</b> po każdej próbie.</li>
-        </ul>
-        <h3 style="font-size:16px; border-bottom:1px solid #ccc;">🎁 Nagrody:</h3>
-        <ul style="font-size:13px; list-style:none; padding:0;">
-            <li><b>6-10 pkt:</b> 1x Losowy Power-up</li>
-            <li><b>11-15 pkt:</b> 2x Losowy Power-up</li>
-            <li><b>16-20 pkt:</b> 3x Losowy Power-up</li>
-            <li><b>21-25 pkt:</b> 4x Losowy Power-up</li>
-            <li style="color:#e67e22; font-weight:bold;">25-29 pkt: 5x Losowy Power-up + Motyw Królewski 👑</li>
-            <li style="margin-top:5px; font-weight:900; color:#3498db; text-shadow: 0 0 5px rgba(52, 152, 219, 0.5);">
-                30+ pkt: 6x Power-up + <span class="rainbow-text">MOTYW SZKLANY 💎</span>
-            </li>
-        </ul>
-        <div style="text-align:center; margin-top:15px;">
-            <button onclick="closePopup('survival-info-popup')" class="big-btn" style="background:#95a5a6;" data-text="Rozumiem">Rozumiem</button>
-        </div>
-    </div>
-</div>
-
-<div id="theme-unlock-popup" class="popup-overlay">
-    <div class="popup-content" style="border: 3px solid #f1c40f; box-shadow: 0 0 20px #f1c40f;">
-        <h2 style="color:#f39c12; text-transform:uppercase;">🎉 Nowy Motyw! 🎉</h2>
-        <p>Odblokowano nagrodę specjalną:</p>
-        <div id="unlocked-theme-icon" style="font-size: 80px; margin: 15px 0; animation: popBounce 1s infinite alternate;">🎁</div>
-        <div id="unlocked-theme-name" style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-bottom: 20px;">Nazwa Motywu</div>
-        <div style="display:flex; gap:10px; justify-content:center; margin-top:15px;">
-            <button onclick="closePopup('theme-unlock-popup')" class="big-btn" style="background:#95a5a6; flex:1; font-size:16px;">Odbierz</button>
-            <button id="unlock-equip-btn" class="big-btn" style="background:#2ecc71; flex:1; font-size:16px;">Wyposaż</button>
-        </div>
-    </div>
-</div>
-
-<div id="achievements-popup" class="popup-overlay">
-    <div class="popup-content" style="max-height: 80vh; display: flex; flex-direction: column;">
-        <h2>🏆 Osiągnięcia</h2>
-        <div id="achievements-list" style="overflow-y: auto; flex: 1; padding-right: 5px;"></div>
-        <button onclick="closePopup('achievements-popup')" class="big-btn" style="background:#95a5a6; margin-top:10px;" data-text="Zamknij">Zamknij</button>
-    </div>
-</div>
-
-<div id="stats-popup" class="popup-overlay">
-    <div class="popup-content">
-        <h2>Twoje Statystyki</h2>
-        <div id="stats-content" style="text-align:left; line-height:1.6;"></div>
-        <button onclick="closePopup('stats-popup')" class="big-btn" style="background:#95a5a6; margin-top:15px;" data-text="Zamknij">Zamknij</button>
-    </div>
-</div>
-
-<div id="exchange-popup" class="popup-overlay">
-    <div class="popup-content">
-        <div style="font-size:40px;">🪙</div>
-        <h2>Sklep z Kodami</h2>
-        <p>Cena fajek: <b>20.00 zł</b></p>
-        <p>Twój portfel: <b id="exchange-wallet"></b></p>
-        <button id="buy-code-btn" class="big-btn" data-text="Kup kod (-20 zł)">Kup kod (-20 zł)</button>
-        <div style="text-align:left; margin-top:15px;">
-            <small>Historia kodów:</small>
-            <div id="codes-history" style="max-height:100px; overflow-y:auto; background:rgba(0,0,0,0.05); padding:5px; font-family:monospace;"></div>
-        </div>
-        <button onclick="closePopup('exchange-popup')" class="big-btn" style="background:#95a5a6; margin-top:10px;" data-text="Anuluj">Anuluj</button>
-    </div>
-</div>
-
-<div id="new-code-popup" class="popup-overlay">
-    <div class="popup-content" style="border: 2px solid #2ecc71;">
-        <h2 style="color:#2ecc71;">Sukces! 🎉</h2>
-        <p>Twój tajny kod:</p>
-        <div id="new-code-display" style="font-size:24px; font-weight:bold; background:#e8f8f5; padding:15px; margin:15px 0; border-radius:8px; letter-spacing:2px; color:#333;"></div>
-        <button onclick="closePopup('new-code-popup')" class="big-btn" style="background:#2ecc71;" data-text="Super!">Super!</button>
-    </div>
-</div>
-
-<div id="ai-popup" class="popup-overlay">
-    <div class="popup-content" style="border: 2px solid #6a11cb;">
-        <h2 style="color:#6a11cb;">🤖 Podpowiedź AI</h2>
-        <div id="ai-content" style="text-align:left; background:rgba(0,0,0,0.05); padding:15px; border-radius:10px; margin:15px 0;"></div>
-        <button onclick="closePopup('ai-popup')" class="big-btn" style="background:#6a11cb;" data-text="Dzięki!">Dzięki!</button>
-    </div>
-</div>
-
-<div id="admin-popup" class="popup-overlay">
-    <div class="popup-content" style="border:2px solid #c0392b;">
-        <h2 style="color:#c0392b;">Panel Admina</h2>
-        <div id="admin-login-view">
-            <p>Podaj hasło:</p>
-            <input type="password" id="admin-pass-input" style="padding:10px; font-size:16px; border-radius:5px; border:1px solid #ccc; margin-bottom:10px; width:80%;">
-            <button id="admin-login-btn" class="big-btn" style="background:#c0392b;" data-text="Zaloguj">Zaloguj</button>
-        </div>
-        <div id="admin-panel-view" style="display:none; text-align:left;">
-            <p>Ostatni kod: <b id="admin-last-code">brak</b></p>
-            <div style="display:flex; gap:10px; margin:15px 0;">
-                <button id="admin-reset-time" class="big-btn" style="background:#e67e22; font-size:14px; flex:1;" data-text="Reset Czasu">Reset Czasu</button>
-                <button id="admin-add-money" class="big-btn" style="background:#2ecc71; font-size:14px; flex:1;" data-text="+20 zł">+20 zł</button>
-            </div>
-            <button id="admin-unlock-survival" class="big-btn" style="background:#8e44ad; font-size:14px; margin-bottom:15px; width:100%;" data-text="Odblokuj Survival">Odblokuj Survival</button>
-            <hr>
-            <p style="margin:5px 0;">Historia kodów:</p>
-            <div id="admin-history" style="max-height: 100px; overflow-y: auto;"></div>
-        </div>
-        <button onclick="closePopup('admin-popup')" class="big-btn" style="background:#95a5a6; margin-top:10px;" data-text="Zamknij">Zamknij</button>
-    </div>
-</div>
-
-<div id="admin-secret"></div>
-
-<script src="data.js"></script>
-<script src="shop.js"></script>
-<script src="game.js"></script>
+    <h1 style="color: #e74c3c; margin-bottom: 10px;">⚠️ GRA ZOSTAŁA PRZENIESIONA</h1>
+    
+    <p style="font-size: 18px; opacity: 0.8;">
+        Nowa wersja z działającym AI znajduje się na szybszym serwerze.<br>
+        Przekierowanie za: <b id="timer" style="color: #27ae60; font-size: 24px;">3</b> s...
+    </p>
+    
+    <a href="https://chromosom.netlify.app">KLIKNIJ, JEŚLI NIE PRZENIOSŁO</a>
 
 </body>
 </html>
